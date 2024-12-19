@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 50 },
