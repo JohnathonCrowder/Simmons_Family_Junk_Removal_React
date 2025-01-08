@@ -3,152 +3,154 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 interface PageHeroProps {
-  backgroundImage: string;
   title: React.ReactNode;
-  subtitle?: string;
-  breadcrumbs?: Array<{
-    label: string;
-    path: string;
-  }>;
-  primaryButtonText?: string;
-  primaryButtonLink?: string;
+  subtitle: string;
+  primaryButtonText: string;
+  primaryButtonLink: string;
   secondaryButtonText?: string;
   secondaryButtonLink?: string;
 }
 
 const PageHero: React.FC<PageHeroProps> = ({
-  backgroundImage,
   title,
   subtitle,
-  breadcrumbs,
   primaryButtonText,
   primaryButtonLink,
   secondaryButtonText,
   secondaryButtonLink,
 }) => {
+  const timelineSteps = [
+    {
+      icon: "phone-alt",
+      title: "Contact Us",
+      description: "Get a free quote online or call us directly",
+    },
+    {
+      icon: "calendar-check",
+      title: "Schedule Service",
+      description: "Choose a convenient time, same-day available",
+    },
+    {
+      icon: "truck",
+      title: "We Handle Everything",
+      description: "Our professional team removes all unwanted items",
+    },
+    {
+      icon: "smile",
+      title: "Satisfaction Guaranteed",
+      description: "Enjoy your clean, clutter-free space",
+    },
+  ];
+
   return (
-    <section className="relative py-32 md:py-48 overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/70"></div>
+    <section className="relative bg-blue-900 min-h-[85vh] flex items-center">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-blue-800/50 to-transparent transform -skew-x-12" />
+        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
+        <motion.div
+          className="absolute top-0 right-0 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.2, 0.3],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            easings: ["easeInOut"],
+          }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.1, 0.2],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            easings: ["easeInOut"],
+          }}
+        />
       </div>
 
-      {/* Content */}
-      <div className="relative container mx-auto px-4">
-        {/* Breadcrumbs */}
-        {breadcrumbs && (
+      {/* Main Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-16">
+          {/* Left Column - Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-6"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:w-1/2"
           >
-            <nav className="flex" aria-label="Breadcrumb">
-              <ol className="flex items-center space-x-2">
-                <li>
-                  <Link to="/" className="text-gray-300 hover:text-white">
-                    Home
-                  </Link>
-                </li>
-                {breadcrumbs.map((crumb, index) => (
-                  <React.Fragment key={index}>
-                    <li className="text-gray-300">
-                      <svg
-                        className="h-5 w-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </li>
-                    <li>
-                      <Link
-                        to={crumb.path}
-                        className="text-gray-300 hover:text-white"
-                        aria-current={
-                          index === breadcrumbs.length - 1 ? "page" : undefined
-                        }
-                      >
-                        {crumb.label}
-                      </Link>
-                    </li>
-                  </React.Fragment>
-                ))}
-              </ol>
-            </nav>
-          </motion.div>
-        )}
-
-        {/* Title and Subtitle */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-4xl mx-auto"
-        >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            {title}
-          </h1>
-          {subtitle && (
-            <p className="text-xl md:text-2xl text-gray-300 mb-8">{subtitle}</p>
-          )}
-
-          {/* Buttons */}
-          {(primaryButtonText || secondaryButtonText) && (
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              {primaryButtonText && (
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              {title}
+            </h1>
+            <p className="text-xl text-blue-100 mb-10 leading-relaxed">
+              {subtitle}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                to={primaryButtonLink}
+                className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                {primaryButtonText}
+                <motion.i
+                  className="fas fa-arrow-right ml-2"
+                  animate={{ x: [0, 4, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              </Link>
+              {secondaryButtonText && secondaryButtonLink && (
                 <Link
-                  to={primaryButtonLink || "#"}
-                  className="inline-flex items-center px-8 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary-dark transition-colors duration-300 shadow-lg"
-                >
-                  {primaryButtonText}
-                  <svg
-                    className="w-5 h-5 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </Link>
-              )}
-              {secondaryButtonText && (
-                <Link
-                  to={secondaryButtonLink || "#"}
-                  className="inline-flex items-center px-8 py-3 bg-white text-gray-900 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+                  to={secondaryButtonLink}
+                  className="inline-flex items-center px-8 py-4 border border-blue-400 text-lg font-medium rounded-lg text-blue-100 hover:bg-blue-800/50 transition-all duration-300 backdrop-blur-sm"
                 >
                   {secondaryButtonText}
                 </Link>
               )}
             </div>
-          )}
-        </motion.div>
-      </div>
+          </motion.div>
 
-      {/* Decorative Bottom Wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          className="w-full text-white"
-          viewBox="0 0 1440 100"
-          fill="currentColor"
-          preserveAspectRatio="none"
-        >
-          <path d="M0,0 C240,95 480,95 720,95 C960,95 1200,95 1440,0 L1440,100 L0,100 Z"></path>
-        </svg>
+          {/* Right Column - Timeline */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="lg:w-1/2 relative"
+          >
+            <div className="absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-blue-600 via-blue-400 to-transparent" />
+
+            {timelineSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  delay: 0.4 + index * 0.15,
+                  duration: 0.6,
+                  ease: "easeOut",
+                }}
+                className="relative pl-12 pb-8 last:pb-0"
+              >
+                <motion.div
+                  className="absolute left-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                >
+                  <i className={`fas fa-${step.icon} text-white`} />
+                </motion.div>
+                <h3 className="text-xl font-semibold text-white mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-blue-200 leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
