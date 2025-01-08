@@ -10,20 +10,13 @@ const Contact: React.FC = () => {
   return (
     <div className="contact-page">
       <PageHero
-        backgroundImage="/images/contact-hero.jpg"
         title={
           <>
             Get in Touch <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-400">
-              We're Here to Help
-            </span>
+            <span className="text-blue-300">We're Here to Help</span>
           </>
         }
         subtitle="Have questions? Need a quote? We'd love to hear from you."
-        breadcrumbs={[
-          { label: "Home", path: "/" },
-          { label: "Contact", path: "/contact" },
-        ]}
         primaryButtonText="Call Us Now"
         primaryButtonLink="tel:+1234567890"
         secondaryButtonText="Get a Quote"

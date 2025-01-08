@@ -10,20 +10,13 @@ const About: React.FC = () => {
   return (
     <div className="about-page">
       <PageHero
-        backgroundImage="/images/about-hero.jpg"
         title={
           <>
             About Simmons Family <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-400">
-              Junk Removal
-            </span>
+            <span className="text-blue-300">Junk Removal</span>
           </>
         }
         subtitle="Your trusted partner in creating clean, clutter-free spaces since 2005"
-        breadcrumbs={[
-          { label: "Home", path: "/" },
-          { label: "About", path: "/about" },
-        ]}
         primaryButtonText="Our Services"
         primaryButtonLink="/services"
         secondaryButtonText="Contact Us"

@@ -37,20 +37,13 @@ const Services: React.FC = () => {
   return (
     <div className="services-page">
       <PageHero
-        backgroundImage="/images/services-hero.jpg"
         title={
           <>
             Our Professional <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-400">
-              Junk Removal Services
-            </span>
+            <span className="text-blue-300">Junk Removal Services</span>
           </>
         }
         subtitle="Comprehensive solutions for all your junk removal needs"
-        breadcrumbs={[
-          { label: "Home", path: "/" },
-          { label: "Services", path: "/services" },
-        ]}
         primaryButtonText="Get a Quote"
         primaryButtonLink="/contact"
         secondaryButtonText="Call Now"
