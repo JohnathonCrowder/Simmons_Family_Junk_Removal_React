@@ -41,3 +41,9 @@
 .animate-marquee {
   animation: marquee 60s linear infinite;
 }
+
+@supports (backdrop-filter: blur(4px)) {
+  .backdrop-blur-md {
+    backdrop-filter: blur(4px);
+  }
+}
