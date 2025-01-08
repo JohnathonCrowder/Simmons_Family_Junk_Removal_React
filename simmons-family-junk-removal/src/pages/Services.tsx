@@ -1,5 +1,5 @@
 import React from "react";
-import HeroSection from "../components/HeroSection";
+import PageHero from "../components/PageHero";
 import ServicesGrid from "../components/Services/ServicesGrid";
 import ServiceCard from "../components/Services/ServiceCard";
 import PricingSection from "../components/Services/PricingSection";
@@ -36,17 +36,21 @@ const Services: React.FC = () => {
 
   return (
     <div className="services-page">
-      <HeroSection
+      <PageHero
         backgroundImage="/images/services-hero.jpg"
         title={
           <>
             Our Professional <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-400">
               Junk Removal Services
             </span>
           </>
         }
         subtitle="Comprehensive solutions for all your junk removal needs"
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Services", path: "/services" },
+        ]}
         primaryButtonText="Get a Quote"
         primaryButtonLink="/contact"
         secondaryButtonText="Call Now"
