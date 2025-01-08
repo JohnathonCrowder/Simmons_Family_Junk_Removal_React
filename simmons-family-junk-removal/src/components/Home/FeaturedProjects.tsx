@@ -1,76 +1,180 @@
 import React from "react";
 import { motion } from "framer-motion";
-
-const fadeIn = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
+import { Link } from "react-router-dom";
 
 const FeaturedProjects: React.FC = () => {
   const projects = [
     {
-      image: "before-after-1.jpg",
-      title: "Residential Cleanout",
-      description: "Complete home decluttering and removal service",
-      stats: "2 tons removed in 4 hours",
+      title: "Complete Home Cleanout",
+      category: "Residential",
+      description:
+        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days.",
+      stats: {
+        items: "250+",
+        time: "2 days",
+        recycled: "80%",
+      },
+      image: "/images/home-cleanout.jpg", // Ensure you have these images
+      tags: ["Furniture Removal", "Appliance Disposal", "Eco-Friendly"],
     },
     {
-      image: "before-after-2.jpg",
-      title: "Office Renovation",
-      description: "Commercial space clearing for major renovations",
-      stats: "Entire floor cleared in 2 days",
+      title: "Office Renovation Cleanout",
+      category: "Commercial",
+      description:
+        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations.",
+      stats: {
+        items: "500+",
+        time: "1 day",
+        recycled: "75%",
+      },
+      image: "/images/office-cleanout.jpg",
+      tags: ["Office Furniture", "E-Waste", "Quick Turnaround"],
     },
   ];
 
   return (
-    <section className="py-24 relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        {/* Section Header */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          variants={fadeIn}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-4xl font-extrabold text-center mb-4">
+          <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1 rounded-full">
+            Our Work
+          </span>
+          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
             Featured Projects
           </h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
-            See the transformation for yourself
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            See the transformation for yourself. Real projects, real results.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial="hidden"
-              whileInView="visible"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              variants={fadeIn}
-              transition={{ delay: index * 0.2 }}
-              className="relative rounded-2xl overflow-hidden group shadow-xl"
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
             >
-              <img
-                src={`/images/${project.image}`}
-                alt={project.title}
-                className="w-full h-96 object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/0 flex flex-col justify-end p-6">
-                <div className="bg-white/90 backdrop-blur-sm p-6 rounded-lg">
-                  <h3 className="text-gray-900 text-2xl font-bold mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-700 mb-2">{project.description}</p>
-                  <p className="text-primary font-semibold">{project.stats}</p>
+              <div className="relative aspect-video overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
+                  {project.category}
                 </div>
+              </div>
+
+              <div className="p-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 mb-6">{project.description}</p>
+
+                {/* Project Stats */}
+                <div className="grid grid-cols-3 gap-4 mb-6">
+                  {Object.entries(project.stats).map(
+                    ([key, value], statIndex) => (
+                      <div key={statIndex} className="text-center">
+                        <div className="text-2xl font-bold text-blue-600 mb-1">
+                          {value}
+                        </div>
+                        <div className="text-sm text-gray-500 capitalize">
+                          {key === "recycled" ? "Recycled" : key}
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag, tagIndex) => (
+                    <span
+                      key={tagIndex}
+                      className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <Link
+                  to="/projects"
+                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
+                >
+                  View Details
+                  <i className="fas fa-arrow-right ml-2" />
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Testimonial Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-20 bg-blue-600 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800" />
+          <div className="absolute inset-0 opacity-10">
+            <i className="fas fa-quote-left text-9xl absolute top-4 left-4" />
+            <i className="fas fa-quote-right text-9xl absolute bottom-4 right-4" />
+          </div>
+
+          <div className="relative z-10">
+            <p className="text-2xl font-medium mb-6 text-center">
+              "The team was incredibly professional and efficient. They
+              transformed our space in no time. Highly recommend their
+              services!"
+            </p>
+            <div className="flex items-center justify-center">
+              <img
+                src="/images/client-avatar.jpg" // Add a client avatar image
+                alt="John Doe"
+                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4"
+              />
+              <div>
+                <div className="font-semibold">John Doe</div>
+                <div className="text-blue-200">Homeowner</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-16"
+        >
+          <h3 className="text-2xl font-semibold text-gray-900 mb-6">
+            Ready to start your own success story?
+          </h3>
+          <Link
+            to="/contact"
+            className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+          >
+            Get Your Free Quote
+            <i className="fas fa-arrow-right ml-2" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
