@@ -65,7 +65,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="absolute -bottom-6 left-6 right-6 bg-blue-500 text-white p-6 rounded shadow-xl">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
-                  <span className="text-4xl font-bold">15+</span>
+                  <span className="text-4xl font-bold">5+</span>
                   <span className="text-sm leading-tight">
                     Years of
                     <br />
@@ -74,7 +74,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 </div>
                 <div className="h-12 w-px bg-white/30" />
                 <div className="flex items-center space-x-4">
-                  <span className="text-4xl font-bold">5K+</span>
+                  <span className="text-4xl font-bold">500+</span>
                   <span className="text-sm leading-tight">
                     Satisfied
                     <br />
