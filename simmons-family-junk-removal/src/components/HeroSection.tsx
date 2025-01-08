@@ -2,7 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const HeroSection: React.FC = () => {
+interface HeroSectionProps {
+  title: React.ReactNode;
+  subtitle: string;
+  backgroundImage?: string;
+  primaryButtonText: string;
+  primaryButtonLink: string;
+  secondaryButtonText?: string;
+  secondaryButtonLink?: string;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({
+  title,
+  subtitle,
+  primaryButtonText,
+  primaryButtonLink,
+  secondaryButtonText,
+  secondaryButtonLink,
+}) => {
   return (
     <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
       {/* Dynamic background elements */}
@@ -75,15 +92,9 @@ const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-5 text-white"
           >
-            <h2 className="text-5xl font-bold mb-6">
-              We Make
-              <span className="block text-blue-300 mt-2">Junk Disappear</span>
-            </h2>
+            <h2 className="text-5xl font-bold mb-6 leading-tight">{title}</h2>
 
-            <p className="text-blue-100 text-lg mb-8">
-              From old furniture to construction debris, we handle it all.
-              Professional, reliable service that puts you first.
-            </p>
+            <p className="text-blue-100 text-lg mb-8">{subtitle}</p>
 
             <div className="space-y-4 mb-12">
               {[
@@ -108,19 +119,21 @@ const HeroSection: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to="/contact"
+                to={primaryButtonLink}
                 className="inline-flex items-center justify-center bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-lg"
               >
-                Get a Free Quote
+                {primaryButtonText}
                 <i className="fas fa-arrow-right ml-2" />
               </Link>
-              <a
-                href="tel:+14175550123"
-                className="inline-flex items-center justify-center bg-white/10 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
-              >
-                <i className="fas fa-phone mr-2" />
-                (417) 555-0123
-              </a>
+              {secondaryButtonText && secondaryButtonLink && (
+                <a
+                  href={secondaryButtonLink}
+                  className="inline-flex items-center justify-center bg-white/10 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
+                >
+                  <i className="fas fa-phone mr-2" />
+                  {secondaryButtonText}
+                </a>
+              )}
             </div>
           </motion.div>
         </div>
