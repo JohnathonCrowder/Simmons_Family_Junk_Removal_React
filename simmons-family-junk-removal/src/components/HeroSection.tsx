@@ -4,10 +4,26 @@ import { motion } from "framer-motion";
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-screen bg-secondary overflow-hidden">
-      {/* Large decorative text */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-        <h1 className="text-[20vw] font-bold text-white/5">JUNK</h1>
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+      {/* Dynamic background elements */}
+      <div className="absolute inset-0">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 via-blue-500/10 to-transparent opacity-70" />
+
+        {/* Geometric patterns */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234299E1' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Glowing orbs */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-300/20 rounded-full blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-20">
@@ -25,11 +41,11 @@ const HeroSection: React.FC = () => {
                 alt="Junk Removal Truck"
                 className="absolute inset-0 w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent" />
             </div>
 
             {/* Overlapping elements */}
-            <div className="absolute -bottom-6 left-6 right-6 bg-primary text-white p-6 rounded shadow-xl">
+            <div className="absolute -bottom-6 left-6 right-6 bg-blue-500 text-white p-6 rounded shadow-xl">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   <span className="text-4xl font-bold">15+</span>
@@ -61,10 +77,10 @@ const HeroSection: React.FC = () => {
           >
             <h2 className="text-5xl font-bold mb-6">
               We Make
-              <span className="block text-accent mt-2">Junk Disappear</span>
+              <span className="block text-blue-300 mt-2">Junk Disappear</span>
             </h2>
 
-            <p className="text-gray-300 text-lg mb-8">
+            <p className="text-blue-100 text-lg mb-8">
               From old furniture to construction debris, we handle it all.
               Professional, reliable service that puts you first.
             </p>
@@ -82,10 +98,10 @@ const HeroSection: React.FC = () => {
                   transition={{ delay: 0.4 + index * 0.1 }}
                   className="flex items-center space-x-4"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center">
-                    <i className={`fas fa-${feature.icon} text-accent`} />
+                  <div className="w-12 h-12 rounded-lg bg-blue-400/20 flex items-center justify-center">
+                    <i className={`fas fa-${feature.icon} text-blue-300`} />
                   </div>
-                  <span className="text-gray-300">{feature.text}</span>
+                  <span className="text-blue-100">{feature.text}</span>
                 </motion.div>
               ))}
             </div>
@@ -93,7 +109,7 @@ const HeroSection: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center justify-center bg-accent text-white px-8 py-4 rounded-lg font-semibold hover:bg-accent/90 transition-all duration-300 shadow-lg"
+                className="inline-flex items-center justify-center bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-lg"
               >
                 Get a Free Quote
                 <i className="fas fa-arrow-right ml-2" />
