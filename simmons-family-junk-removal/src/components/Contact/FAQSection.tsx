@@ -1,6 +1,20 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+type FAQ = {
+  question: string;
+  answer: string;
+  icon: string;
+  highlight: string;
+  items?: string[];
+  steps?: string[];
+  pricingTiers?: string[];
+};
+
+type FAQCategories = {
+  [key: string]: FAQ[];
+};
+
 const FAQSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState("general");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -12,19 +26,19 @@ const FAQSection: React.FC = () => {
     { id: "process", label: "Process", icon: "clipboard-list" },
   ];
 
-  const faqs = {
+  const faqs: FAQCategories = {
     general: [
       {
         question: "How quickly can you provide service?",
         answer:
-          "We pride ourselves on rapid response times! In most cases, we offer same-day or next-day service. Our scheduling is flexible to accommodate both urgent needs and planned cleanouts. Just let us know your timeline, and we'll make it work.",
+          "We pride ourselves on rapid response times! In most cases, we offer same-day or next-day service. Our scheduling is flexible to accommodate both urgent needs and planned cleanouts.",
         icon: "clock",
         highlight: "Same-day service available!",
       },
       {
         question: "What areas do you service?",
         answer:
-          "We serve Springfield and surrounding communities within a 50-mile radius. This includes Nixa, Ozark, Republic, Bolivar, and more. Not sure if you're in our service area? Give us a quick call!",
+          "We serve Springfield and surrounding communities within a 50-mile radius. This includes Nixa, Ozark, Republic, Bolivar, and more.",
         icon: "map-marker-alt",
         highlight: "50-mile service radius",
       },
@@ -33,7 +47,7 @@ const FAQSection: React.FC = () => {
       {
         question: "What items do you accept?",
         answer:
-          "We handle most non-hazardous items including furniture, appliances, electronics, yard waste, and construction debris. For specialty items or unique situations, just ask! We're here to help find a solution.",
+          "We handle most non-hazardous items including furniture, appliances, electronics, yard waste, and construction debris. For specialty items or unique situations, just ask!",
         icon: "box",
         highlight: "Most items accepted",
         items: [
@@ -48,7 +62,7 @@ const FAQSection: React.FC = () => {
       {
         question: "Are there any items you don't accept?",
         answer:
-          "For safety and environmental reasons, we cannot accept hazardous materials such as paint, chemicals, batteries, or asbestos. We're happy to direct you to proper disposal facilities for these items.",
+          "For safety and environmental reasons, we cannot accept hazardous materials such as paint, chemicals, batteries, or asbestos.",
         icon: "exclamation-triangle",
         highlight: "Safety first",
       },
@@ -57,7 +71,7 @@ const FAQSection: React.FC = () => {
       {
         question: "How do you determine pricing?",
         answer:
-          "Our pricing is straightforward and based on the volume your items occupy in our truck. We provide free, upfront estimates with no hidden fees or surprises. Volume-based pricing ensures you only pay for the space you use.",
+          "Our pricing is straightforward and based on the volume your items occupy in our truck. We provide free, upfront estimates with no hidden fees or surprises.",
         icon: "calculator",
         highlight: "Transparent pricing",
         pricingTiers: [
@@ -79,7 +93,7 @@ const FAQSection: React.FC = () => {
       {
         question: "What's your junk removal process?",
         answer:
-          "Our process is simple and efficient. First, we provide a free estimate. Once approved, our professional team arrives on schedule, carefully removes your items, cleans the area, and ensures proper disposal or recycling of all materials.",
+          "Our process is simple and efficient. First, we provide a free estimate. Once approved, our professional team arrives on schedule, carefully removes your items, cleans the area, and ensures proper disposal or recycling.",
         icon: "tasks",
         highlight: "Simple 4-step process",
         steps: [
@@ -92,7 +106,7 @@ const FAQSection: React.FC = () => {
       {
         question: "How do you handle recycling?",
         answer:
-          "Environmental responsibility is a core value. We sort all items and ensure maximum recycling and donation of suitable materials. Our goal is to minimize landfill impact while providing efficient junk removal services.",
+          "Environmental responsibility is a core value. We sort all items and ensure maximum recycling and donation of suitable materials. Our goal is to minimize landfill impact.",
         icon: "recycle",
         highlight: "Eco-friendly disposal",
       },
@@ -153,7 +167,7 @@ const FAQSection: React.FC = () => {
               transition={{ duration: 0.3 }}
               className="space-y-6"
             >
-              {faqs[selectedCategory as keyof typeof faqs].map((faq, index) => (
+              {faqs[selectedCategory].map((faq, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
