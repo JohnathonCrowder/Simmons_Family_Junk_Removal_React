@@ -13,6 +13,7 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
+  title,
   subtitle,
   primaryButtonText,
   primaryButtonLink,
@@ -42,8 +43,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({
         />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Main Content Container */}
+      <div className="relative z-10 container mx-auto px-4 h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
           {/* Left Column - Large Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -61,7 +63,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
 
             {/* Overlapping elements */}
-            <div className="absolute -bottom-6 left-6 right-6 bg-blue-500 text-white p-6 rounded shadow-xl">
+            <div className="absolute -bottom-6 left-6 right-6 bg-blue-500 text-white p-6 rounded-lg shadow-xl">
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                   <span className="text-4xl font-bold">5+</span>
