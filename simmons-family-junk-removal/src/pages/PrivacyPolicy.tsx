@@ -2,10 +2,99 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+type StringContent = {
+  text: string;
+  details?: {
+    email: string;
+    phone: string;
+    address: string;
+    hours: string;
+  };
+};
+
+type CategoryContent = {
+  intro: string;
+  categories: {
+    title: string;
+    items: string[];
+  }[];
+};
+
+type PurposeContent = {
+  intro: string;
+  purposes: {
+    title: string;
+    description: string;
+    examples: string[];
+  }[];
+};
+
+type MeasureContent = {
+  measures: {
+    title: string;
+    points: string[];
+  }[];
+};
+
+type RightsContent = {
+  intro: string;
+  rights: {
+    title: string;
+    description: string;
+  }[];
+};
+
+type SectionContent =
+  | string
+  | CategoryContent
+  | PurposeContent
+  | MeasureContent
+  | RightsContent
+  | StringContent;
+
+type Section = {
+  id: string;
+  title: string;
+  icon: string;
+  content: SectionContent;
+  lastUpdated?: string;
+};
+
 const PrivacyPolicy: React.FC = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const sections = [
+  // Function to check content type
+  const isCategory = (content: SectionContent): content is CategoryContent =>
+    typeof content === "object" &&
+    content !== null &&
+    "categories" in content &&
+    Array.isArray((content as CategoryContent).categories);
+
+  const isPurpose = (content: SectionContent): content is PurposeContent =>
+    typeof content === "object" &&
+    content !== null &&
+    "purposes" in content &&
+    Array.isArray((content as PurposeContent).purposes);
+
+  const isMeasure = (content: SectionContent): content is MeasureContent =>
+    typeof content === "object" &&
+    content !== null &&
+    "measures" in content &&
+    Array.isArray((content as MeasureContent).measures);
+
+  const isRights = (content: SectionContent): content is RightsContent =>
+    typeof content === "object" &&
+    content !== null &&
+    "rights" in content &&
+    Array.isArray((content as RightsContent).rights);
+
+  const isStringContent = (content: SectionContent): content is StringContent =>
+    typeof content === "object" &&
+    content !== null &&
+    "text" in content &&
+    typeof (content as StringContent).text === "string";
+
+  const sections: Section[] = [
     {
       id: "overview",
       title: "Overview",
@@ -52,7 +141,7 @@ const PrivacyPolicy: React.FC = () => {
             ],
           },
         ],
-      },
+      } as CategoryContent,
     },
     {
       id: "usage",
@@ -86,7 +175,7 @@ const PrivacyPolicy: React.FC = () => {
             examples: ["Service updates", "Promotional offers", "Company news"],
           },
         ],
-      },
+      } as PurposeContent,
     },
     {
       id: "protection",
@@ -112,7 +201,7 @@ const PrivacyPolicy: React.FC = () => {
             ],
           },
         ],
-      },
+      } as MeasureContent,
     },
     {
       id: "rights",
@@ -138,7 +227,7 @@ const PrivacyPolicy: React.FC = () => {
             description: "Object to certain data processing",
           },
         ],
-      },
+      } as RightsContent,
     },
     {
       id: "contact",
@@ -152,7 +241,7 @@ const PrivacyPolicy: React.FC = () => {
           address: "123 Main Street, Springfield, MO 65806",
           hours: "Monday - Friday: 9:00 AM - 5:00 PM CST",
         },
-      },
+      } as StringContent,
     },
   ];
 
@@ -234,7 +323,7 @@ const PrivacyPolicy: React.FC = () => {
                     ) : (
                       <div>
                         {/* Collection Section */}
-                        {section.id === "collection" && (
+                        {isCategory(section.content) && (
                           <div>
                             <p>{section.content.intro}</p>
                             <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -266,7 +355,7 @@ const PrivacyPolicy: React.FC = () => {
                         )}
 
                         {/* Usage Section */}
-                        {section.id === "usage" && (
+                        {isPurpose(section.content) && (
                           <div>
                             <p>{section.content.intro}</p>
                             <div className="mt-6 space-y-6">
@@ -303,7 +392,7 @@ const PrivacyPolicy: React.FC = () => {
                         )}
 
                         {/* Protection Section */}
-                        {section.id === "protection" && (
+                        {isMeasure(section.content) && (
                           <div className="grid gap-6 md:grid-cols-2">
                             {section.content.measures.map((measure, index) => (
                               <div
@@ -330,7 +419,7 @@ const PrivacyPolicy: React.FC = () => {
                         )}
 
                         {/* Rights Section */}
-                        {section.id === "rights" && (
+                        {isRights(section.content) && (
                           <div>
                             <p>{section.content.intro}</p>
                             <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -352,53 +441,58 @@ const PrivacyPolicy: React.FC = () => {
                         )}
 
                         {/* Contact Section */}
-                        {section.id === "contact" && (
-                          <div>
-                            <p className="mb-6">{section.content.text}</p>
-                            <div className="bg-gray-50 rounded-xl p-6">
-                              <div className="grid gap-4 md:grid-cols-2">
-                                <div className="flex items-start">
-                                  <i className="fas fa-envelope text-blue-500 mt-1 mr-3" />
-                                  <div>
-                                    <div className="font-semibold">Email</div>
-                                    <a
-                                      href={`mailto:${section.content.details.email}`}
-                                      className="text-blue-600 hover:text-blue-800"
-                                    >
-                                      {section.content.details.email}
-                                    </a>
+                        {isStringContent(section.content) &&
+                          section.content.details && (
+                            <div>
+                              <p className="mb-6">{section.content.text}</p>
+                              <div className="bg-gray-50 rounded-xl p-6">
+                                <div className="grid gap-4 md:grid-cols-2">
+                                  <div className="flex items-start">
+                                    <i className="fas fa-envelope text-blue-500 mt-1 mr-3" />
+                                    <div>
+                                      <div className="font-semibold">Email</div>
+                                      <a
+                                        href={`mailto:${section.content.details.email}`}
+                                        className="text-blue-600 hover:text-blue-800"
+                                      >
+                                        {section.content.details.email}
+                                      </a>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="flex items-start">
-                                  <i className="fas fa-phone text-blue-500 mt-1 mr-3" />
-                                  <div>
-                                    <div className="font-semibold">Phone</div>
-                                    <a
-                                      href={`tel:${section.content.details.phone}`}
-                                      className="text-blue-600 hover:text-blue-800"
-                                    >
-                                      {section.content.details.phone}
-                                    </a>
+                                  <div className="flex items-start">
+                                    <i className="fas fa-phone text-blue-500 mt-1 mr-3" />
+                                    <div>
+                                      <div className="font-semibold">Phone</div>
+                                      <a
+                                        href={`tel:${section.content.details.phone}`}
+                                        className="text-blue-600 hover:text-blue-800"
+                                      >
+                                        {section.content.details.phone}
+                                      </a>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="flex items-start">
-                                  <i className="fas fa-map-marker-alt text-blue-500 mt-1 mr-3" />
-                                  <div>
-                                    <div className="font-semibold">Address</div>
-                                    <div>{section.content.details.address}</div>
+                                  <div className="flex items-start">
+                                    <i className="fas fa-map-marker-alt text-blue-500 mt-1 mr-3" />
+                                    <div>
+                                      <div className="font-semibold">
+                                        Address
+                                      </div>
+                                      <div>
+                                        {section.content.details.address}
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                                <div className="flex items-start">
-                                  <i className="fas fa-clock text-blue-500 mt-1 mr-3" />
-                                  <div>
-                                    <div className="font-semibold">Hours</div>
-                                    <div>{section.content.details.hours}</div>
+                                  <div className="flex items-start">
+                                    <i className="fas fa-clock text-blue-500 mt-1 mr-3" />
+                                    <div>
+                                      <div className="font-semibold">Hours</div>
+                                      <div>{section.content.details.hours}</div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        )}
+                          )}
                       </div>
                     )}
                   </div>
