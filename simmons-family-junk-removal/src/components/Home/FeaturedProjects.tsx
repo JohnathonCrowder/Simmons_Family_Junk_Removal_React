@@ -11,7 +11,7 @@ const FeaturedProjects: React.FC = () => {
       title: "Complete Home Cleanout",
       category: "Residential",
       description:
-        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days. Our team efficiently sorted through years of accumulated items, properly disposing of waste while ensuring recyclable materials were handled responsibly. The project included removal of old furniture, appliances, and general household items.",
+        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days.",
       stats: {
         items: "250+",
         time: "2 days",
@@ -20,7 +20,7 @@ const FeaturedProjects: React.FC = () => {
       image: "/images/home-cleanout.jpg",
       tags: ["Furniture Removal", "Appliance Disposal", "Eco-Friendly"],
       fullDescription:
-        "This project presented unique challenges with multiple rooms of accumulated items. Our team worked systematically, room by room, ensuring valuable items were preserved while removing unwanted clutter. We coordinated with local recycling centers and donation facilities to minimize landfill impact.",
+        "This project presented unique challenges with multiple rooms of accumulated items. Our team worked systematically, room by room, ensuring valuable items were preserved while removing unwanted clutter.",
       challenges: [
         "Multiple rooms of heavy furniture",
         "Delicate family heirlooms to preserve",
@@ -36,7 +36,7 @@ const FeaturedProjects: React.FC = () => {
       title: "Office Renovation Cleanout",
       category: "Commercial",
       description:
-        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations. This project required careful coordination with building management and efficient handling of office furniture and equipment.",
+        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations.",
       stats: {
         items: "500+",
         time: "1 day",
@@ -45,7 +45,7 @@ const FeaturedProjects: React.FC = () => {
       image: "/images/office-cleanout.jpg",
       tags: ["Office Furniture", "E-Waste", "Quick Turnaround"],
       fullDescription:
-        "This commercial cleanout involved removing outdated office furniture, electronics, and renovation debris from a 10,000 sq ft office space. Our team worked during off-hours to minimize business disruption and coordinated with building management for elevator access and parking.",
+        "This commercial cleanout involved removing outdated office furniture, electronics, and renovation debris from a 10,000 sq ft office space.",
       challenges: [
         "Working within strict building hours",
         "Proper disposal of sensitive materials",
@@ -82,34 +82,41 @@ const FeaturedProjects: React.FC = () => {
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              <div className="relative aspect-[16/9] overflow-hidden">
+              <div className="relative h-96 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute top-4 left-4 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
-                  {project.category}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90" />
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <div className="transform transition-all duration-300 group-hover:translate-y-0">
+                    <div className="flex items-center mb-3">
+                      <div className="inline-block px-4 py-1 bg-blue-600 rounded-full text-sm font-semibold text-white mb-2">
+                        {project.category}
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-white/80 mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
               </div>
 
               <div className="p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 mb-6">{project.description}</p>
-
                 {/* Project Stats */}
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   {Object.entries(project.stats).map(
@@ -140,10 +147,10 @@ const FeaturedProjects: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedProject(index)}
-                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
+                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group"
                 >
                   View Details
-                  <i className="fas fa-arrow-right ml-2" />
+                  <i className="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-2" />
                 </button>
               </div>
             </motion.div>

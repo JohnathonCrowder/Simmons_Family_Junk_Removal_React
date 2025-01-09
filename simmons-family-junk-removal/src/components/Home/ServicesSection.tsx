@@ -84,10 +84,10 @@ const ServicesSection: React.FC = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              {/* Image Section */}
-              <div className="relative h-80 overflow-hidden">
+              {/* Image Section - Made Taller */}
+              <div className="relative h-96 overflow-hidden">
                 {" "}
-                {/* Increased height */}
+                {/* Changed height to h-96 (384px) */}
                 <img
                   src={service.image}
                   alt={service.title}
@@ -114,16 +114,10 @@ const ServicesSection: React.FC = () => {
 
               {/* Content Section */}
               <div className="p-8">
-                {" "}
-                {/* Increased padding */}
                 <p className="text-gray-600 mb-6 text-lg">
-                  {" "}
-                  {/* Increased text size */}
                   {service.description}
                 </p>
                 <ul className="space-y-4 mb-8">
-                  {" "}
-                  {/* Increased spacing */}
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
                       <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
