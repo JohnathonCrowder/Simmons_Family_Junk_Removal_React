@@ -13,7 +13,6 @@ interface HeroSectionProps {
 }
 
 const HeroSection: React.FC<HeroSectionProps> = ({
-  title,
   subtitle,
   primaryButtonText,
   primaryButtonLink,
