@@ -1,3 +1,7 @@
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -119,10 +123,10 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/forms')({
+    forms({
       strategy: 'class',
     }),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
+    typography,
+    aspectRatio,
   ],
 }
