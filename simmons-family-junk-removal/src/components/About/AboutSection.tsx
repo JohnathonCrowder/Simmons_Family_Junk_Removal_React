@@ -6,7 +6,7 @@ const AboutSection: React.FC = () => {
     <section className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-16">
-          {/* Left side - Image and decorative elements */}
+          {/* Left side - Video and decorative elements */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -15,13 +15,22 @@ const AboutSection: React.FC = () => {
             className="lg:w-1/2 relative"
           >
             <div className="relative z-10">
-              <img
-                src="/images/owner-portrait.jpg"
-                alt="Owner with service truck"
-                className="rounded-2xl shadow-2xl"
-              />
+              {/* Responsive video container */}
+              <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/Moa0KNbbGUA"
+                  title="Simmons Family Junk Removal Welcome Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full"
+                ></iframe>
+              </div>
             </div>
-            <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100 rounded-full filter blur-3xl opacity-30 animate-pulse z-0" />
+
+            {/* Decorative elements */}
+            <div className="absolute -top-8 -left-8 w-72 h-72 bg-blue-100 rounded-full filter blur-3xl opacity-20 animate-pulse z-0" />
+            <div className="absolute -bottom-8 -right-8 w-72 h-72 bg-blue-200 rounded-full filter blur-3xl opacity-20 animate-pulse z-0" />
           </motion.div>
 
           {/* Right side - Story content */}

@@ -36,7 +36,7 @@ const ServicesSection: React.FC = () => {
       description:
         "Transform your outdoor space. We handle all types of yard debris and green waste.",
       features: ["Landscaping debris", "Tree branches", "Soil and rocks"],
-      image: "/images/yard-waste.jpg",
+      image: "/yard-waste.jpg",
       color: "blue",
     },
     {
