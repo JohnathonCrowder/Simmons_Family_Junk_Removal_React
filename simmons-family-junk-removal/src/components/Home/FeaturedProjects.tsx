@@ -14,7 +14,7 @@ const FeaturedProjects: React.FC = () => {
         time: "2 days",
         recycled: "80%",
       },
-      image: "/images/home-cleanout.jpg", // Ensure you have these images
+      image: "/images/home-cleanout.jpg",
       tags: ["Furniture Removal", "Appliance Disposal", "Eco-Friendly"],
     },
     {
@@ -63,14 +63,15 @@ const FeaturedProjects: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg"
+              className="bg-gray-50 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <div className="relative aspect-video overflow-hidden">
+              <div className="relative aspect-[16/9] overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute top-4 left-4 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
                   {project.category}
                 </div>
@@ -111,7 +112,7 @@ const FeaturedProjects: React.FC = () => {
                 </div>
 
                 <Link
-                  to="/projects"
+                  to="/contact"
                   className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
                 >
                   View Details
@@ -144,9 +145,9 @@ const FeaturedProjects: React.FC = () => {
             </p>
             <div className="flex items-center justify-center">
               <img
-                src="/images/client-avatar.jpg" // Add a client avatar image
+                src="/images/client-avatar.jpg"
                 alt="John Doe"
-                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4"
+                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4 object-cover"
               />
               <div>
                 <div className="font-semibold">John Doe</div>

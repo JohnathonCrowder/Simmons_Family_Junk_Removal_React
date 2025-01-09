@@ -14,7 +14,7 @@ const ServicesSection: React.FC = () => {
         "Full house cleanouts",
         "Appliance removal",
       ],
-      image: "/images/residential-junk.jpg", // Add actual image paths
+      image: "/images/residential-junk.jpg",
       color: "blue",
     },
     {
@@ -36,7 +36,7 @@ const ServicesSection: React.FC = () => {
       description:
         "Transform your outdoor space. We handle all types of yard debris and green waste.",
       features: ["Landscaping debris", "Tree branches", "Soil and rocks"],
-      image: "/yard-waste.jpg",
+      image: "/images/yard-waste.jpg",
       color: "blue",
     },
     {
@@ -54,26 +54,24 @@ const ServicesSection: React.FC = () => {
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="inline-block"
-          >
-            <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1 rounded-full mb-4">
-              Our Services
-            </span>
-            <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
-              What We Offer
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Comprehensive junk removal solutions tailored to your needs. Fast,
-              reliable, and eco-friendly service guaranteed.
-            </p>
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
+            Our Services
+          </span>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            What We Offer
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Comprehensive junk removal solutions tailored to your needs. Fast,
+            reliable, and eco-friendly service guaranteed.
+          </p>
+        </motion.div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -86,35 +84,50 @@ const ServicesSection: React.FC = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
-              <div className="relative h-48 overflow-hidden">
+              {/* Image Section */}
+              <div className="relative h-80 overflow-hidden">
+                {" "}
+                {/* Increased height */}
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r from-${service.color}-600/90 to-${service.color}-800/90`}
-                />
-                <div className="absolute inset-0 p-6 text-white flex flex-col justify-end">
-                  <div className="flex items-center mb-2">
-                    <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center mr-4">
-                      <i className={`fas fa-${service.icon} text-xl`} />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90" />
+                {/* Content Overlay */}
+                <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                  <div className="transform transition-all duration-300 group-hover:translate-y-0">
+                    <div className="flex items-center mb-3">
+                      <div className="w-12 h-12 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4 shadow-lg">
+                        <i
+                          className={`fas fa-${service.icon} text-2xl text-white`}
+                        />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                        {service.title}
+                      </h3>
                     </div>
-                    <h3 className="text-2xl font-semibold">{service.title}</h3>
                   </div>
                 </div>
               </div>
-              <div className="p-6">
-                <p className="text-gray-600 mb-6">{service.description}</p>
-                <ul className="space-y-3 mb-6">
+
+              {/* Content Section */}
+              <div className="p-8">
+                {" "}
+                {/* Increased padding */}
+                <p className="text-gray-600 mb-6 text-lg">
+                  {" "}
+                  {/* Increased text size */}
+                  {service.description}
+                </p>
+                <ul className="space-y-4 mb-8">
+                  {" "}
+                  {/* Increased spacing */}
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
-                      <span
-                        className={`w-5 h-5 rounded-full bg-${service.color}-100 flex items-center justify-center mr-3 mt-1 flex-shrink-0`}
-                      >
-                        <i
-                          className={`fas fa-check text-${service.color}-600 text-xs`}
-                        />
+                      <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
+                        <i className="fas fa-check text-blue-600 text-sm" />
                       </span>
                       <span className="text-gray-700">{feature}</span>
                     </li>
@@ -122,10 +135,10 @@ const ServicesSection: React.FC = () => {
                 </ul>
                 <Link
                   to="/services"
-                  className={`inline-flex items-center text-${service.color}-600 font-semibold hover:text-${service.color}-700 transition-colors duration-300`}
+                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group"
                 >
                   Learn More
-                  <i className="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2" />
+                  <i className="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-2" />
                 </Link>
               </div>
             </motion.div>
