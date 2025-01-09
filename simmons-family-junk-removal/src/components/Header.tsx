@@ -38,7 +38,14 @@ const Header: React.FC = () => {
               <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
                 <i className="fas fa-truck-loading text-white text-xl" />
               </div>
-              <span className="text-white font-bold text-xl">Simmons</span>
+              <div className="flex flex-col items-start">
+                <span className="text-white font-bold text-lg leading-tight">
+                  Simmons Family
+                </span>
+                <span className="text-blue-300 text-sm leading-tight">
+                  Junk Removal
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation */}
