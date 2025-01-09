@@ -33,18 +33,24 @@ const Header: React.FC = () => {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
-            {/* Logo */}
+            {/* Logo and Company Name */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
-                <i className="fas fa-truck-loading text-white text-xl" />
-              </div>
-              <div className="flex flex-col items-start">
-                <span className="text-white font-bold text-lg leading-tight">
+              <img
+                src="/logo.png" // Update this to your actual logo path
+                alt="Simmons Family Junk Removal"
+                className={`transition-all duration-300 ${
+                  isScrolled ? "h-10" : "h-12"
+                }`}
+              />
+              <div className="flex flex-col">
+                <span
+                  className={`text-white font-bold transition-all duration-300 ${
+                    isScrolled ? "text-lg" : "text-xl"
+                  }`}
+                >
                   Simmons Family
                 </span>
-                <span className="text-blue-300 text-sm leading-tight">
-                  Junk Removal
-                </span>
+                <span className="text-blue-300 text-sm">Junk Removal</span>
               </div>
             </Link>
 
