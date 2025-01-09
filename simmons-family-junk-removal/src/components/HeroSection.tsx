@@ -92,7 +92,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             transition={{ duration: 0.8, delay: 0.2 }}
             className="lg:col-span-5 text-white"
           >
-            <h2 className="text-5xl font-bold mb-6 leading-tight">{title}</h2>
+            <h2 className="text-5xl font-bold mb-6 leading-tight">
+              Professional Junk Removal <br />
+              <span className="text-blue-300">Made Simple</span>
+            </h2>
 
             <p className="text-blue-100 text-lg mb-8">{subtitle}</p>
 
