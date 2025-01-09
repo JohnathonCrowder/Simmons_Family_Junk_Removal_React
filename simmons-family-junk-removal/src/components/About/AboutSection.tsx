@@ -15,15 +15,15 @@ const AboutSection: React.FC = () => {
             className="lg:w-1/2 relative"
           >
             <div className="relative z-10">
-              {/* Responsive video container */}
-              <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl">
+              {/* Square video container */}
+              <div className="aspect-w-1 aspect-h-1 rounded-2xl overflow-hidden shadow-2xl">
                 <iframe
                   src="https://www.youtube.com/embed/Moa0KNbbGUA"
                   title="Simmons Family Junk Removal Welcome Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
-                  className="w-full h-full"
+                  className="w-full h-full object-cover"
                 ></iframe>
               </div>
             </div>
