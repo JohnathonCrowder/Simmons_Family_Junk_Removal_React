@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 const FeaturedProjects: React.FC = () => {
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+
   const projects = [
     {
       title: "Complete Home Cleanout",
       category: "Residential",
       description:
-        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days.",
+        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days. Our team efficiently sorted through years of accumulated items, properly disposing of waste while ensuring recyclable materials were handled responsibly. The project included removal of old furniture, appliances, and general household items.",
       stats: {
         items: "250+",
         time: "2 days",
@@ -16,12 +19,24 @@ const FeaturedProjects: React.FC = () => {
       },
       image: "/images/home-cleanout.jpg",
       tags: ["Furniture Removal", "Appliance Disposal", "Eco-Friendly"],
+      fullDescription:
+        "This project presented unique challenges with multiple rooms of accumulated items. Our team worked systematically, room by room, ensuring valuable items were preserved while removing unwanted clutter. We coordinated with local recycling centers and donation facilities to minimize landfill impact.",
+      challenges: [
+        "Multiple rooms of heavy furniture",
+        "Delicate family heirlooms to preserve",
+        "Tight deadline for real estate listing",
+      ],
+      results: [
+        "Completely cleared space ready for sale",
+        "80% of materials recycled or donated",
+        "Finished ahead of schedule",
+      ],
     },
     {
       title: "Office Renovation Cleanout",
       category: "Commercial",
       description:
-        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations.",
+        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations. This project required careful coordination with building management and efficient handling of office furniture and equipment.",
       stats: {
         items: "500+",
         time: "1 day",
@@ -29,6 +44,18 @@ const FeaturedProjects: React.FC = () => {
       },
       image: "/images/office-cleanout.jpg",
       tags: ["Office Furniture", "E-Waste", "Quick Turnaround"],
+      fullDescription:
+        "This commercial cleanout involved removing outdated office furniture, electronics, and renovation debris from a 10,000 sq ft office space. Our team worked during off-hours to minimize business disruption and coordinated with building management for elevator access and parking.",
+      challenges: [
+        "Working within strict building hours",
+        "Proper disposal of sensitive materials",
+        "Coordinating with multiple stakeholders",
+      ],
+      results: [
+        "Zero disruption to neighboring businesses",
+        "All electronics properly recycled",
+        "Completed under budget",
+      ],
     },
   ];
 
@@ -69,7 +96,7 @@ const FeaturedProjects: React.FC = () => {
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute top-4 left-4 bg-blue-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
@@ -111,17 +138,24 @@ const FeaturedProjects: React.FC = () => {
                   ))}
                 </div>
 
-                <Link
-                  to="/contact"
+                <button
+                  onClick={() => setSelectedProject(index)}
                   className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
                 >
                   View Details
                   <i className="fas fa-arrow-right ml-2" />
-                </Link>
+                </button>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Modal */}
+        <Modal
+          isOpen={selectedProject !== null}
+          onClose={() => setSelectedProject(null)}
+          project={selectedProject !== null ? projects[selectedProject] : null}
+        />
 
         {/* Testimonial Section */}
         <motion.div
@@ -147,7 +181,7 @@ const FeaturedProjects: React.FC = () => {
               <img
                 src="/images/client-avatar.jpg"
                 alt="John Doe"
-                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4 object-cover"
+                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4"
               />
               <div>
                 <div className="font-semibold">John Doe</div>
