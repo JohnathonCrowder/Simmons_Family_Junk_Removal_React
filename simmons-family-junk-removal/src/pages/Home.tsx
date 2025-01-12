@@ -1,14 +1,43 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import HeroSection from "../components/HeroSection";
-import ServicesSection from "../components/Home/ServicesSection";
-import FeaturedProjects from "../components/Home/FeaturedProjects";
-import ProcessSection from "../components/Home/ProcessSection";
-import TestimonialsSection from "../components/Home/TestimonialsSection";
-import CTASection from "../components/CTASection";
+
+// Lazy load components
+const ServicesSection = lazy(
+  () => import("../components/Home/ServicesSection")
+);
+const FeaturedProjects = lazy(
+  () => import("../components/Home/FeaturedProjects")
+);
+const ProcessSection = lazy(() => import("../components/Home/ProcessSection"));
+const TestimonialsSection = lazy(
+  () => import("../components/Home/TestimonialsSection")
+);
+const CTASection = lazy(() => import("../components/CTASection"));
+
+// Loading fallback component
+const LoadingFallback: React.FC = () => (
+  <div className="w-full h-48 flex items-center justify-center">
+    <div className="flex items-center space-x-3">
+      <div
+        className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
+        style={{ animationDelay: "0s" }}
+      ></div>
+      <div
+        className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
+        style={{ animationDelay: "0.2s" }}
+      ></div>
+      <div
+        className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
+        style={{ animationDelay: "0.4s" }}
+      ></div>
+    </div>
+  </div>
+);
 
 const Home: React.FC = () => {
   return (
     <div className="home">
+      {/* HeroSection is not lazy loaded as it's above the fold */}
       <HeroSection
         title={
           <>
@@ -26,22 +55,33 @@ const Home: React.FC = () => {
         secondaryButtonLink="tel:+1234567890"
       />
 
-      <ServicesSection />
+      {/* Wrap lazy loaded components in Suspense */}
+      <Suspense fallback={<LoadingFallback />}>
+        <ServicesSection />
+      </Suspense>
 
-      <FeaturedProjects />
+      <Suspense fallback={<LoadingFallback />}>
+        <FeaturedProjects />
+      </Suspense>
 
-      <ProcessSection />
+      <Suspense fallback={<LoadingFallback />}>
+        <ProcessSection />
+      </Suspense>
 
-      <TestimonialsSection />
+      <Suspense fallback={<LoadingFallback />}>
+        <TestimonialsSection />
+      </Suspense>
 
-      <CTASection
-        title="Ready to Reclaim Your Space?"
-        description="Get started with a free, no-obligation quote today and experience the difference professional junk removal can make."
-        primaryButtonText="Get Your Free Quote"
-        primaryButtonLink="/contact"
-        secondaryButtonText="Call (123) 456-7890"
-        secondaryButtonLink="tel:+1234567890"
-      />
+      <Suspense fallback={<LoadingFallback />}>
+        <CTASection
+          title="Ready to Reclaim Your Space?"
+          description="Get started with a free, no-obligation quote today and experience the difference professional junk removal can make."
+          primaryButtonText="Get Your Free Quote"
+          primaryButtonLink="/contact"
+          secondaryButtonText="Call (123) 456-7890"
+          secondaryButtonLink="tel:+1234567890"
+        />
+      </Suspense>
     </div>
   );
 };
