@@ -57,6 +57,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 src="/truck.jpg"
                 alt="Junk Removal Truck"
                 className="absolute inset-0 w-full h-full object-cover"
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent" />
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ServicesSection: React.FC = () => {
   const services = [
@@ -86,12 +86,15 @@ const ServicesSection: React.FC = () => {
             >
               {/* Image Section - Made Taller */}
               <div className="relative h-96 overflow-hidden">
-                {" "}
-                {/* Changed height to h-96 (384px) */}
                 <img
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="400"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90" />
