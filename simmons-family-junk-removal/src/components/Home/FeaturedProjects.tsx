@@ -90,22 +90,22 @@ const FeaturedProjects: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
             >
               <div className="relative h-96 overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
                   width="800"
                   height="600"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="transform transition-all duration-300 group-hover:translate-y-0">
+                  <div>
                     <div className="flex items-center mb-3">
                       <div className="inline-block px-4 py-1 bg-blue-600 rounded-full text-sm font-semibold text-white mb-2">
                         {project.category}
@@ -152,10 +152,10 @@ const FeaturedProjects: React.FC = () => {
 
                 <button
                   onClick={() => setSelectedProject(index)}
-                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group"
+                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
                 >
                   View Details
-                  <i className="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-2" />
+                  <i className="fas fa-arrow-right ml-2" />
                 </button>
               </div>
             </motion.div>

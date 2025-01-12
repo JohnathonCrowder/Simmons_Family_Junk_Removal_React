@@ -89,7 +89,7 @@ const ServicesSection: React.FC = () => {
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                   decoding="async"
                   width="600"
@@ -97,10 +97,10 @@ const ServicesSection: React.FC = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-black/90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 {/* Content Overlay */}
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="transform transition-all duration-300 group-hover:translate-y-0">
+                  <div>
                     <div className="flex items-center mb-3">
                       <div className="w-12 h-12 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4 shadow-lg">
                         <i
