@@ -1,0 +1,180 @@
+{
+    "projects": [
+      {
+        "id": 1,
+        "title": "Complete Garage Transformation",
+        "category": "Residential",
+        "location": "Springfield, MO",
+        "beforeImage": "/images/projects/garage-before.jpg",
+        "afterImage": "/images/projects/garage-after.jpg",
+        "description": "Transformed a cluttered garage into an organized space perfect for parking and storage. This project involved removing years of accumulated items and creating functional storage solutions.",
+        "timeframe": "1 Day",
+        "date": "January 2024",
+        "services": [
+          "Junk Removal",
+          "Organization",
+          "Recycling",
+          "Donation Coordination"
+        ],
+        "stats": {
+          "itemsRemoved": "150+",
+          "recyclingRate": "75%",
+          "manHours": "8"
+        }
+      },
+      {
+        "id": 2,
+        "title": "Office Building Cleanout",
+        "category": "Commercial",
+        "location": "Nixa, MO",
+        "beforeImage": "/images/projects/office-before.jpg",
+        "afterImage": "/images/projects/office-after.jpg",
+        "description": "Complete office renovation cleanout including old furniture, outdated equipment, and general debris. Coordinated with building management for smooth execution.",
+        "timeframe": "2 Days",
+        "date": "December 2023",
+        "services": [
+          "Commercial Junk Removal",
+          "E-Waste Disposal",
+          "Furniture Removal",
+          "Equipment Disposal"
+        ],
+        "stats": {
+          "itemsRemoved": "300+",
+          "recyclingRate": "80%",
+          "manHours": "16"
+        }
+      },
+      {
+        "id": 3,
+        "title": "Full Estate Cleanout",
+        "category": "Estate",
+        "location": "Ozark, MO",
+        "beforeImage": "/images/projects/estate-before.jpg",
+        "afterImage": "/images/projects/estate-after.jpg",
+        "description": "Sensitive and thorough estate cleanout for a family preparing their property for sale. Included sorting valuable items, coordinating donations, and complete property clearing.",
+        "timeframe": "3 Days",
+        "date": "November 2023",
+        "services": [
+          "Estate Cleanout",
+          "Furniture Removal",
+          "Donation Services",
+          "Appliance Disposal"
+        ],
+        "stats": {
+          "itemsRemoved": "500+",
+          "recyclingRate": "70%",
+          "manHours": "24"
+        }
+      },
+      {
+        "id": 4,
+        "title": "Backyard Debris Cleanup",
+        "category": "Yard",
+        "location": "Republic, MO",
+        "beforeImage": "/images/projects/yard-before.jpg",
+        "afterImage": "/images/projects/yard-after.jpg",
+        "description": "Major yard cleanup including removal of fallen trees, landscaping debris, and old outdoor furniture. Restored the backyard to a clean, usable space.",
+        "timeframe": "1 Day",
+        "date": "February 2024",
+        "services": [
+          "Yard Debris Removal",
+          "Green Waste Disposal",
+          "Heavy Lifting",
+          "Landscaping Cleanup"
+        ],
+        "stats": {
+          "itemsRemoved": "200+",
+          "recyclingRate": "90%",
+          "manHours": "10"
+        }
+      },
+      {
+        "id": 5,
+        "title": "Storage Unit Cleanout",
+        "category": "Storage",
+        "location": "Battlefield, MO",
+        "beforeImage": "/images/projects/storage-before.jpg",
+        "afterImage": "/images/projects/storage-after.jpg",
+        "description": "Cleared out a long-term storage unit filled with furniture, boxes, and miscellaneous items. Helped client sort through items for keeping, donation, and disposal.",
+        "timeframe": "1 Day",
+        "date": "January 2024",
+        "services": [
+          "Storage Unit Clearing",
+          "Item Sorting",
+          "Donation Services",
+          "Disposal"
+        ],
+        "stats": {
+          "itemsRemoved": "125+",
+          "recyclingRate": "65%",
+          "manHours": "6"
+        }
+      },
+      {
+        "id": 6,
+        "title": "Construction Site Cleanup",
+        "category": "Construction",
+        "location": "Springfield, MO",
+        "beforeImage": "/images/projects/construction-before.jpg",
+        "afterImage": "/images/projects/construction-after.jpg",
+        "description": "Post-renovation debris removal for a major home remodeling project. Included removal of construction materials, packaging, and old fixtures.",
+        "timeframe": "1 Day",
+        "date": "February 2024",
+        "services": [
+          "Construction Debris Removal",
+          "Material Recycling",
+          "Site Cleanup",
+          "Heavy Material Handling"
+        ],
+        "stats": {
+          "itemsRemoved": "250+",
+          "recyclingRate": "85%",
+          "manHours": "8"
+        }
+      },
+      {
+        "id": 7,
+        "title": "Apartment Complex Cleanup",
+        "category": "Commercial",
+        "location": "Springfield, MO",
+        "beforeImage": "/images/projects/apartment-before.jpg",
+        "afterImage": "/images/projects/apartment-after.jpg",
+        "description": "Multi-unit apartment complex cleanup after tenant turnover. Coordinated with property management for efficient removal of abandoned furniture and items.",
+        "timeframe": "2 Days",
+        "date": "December 2023",
+        "services": [
+          "Multi-Unit Cleanup",
+          "Furniture Removal",
+          "Appliance Disposal",
+          "Property Cleanup"
+        ],
+        "stats": {
+          "itemsRemoved": "400+",
+          "recyclingRate": "70%",
+          "manHours": "16"
+        }
+      },
+      {
+        "id": 8,
+        "title": "Hoarding Situation Resolution",
+        "category": "Residential",
+        "location": "Nixa, MO",
+        "beforeImage": "/images/projects/hoarding-before.jpg",
+        "afterImage": "/images/projects/hoarding-after.jpg",
+        "description": "Compassionate and thorough cleanout of a hoarding situation. Worked closely with the client to sort through items with sensitivity and care.",
+        "timeframe": "4 Days",
+        "date": "January 2024",
+        "services": [
+          "Deep Cleanout",
+          "Item Sorting",
+          "Donation Coordination",
+          "Sanitization"
+        ],
+        "stats": {
+          "itemsRemoved": "1000+",
+          "recyclingRate": "60%",
+          "manHours": "32"
+        }
+      }
+    ]
+  }

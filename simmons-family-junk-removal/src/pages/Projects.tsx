@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import PageHero from "../components/PageHero";
+import ProjectShowcase from "../components/Projects/ProjectShowcase";
+import ProjectCategories from "../components/Projects/ProjectCategories";
 import ProjectsGrid from "../components/Projects/ProjectsGrid";
+import ProjectTestimonials from "../components/Projects/ProjectTestimonials";
 import CTASection from "../components/CTASection";
 
 const Projects: React.FC = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
   return (
     <div className="projects-page">
       <PageHero
@@ -19,7 +24,13 @@ const Projects: React.FC = () => {
         secondaryButtonText="Contact Us"
         secondaryButtonLink="/contact"
       />
-      <ProjectsGrid />
+      <ProjectShowcase />
+      <ProjectCategories
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
+      <ProjectsGrid selectedCategory={selectedCategory} />
+      <ProjectTestimonials />
       <CTASection
         title="Ready to Transform Your Space?"
         description="Let us help you clear the clutter and create a clean, organized environment."
