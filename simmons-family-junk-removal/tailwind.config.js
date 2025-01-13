@@ -1,41 +1,9 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  // Enabling JIT mode for faster compilation
-  mode: 'jit',
-  // Purge configuration for production
-  purge: {
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      './src/**/*.{js,jsx,ts,tsx}',
-      './index.html'
-    ],
-    options: {
-      safelist: [
-        'animate-spin',
-        'animate-pulse',
-        'animate-bounce',
-        'animate-ping',
-        'animate-marquee',
-        'animate-zoom',
-        'fade-in',
-        'slide-in',
-        /^bg-/,
-        /^text-/,
-        /^border-/,
-        /^hover:/,
-        /^focus:/,
-        /^lg:/,
-        /^md:/,
-        /^sm:/,
-        /^xl:/,
-        'group-hover:',
-      ],
-    }
-  },
+  // Enabling JIT mode is no longer needed in Tailwind CSS v3.0+
   theme: {
     extend: {
       colors: {
@@ -97,8 +65,10 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    // Removed @tailwindcss/line-clamp as it's now included by default
   ],
-  // Future flag configurations
+  // Removed 'purge' configuration as it's replaced by 'content' in v3.0
+  // Future flags have been updated
   future: {
     hoverOnlyWhenSupported: true,
     respectDefaultRingColorOpacity: true,
@@ -109,16 +79,19 @@ export default {
   experimental: {
     optimizeUniversalDefaults: true,
   },
-  // Variants configuration
-  variants: {
-    extend: {
-      backgroundColor: ['active', 'group-hover'],
-      textColor: ['active', 'group-hover'],
-      opacity: ['disabled'],
-      cursor: ['disabled'],
-      borderWidth: ['hover', 'focus'],
-      scale: ['group-hover'],
-      transform: ['group-hover'],
+  // Safelist update
+  safelist: [
+    'animate-spin',
+    'animate-pulse',
+    'animate-bounce',
+    'animate-ping',
+    'animate-marquee',
+    'animate-zoom',
+    'fade-in',
+    'slide-in',
+    {
+      pattern: /^(bg|text|border)-(primary|blue|gray|white|black)(-\d+)?$/,
+      variants: ['hover', 'focus', 'lg', 'md', 'sm', 'xl'],
     },
-  },
+  ],
 };
