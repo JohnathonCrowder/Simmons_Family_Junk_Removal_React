@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -84,66 +84,19 @@ module.exports = {
       backdropBlur: {
         xs: '2px',
       },
-      // Container configurations
-      container: {
-        center: true,
-        padding: {
-          DEFAULT: '1rem',
-          sm: '2rem',
-          lg: '4rem',
-          xl: '5rem',
-          '2xl': '6rem',
-        },
-      },
-      // Custom max-widths for better mobile control
-      maxWidth: {
-        'mobile': '640px',
-        'tablet': '768px',
-        'laptop': '1024px',
-        'desktop': '1280px',
-      },
     },
-    // Breakpoint configurations
     screens: {
-      'xs': '375px',
       'sm': '640px',
       'md': '768px',
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px',
-      // Custom breakpoints for specific device sizes
-      'mobile': '375px',
-      'mobile-lg': '425px',
-      'tablet': '768px',
-      'laptop': '1024px',
-      'desktop': '1280px',
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/line-clamp'),
-    // Custom plugin for responsive paddings
-    function({ addComponents }) {
-      addComponents({
-        '.container': {
-          maxWidth: '100%',
-          '@screen sm': {
-            maxWidth: '640px',
-          },
-          '@screen md': {
-            maxWidth: '768px',
-          },
-          '@screen lg': {
-            maxWidth: '1024px',
-          },
-          '@screen xl': {
-            maxWidth: '1280px',
-          },
-        }
-      })
-    },
   ],
   // Future flag configurations
   future: {
@@ -166,13 +119,6 @@ module.exports = {
       borderWidth: ['hover', 'focus'],
       scale: ['group-hover'],
       transform: ['group-hover'],
-      // Mobile-specific variants
-      padding: ['responsive'],
-      margin: ['responsive'],
-      fontSize: ['responsive'],
-      display: ['responsive'],
-      width: ['responsive'],
-      height: ['responsive'],
     },
   },
 };
