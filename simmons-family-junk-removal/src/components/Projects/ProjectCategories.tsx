@@ -97,7 +97,7 @@ const ProjectCategories: React.FC<ProjectCategoriesProps> = ({
 
         {/* Desktop Category Grid */}
         <div className="hidden md:grid grid-cols-4 lg:grid-cols-7 gap-4">
-          {visibleCategories.map((category, index) => (
+          {visibleCategories.map((category) => (
             <motion.button
               key={category.id}
               onClick={() => onCategoryChange(category.id)}
@@ -105,7 +105,7 @@ const ProjectCategories: React.FC<ProjectCategoriesProps> = ({
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              transition={{ delay: 0.05 }}
               className={`flex flex-col items-center p-4 rounded-xl transition-all duration-300 ${
                 selectedCategory === category.id
                   ? `bg-blue-600 text-white shadow-lg`
@@ -144,7 +144,7 @@ const ProjectCategories: React.FC<ProjectCategoriesProps> = ({
         {/* Mobile Scrollable Categories */}
         <div className="md:hidden overflow-x-auto pb-4">
           <div className="flex space-x-4 min-w-max px-4">
-            {visibleCategories.map((category, index) => (
+            {visibleCategories.map((category) => (
               <motion.button
                 key={`mobile-${category.id}`}
                 onClick={() => onCategoryChange(category.id)}
