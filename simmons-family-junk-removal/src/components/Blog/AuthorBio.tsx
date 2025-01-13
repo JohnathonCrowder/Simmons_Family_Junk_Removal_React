@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Author } from "../../types/blog";
 
 interface AuthorBioProps {

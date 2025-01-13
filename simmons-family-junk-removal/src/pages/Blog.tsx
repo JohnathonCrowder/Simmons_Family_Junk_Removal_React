@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import blogData from "../data/blogPosts.json";
 import BlogHero from "../components/Blog/BlogHero";
 import FeaturedPost from "../components/Blog/FeaturedPost";
