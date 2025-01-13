@@ -90,22 +90,22 @@
       },
       {
         "id": 5,
-        "title": "Storage Unit Cleanout",
-        "category": "Storage",
+        "title": "Backyard Cleanup",
+        "category": "Yard",
         "location": "Battlefield, MO",
-        "beforeImage": "/images/projects/storage-before.jpg",
-        "afterImage": "/images/projects/storage-after.jpg",
-        "description": "Cleared out a long-term storage unit filled with furniture, boxes, and miscellaneous items. Helped client sort through items for keeping, donation, and disposal.",
+        "beforeImage": "/images/projects/backyard-before.jpg",
+        "afterImage": "/images/projects/backyard-after.jpg",
+        "description": "Cleared out a backyard filled with furniture, boxes, and miscellaneous items. Helped client sort through items for keeping, donation, and disposal.",
         "timeframe": "1 Day",
         "date": "January 2024",
         "services": [
-          "Storage Unit Clearing",
+          "Yard Clearing",
           "Item Sorting",
           "Donation Services",
           "Disposal"
         ],
         "stats": {
-          "itemsRemoved": "125+",
+          "itemsRemoved": "25+",
           "recyclingRate": "65%",
           "manHours": "6"
         }
@@ -175,6 +175,29 @@
           "recyclingRate": "60%",
           "manHours": "32"
         }
+      },
+      {
+        "id": 9,
+        "title": "Attic Insulation Cleanup",
+        "category": "Construction",
+        "location": "Springfield, MO",
+        "beforeImage": "/images/projects/insulation-before.jpg",
+        "afterImage": "/images/projects/insulation-after.jpg",
+        "description": "Cleared out a driveway filled with insulation and construction waste. Helped client with quick disposal of consturction materials.",
+        "timeframe": "1 Day",
+        "date": "January 2024",
+        "services": [
+          "Yard Clearing",
+          "Item Sorting",
+          "Donation Services",
+          "Disposal"
+        ],
+        "stats": {
+          "itemsRemoved": "50+",
+          "recyclingRate": "65%",
+          "manHours": "6"
+        }
       }
+      
     ]
   }
