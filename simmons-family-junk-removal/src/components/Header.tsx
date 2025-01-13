@@ -110,17 +110,18 @@ const Header: React.FC = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-x-0 top-[60px] z-40 md:hidden"
+            className="fixed inset-x-0 top-[72px] z-40 md:hidden" // Updated top position
           >
             <div className="bg-blue-900/95 backdrop-blur-md shadow-lg">
-              <div className="container mx-auto px-4 py-4">
-                <nav className="flex flex-col space-y-2">
+              <div className="container mx-auto py-4">
+                <nav className="flex flex-col space-y-2 px-4">
+                  {" "}
                   {navItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      className={`px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
                         location.pathname === item.path
                           ? "text-white bg-blue-500"
                           : "text-blue-100 hover:text-white hover:bg-blue-800"

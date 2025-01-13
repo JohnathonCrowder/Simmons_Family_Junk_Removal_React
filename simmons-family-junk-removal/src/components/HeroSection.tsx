@@ -43,16 +43,76 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 container mx-auto px-4 h-screen flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
-          {/* Left Column - Large Image */}
+      <div className="relative z-10 container mx-auto px-4 pt-24 pb-12 min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full">
+          {/* Left Column - Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="lg:col-span-5 text-white order-2 lg:order-1"
+          >
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 lg:mb-6 leading-tight">
+              Professional Junk Removal <br />
+              <span className="text-blue-300">Made Simple</span>
+            </h2>
+
+            <p className="text-blue-100 text-base sm:text-lg mb-6 lg:mb-8">
+              {subtitle}
+            </p>
+
+            <div className="space-y-4 mb-8 lg:mb-12">
+              {[
+                { icon: "clock", text: "Same-Day Service Available" },
+                { icon: "leaf", text: "Eco-Friendly Disposal Methods" },
+                { icon: "shield-alt", text: "Licensed and Fully Insured" },
+              ].map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 + index * 0.1 }}
+                  className="flex items-center space-x-3"
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-400/20 flex items-center justify-center">
+                    <i className={`fas fa-${feature.icon} text-blue-300`} />
+                  </div>
+                  <span className="text-sm sm:text-base text-blue-100">
+                    {feature.text}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                to={primaryButtonLink}
+                className="w-full sm:w-auto inline-flex items-center justify-center bg-blue-500 text-white px-6 py-4 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-lg text-sm sm:text-base"
+              >
+                {primaryButtonText}
+                <i className="fas fa-arrow-right ml-2" />
+              </Link>
+              {secondaryButtonText && secondaryButtonLink && (
+                <a
+                  href={secondaryButtonLink}
+                  className="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 text-white px-6 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 backdrop-blur-sm text-sm sm:text-base"
+                >
+                  <i className="fas fa-phone mr-2" />
+                  {secondaryButtonText}
+                </a>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Right Column - Large Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="lg:col-span-7 relative"
+            className="lg:col-span-7 relative order-1 lg:order-2"
           >
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-2xl">
               <img
                 src="/truck.jpg"
                 alt="Junk Removal Truck"
@@ -62,24 +122,24 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 decoding="async"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-900 via-transparent to-transparent opacity-60" />
             </div>
 
-            {/* Overlapping elements */}
-            <div className="absolute -bottom-6 left-6 right-6 bg-blue-500 text-white p-6 rounded-lg shadow-xl">
+            {/* Stats Overlay */}
+            <div className="absolute -bottom-6 left-4 right-4 lg:left-6 lg:right-6 bg-blue-500 text-white p-4 lg:p-6 rounded-lg shadow-xl">
               <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-4">
-                  <span className="text-4xl font-bold">5+</span>
-                  <span className="text-sm leading-tight">
+                <div className="flex items-center space-x-2 lg:space-x-4">
+                  <span className="text-2xl lg:text-4xl font-bold">5+</span>
+                  <span className="text-xs lg:text-sm leading-tight">
                     Years of
                     <br />
                     Experience
                   </span>
                 </div>
-                <div className="h-12 w-px bg-white/30" />
-                <div className="flex items-center space-x-4">
-                  <span className="text-4xl font-bold">500+</span>
-                  <span className="text-sm leading-tight">
+                <div className="hidden sm:block h-12 w-px bg-white/30" />
+                <div className="flex items-center space-x-2 lg:space-x-4">
+                  <span className="text-2xl lg:text-4xl font-bold">500+</span>
+                  <span className="text-xs lg:text-sm leading-tight">
                     Satisfied
                     <br />
                     Customers
@@ -88,67 +148,12 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
             </div>
           </motion.div>
-
-          {/* Right Column - Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 text-white"
-          >
-            <h2 className="text-5xl font-bold mb-6 leading-tight">
-              Professional Junk Removal <br />
-              <span className="text-blue-300">Made Simple</span>
-            </h2>
-
-            <p className="text-blue-100 text-lg mb-8">{subtitle}</p>
-
-            <div className="space-y-4 mb-12">
-              {[
-                { icon: "clock", text: "Same-Day Service Available" },
-                { icon: "leaf", text: "Eco-Friendly Disposal Methods" },
-                { icon: "shield-alt", text: "Licensed and Fully Insured" },
-              ].map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  className="flex items-center space-x-4"
-                >
-                  <div className="w-12 h-12 rounded-lg bg-blue-400/20 flex items-center justify-center">
-                    <i className={`fas fa-${feature.icon} text-blue-300`} />
-                  </div>
-                  <span className="text-blue-100">{feature.text}</span>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                to={primaryButtonLink}
-                className="inline-flex items-center justify-center bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 transition-all duration-300 shadow-lg"
-              >
-                {primaryButtonText}
-                <i className="fas fa-arrow-right ml-2" />
-              </Link>
-              {secondaryButtonText && secondaryButtonLink && (
-                <a
-                  href={secondaryButtonLink}
-                  className="inline-flex items-center justify-center bg-white/10 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
-                >
-                  <i className="fas fa-phone mr-2" />
-                  {secondaryButtonText}
-                </a>
-              )}
-            </div>
-          </motion.div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm py-4 text-white/70">
-        <div className="container mx-auto px-4 flex justify-between items-center text-sm">
+      <div className="absolute bottom-0 left-0 right-0 bg-black/30 backdrop-blur-sm py-3 text-white/70">
+        <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left text-xs sm:text-sm space-y-2 sm:space-y-0">
           <span>Serving Springfield and surrounding areas</span>
           <span>Family owned & operated since 2005</span>
         </div>

@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { motion, LazyMotion, domAnimation } from "framer-motion";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 // Import HeroSection normally since it's above the fold
 import HeroSection from "../components/HeroSection";
