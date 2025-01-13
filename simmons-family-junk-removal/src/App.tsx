@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Projects from "./pages/Projects";
+import Blog from "./pages/Blog";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/blog" element={<Blog />} />
           </Routes>
         </main>
         <Footer />

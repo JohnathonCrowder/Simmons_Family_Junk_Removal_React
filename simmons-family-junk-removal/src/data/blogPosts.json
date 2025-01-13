@@ -1,0 +1,114 @@
+
+{
+    "posts": [
+      {
+        "id": 1,
+        "title": "The Ultimate Guide to Decluttering Your Garage",
+        "slug": "ultimate-guide-decluttering-garage",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "February 15, 2024",
+        "readTime": "5 min read",
+        "category": "Tips & Tricks",
+        "image": "/images/blog/garage-cleanout.jpg",
+        "excerpt": "Learn my proven step-by-step method for transforming a cluttered garage into an organized, functional space. Based on over 500 successful garage cleanouts.",
+        "content": "After helping hundreds of homeowners reclaim their garage spaces, I've developed a foolproof system for garage organization that works every time...",
+        "tags": ["Garage Cleanout", "Organization Tips", "Storage Solutions"]
+      },
+      {
+        "id": 2,
+        "title": "How We Recycle 80% of Everything We Remove",
+        "slug": "how-we-recycle-80-percent",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "February 10, 2024",
+        "readTime": "4 min read",
+        "category": "Sustainability",
+        "image": "/images/blog/recycling-process.jpg",
+        "excerpt": "Discover our commitment to eco-friendly junk removal and how we ensure most items find new homes or get properly recycled.",
+        "content": "At Simmons Family Junk Removal, environmental responsibility isn't just a buzzword - it's a core part of our daily operations...",
+        "tags": ["Recycling", "Eco-Friendly", "Sustainability"]
+      },
+      {
+        "id": 3,
+        "title": "Estate Cleanout Success Story: From Overwhelming to Organized",
+        "slug": "estate-cleanout-success-story",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "February 5, 2024",
+        "readTime": "6 min read",
+        "category": "Case Studies",
+        "image": "/images/blog/estate-cleanout.jpg",
+        "excerpt": "A behind-the-scenes look at how we helped a family transform an inherited property from overwhelming chaos to ready-to-sell condition in just one week.",
+        "content": "When the Martinez family contacted us about clearing out their grandmother's home, we knew this project would require special care and attention...",
+        "tags": ["Estate Cleanout", "Success Story", "Property Transformation"]
+      },
+      {
+        "id": 4,
+        "title": "5 Signs It's Time to Call a Professional Junk Removal Service",
+        "slug": "signs-to-call-professional-service",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "January 30, 2024",
+        "readTime": "4 min read",
+        "category": "Professional Advice",
+        "image": "/images/blog/professional-service.jpg",
+        "excerpt": "Not sure if you need professional help? Here are the key indicators that suggest it's time to call in the experts.",
+        "content": "After years of helping countless homeowners and businesses, I've noticed some common situations that signal it's time for professional intervention...",
+        "tags": ["Professional Services", "Home Care", "Expert Tips"]
+      },
+      {
+        "id": 5,
+        "title": "Commercial Cleanout: A Guide for Business Owners",
+        "slug": "commercial-cleanout-guide",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "January 25, 2024",
+        "readTime": "7 min read",
+        "category": "Business Solutions",
+        "image": "/images/blog/commercial-cleanout.jpg",
+        "excerpt": "Everything business owners need to know about planning and executing a successful commercial cleanout with minimal disruption to operations.",
+        "content": "As someone who's handled countless commercial cleanouts, I understand the unique challenges businesses face when dealing with accumulated items and office renovations...",
+        "tags": ["Commercial Services", "Business Tips", "Office Cleanout"]
+      },
+      {
+        "id": 6,
+        "title": "Hoarding Cleanup: A Compassionate Approach",
+        "slug": "hoarding-cleanup-compassionate-approach",
+        "author": "Juan Simmons",
+        "authorRole": "Owner & Lead Expert",
+        "date": "January 20, 2024",
+        "readTime": "8 min read",
+        "category": "Specialized Services",
+        "image": "/images/blog/hoarding-cleanup.jpg",
+        "excerpt": "Understanding our caring, step-by-step approach to helping families dealing with hoarding situations.",
+        "content": "Hoarding situations require more than just junk removal - they need understanding, patience, and a carefully planned approach...",
+        "tags": ["Hoarding Cleanup", "Specialized Services", "Compassionate Care"]
+      }
+    ],
+    "categories": [
+      "Tips & Tricks",
+      "Sustainability",
+      "Case Studies",
+      "Professional Advice",
+      "Business Solutions",
+      "Specialized Services"
+    ],
+    "author": {
+      "name": "Juan Simmons",
+      "role": "Owner & Lead Expert",
+      "image": "/images/juan-profile.jpg",
+      "bio": "With over 15 years of experience in professional junk removal and property cleanouts, I'm passionate about helping people reclaim their spaces and sharing practical advice based on real-world experience.",
+      "credentials": [
+        "Licensed & Insured Professional",
+        "Certified in Eco-Friendly Disposal Methods",
+        "Specialized in Estate and Hoarding Cleanouts",
+        "500+ Successful Projects Completed"
+      ],
+      "social": {
+        "facebook": "https://facebook.com/simmonsjunkremoval",
+        "instagram": "https://instagram.com/simmonsjunkremoval",
+        "linkedin": "https://linkedin.com/in/juansimmons"
+      }
+    }
+  }
