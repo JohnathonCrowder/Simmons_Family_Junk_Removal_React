@@ -80,7 +80,7 @@ const Header: React.FC = () => {
                 className="text-blue-100 hover:text-white transition-colors duration-300"
               >
                 <i className="fas fa-phone mr-2" />
-                (417) 555-0123
+                (417) 425-2730
               </a>
               <Link
                 to="/contact"

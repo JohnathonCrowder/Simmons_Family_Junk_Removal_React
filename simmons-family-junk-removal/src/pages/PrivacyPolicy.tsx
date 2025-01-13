@@ -236,9 +236,9 @@ const PrivacyPolicy: React.FC = () => {
       content: {
         text: "If you have questions about our privacy practices or would like to exercise your rights, please contact us:",
         details: {
-          email: "privacy@simmonsjunkremoval.com",
-          phone: "(417) 555-0123",
-          address: "123 Main Street, Springfield, MO 65806",
+          email: "jsimmons@simmonsfamjunkremoval.com",
+          phone: "(417) 425-2730",
+          address: "Springfield, MO 65806",
           hours: "Monday - Friday: 9:00 AM - 5:00 PM CST",
         },
       } as StringContent,

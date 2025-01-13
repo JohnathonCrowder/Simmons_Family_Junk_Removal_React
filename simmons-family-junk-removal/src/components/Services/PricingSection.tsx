@@ -173,7 +173,7 @@ const PricingSection: React.FC = () => {
                 className="inline-flex items-center px-6 py-3 border border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
               >
                 <i className="fas fa-phone mr-2" />
-                (123) 456-7890
+                (417) 425-2730
               </a>
             </div>
           </div>

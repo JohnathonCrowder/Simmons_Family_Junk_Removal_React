@@ -77,7 +77,7 @@ const Home: React.FC = () => {
             description="Get started with a free, no-obligation quote today and experience the difference professional junk removal can make."
             primaryButtonText="Get Your Free Quote"
             primaryButtonLink="/contact"
-            secondaryButtonText="Call (123) 456-7890"
+            secondaryButtonText="Call (417) 425-2730"
             secondaryButtonLink="tel:+1234567890"
           />
         </Suspense>

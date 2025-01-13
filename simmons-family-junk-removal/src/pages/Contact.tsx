@@ -134,7 +134,7 @@ const Contact: React.FC = () => {
           description="Contact us today for a free, no-obligation quote and experience our top-notch service."
           primaryButtonText="Get Your Free Quote"
           primaryButtonLink="#contact-form"
-          secondaryButtonText="Call (123) 456-7890"
+          secondaryButtonText="Call (417) 425-2730"
           secondaryButtonLink="tel:+1234567890"
         />
       </Suspense>

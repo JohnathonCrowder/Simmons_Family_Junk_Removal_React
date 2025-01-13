@@ -41,7 +41,7 @@ const ContactInfo: React.FC = () => {
                     Call Us
                   </div>
                   <div className="text-2xl font-bold text-blue-100">
-                    (417) 555-0123
+                    (417) 425-2730
                   </div>
                 </div>
               </div>

@@ -87,7 +87,7 @@ const ContactForm: React.FC = () => {
               value={formData.phone}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="(123) 456-7890"
+              placeholder="(417) 425-2730"
               required
             />
           </div>

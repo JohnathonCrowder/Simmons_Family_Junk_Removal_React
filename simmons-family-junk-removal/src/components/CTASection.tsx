@@ -16,8 +16,8 @@ const CTASection: React.FC<CTASectionProps> = ({
   description = "Get your free, no-obligation quote today and experience the difference professional junk removal can make.",
   primaryButtonText = "Get Your Free Quote",
   primaryButtonLink = "/contact",
-  secondaryButtonText = "Call (417) 555-0123",
-  secondaryButtonLink = "tel:+14175550123",
+  secondaryButtonText = "Call (417) 425-2730",
+  secondaryButtonLink = "tel:+14174252730",
 }) => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 py-20">

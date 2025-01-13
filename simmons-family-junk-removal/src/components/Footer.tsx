@@ -93,17 +93,17 @@ const Footer: React.FC = () => {
               {[
                 {
                   icon: "map-marker-alt",
-                  text: "123 Main St, Springfield, MO 65806",
+                  text: "Springfield, MO 65806",
                 },
                 {
                   icon: "phone",
-                  text: "(417) 555-0123",
-                  href: "tel:+14175550123",
+                  text: "(417) 425-2730",
+                  href: "tel:+14174252730",
                 },
                 {
                   icon: "envelope",
-                  text: "info@simmonsjunk.com",
-                  href: "mailto:info@simmonsjunk.com",
+                  text: "jsimmons@simmonsfamjunkremoval.com",
+                  href: "mailto:jsimmons@simmonsfamjunkremoval.com",
                 },
                 { icon: "clock", text: "Mon-Sat: 7am - 7pm" },
               ].map((item, index) => (

@@ -163,7 +163,7 @@ const ServicesGrid: React.FC = () => {
               className="inline-flex items-center px-8 py-4 border border-blue-600 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300"
             >
               <i className="fas fa-phone mr-2" />
-              (123) 456-7890
+              (417) 425-2730
             </a>
           </div>
         </motion.div>
