@@ -1,9 +1,12 @@
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+import aspectRatio from '@tailwindcss/aspect-ratio';
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  // Enabling JIT mode is no longer needed in Tailwind CSS v3.0+
   theme: {
     extend: {
       colors: {
@@ -62,24 +65,19 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    // Removed @tailwindcss/line-clamp as it's now included by default
+    forms,
+    typography,
+    aspectRatio,
   ],
-  // Removed 'purge' configuration as it's replaced by 'content' in v3.0
-  // Future flags have been updated
   future: {
     hoverOnlyWhenSupported: true,
     respectDefaultRingColorOpacity: true,
     disableColorOpacityUtilitiesByDefault: true,
     removeDeprecatedGapUtilities: true,
   },
-  // Experimental features
   experimental: {
     optimizeUniversalDefaults: true,
   },
-  // Safelist update
   safelist: [
     'animate-spin',
     'animate-pulse',
