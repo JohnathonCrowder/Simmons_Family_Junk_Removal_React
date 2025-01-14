@@ -87,26 +87,49 @@ const TestimonialsSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Simple Review Platform Mentions */}
+        {/* Review Platform Links */}
         <div className="mt-16 text-center">
           <p className="text-gray-600 mb-4">Find more customer reviews on:</p>
           <div className="flex justify-center items-center gap-8 flex-wrap">
-            {["Google", "Yelp", "HomeAdvisor"].map((platform, index) => (
-              <motion.a
-                key={index}
-                href="#"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300"
-              >
-                <i
-                  className={`fab fa-${platform.toLowerCase()} text-xl mr-2`}
-                />
-                <span>{platform}</span>
-              </motion.a>
-            ))}
+            <motion.a
+              href="https://www.google.com/maps/place/Simmons+Family+Junk+Removal/@36.961589,-93.254587,10z/data=!4m8!3m7!1s0x6b1c641aa1fcb033:0xc77f7caeefdcbd0!8m2!3d36.961589!4d-93.254587!9m1!1b1!16s%2Fg%2F11ks490f2g?entry=ttu&g_ep=EgoyMDI1MDEwOC4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            >
+              <i className="fab fa-google text-xl mr-2" />
+              <span>Google</span>
+            </motion.a>
+            <motion.a
+              href="https://www.yelp.com/biz/simmons-family-junk-removal-springfield"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            >
+              <i className="fab fa-yelp text-xl mr-2" />
+              <span>Yelp</span>
+            </motion.a>
+            <motion.a
+              href="https://www.facebook.com/SimmonsFamily04/reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex items-center text-gray-600 hover:text-blue-600 transition-colors duration-300"
+            >
+              <i className="fab fa-facebook text-xl mr-2" />
+              <span>Facebook</span>
+            </motion.a>
           </div>
         </div>
       </div>

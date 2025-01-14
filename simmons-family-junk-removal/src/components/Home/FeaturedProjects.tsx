@@ -1,63 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import Modal from "./Modal";
+import projectsData from "../../data/projects.json";
 
 const FeaturedProjects: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
-
-  const projects = [
-    {
-      title: "Complete Home Cleanout",
-      category: "Residential",
-      description:
-        "Transformed a cluttered 3,000 sq ft home into a clean, organized space in just 2 days.",
-      stats: {
-        items: "250+",
-        time: "2 days",
-        recycled: "80%",
-      },
-      image: "/images/home-cleanout.jpg",
-      tags: ["Furniture Removal", "Appliance Disposal", "Eco-Friendly"],
-      fullDescription:
-        "This project presented unique challenges with multiple rooms of accumulated items. Our team worked systematically, room by room, ensuring valuable items were preserved while removing unwanted clutter.",
-      challenges: [
-        "Multiple rooms of heavy furniture",
-        "Delicate family heirlooms to preserve",
-        "Tight deadline for real estate listing",
-      ],
-      results: [
-        "Completely cleared space ready for sale",
-        "80% of materials recycled or donated",
-        "Finished ahead of schedule",
-      ],
-    },
-    {
-      title: "Office Renovation Cleanout",
-      category: "Commercial",
-      description:
-        "Cleared out an entire office floor for renovation, ensuring minimal disruption to business operations.",
-      stats: {
-        items: "500+",
-        time: "1 day",
-        recycled: "75%",
-      },
-      image: "/images/office-cleanout.jpg",
-      tags: ["Office Furniture", "E-Waste", "Quick Turnaround"],
-      fullDescription:
-        "This commercial cleanout involved removing outdated office furniture, electronics, and renovation debris from a 10,000 sq ft office space.",
-      challenges: [
-        "Working within strict building hours",
-        "Proper disposal of sensitive materials",
-        "Coordinating with multiple stakeholders",
-      ],
-      results: [
-        "Zero disruption to neighboring businesses",
-        "All electronics properly recycled",
-        "Completed under budget",
-      ],
-    },
-  ];
+  // Take just 3 featured projects from the projects data
+  const featuredProjects = projectsData.projects.slice(0, 3);
 
   return (
     <section className="py-20 bg-white">
@@ -70,144 +18,114 @@ const FeaturedProjects: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1 rounded-full">
+          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
             Our Work
           </span>
           <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
-            Featured Projects
+            Featured Transformations
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            See the transformation for yourself. Real projects, real results.
+            See the difference we make with our before and after transformations
           </p>
         </motion.div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {featuredProjects.map((project, index) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              key={project.id}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              layout="position"
+              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
             >
-              <div className="relative h-96 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="800"
-                  height="600"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div>
-                    <div className="flex items-center mb-3">
-                      <div className="inline-block px-4 py-1 bg-blue-600 rounded-full text-sm font-semibold text-white mb-2">
-                        {project.category}
-                      </div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-white/80 mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
+              {/* Image Section */}
+              <div className="relative h-80 overflow-hidden bg-gray-100">
+                {/* After Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={project.afterImage}
+                    alt="After transformation"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+
+                {/* Before Image Overlay */}
+                <div className="absolute inset-0 overflow-hidden group-hover:opacity-0 transition-opacity duration-500">
+                  <div className="relative h-full w-full">
+                    <img
+                      src={project.beforeImage}
+                      alt="Before transformation"
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
                   </div>
+                </div>
+
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg z-10">
+                  {project.category}
+                </div>
+
+                {/* Before/After Label */}
+                <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                  <span className="bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
+                    <i className="fas fa-sync-alt mr-2" />
+                    Before & After
+                  </span>
                 </div>
               </div>
 
-              <div className="p-8">
-                {/* Project Stats */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
-                  {Object.entries(project.stats).map(
-                    ([key, value], statIndex) => (
-                      <div key={statIndex} className="text-center">
-                        <div className="text-2xl font-bold text-blue-600 mb-1">
-                          {value}
-                        </div>
-                        <div className="text-sm text-gray-500 capitalize">
-                          {key === "recycled" ? "Recycled" : key}
-                        </div>
-                      </div>
-                    )
-                  )}
+              {/* Content Section */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <div className="flex items-center text-gray-600 text-sm mb-4">
+                  <i className="fas fa-map-marker-alt mr-2" />
+                  {project.location}
                 </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.entries(project.stats).map(([key, value], index) => (
+                    <div
+                      key={index}
+                      className="bg-gray-50 rounded-lg p-2 text-center"
                     >
-                      {tag}
-                    </span>
+                      <div className="text-blue-600 font-bold">{value}</div>
+                      <div className="text-xs text-gray-500 capitalize">
+                        {key.replace(/([A-Z])/g, " $1").trim()}
+                      </div>
+                    </div>
                   ))}
                 </div>
+              </div>
 
-                <button
-                  onClick={() => setSelectedProject(index)}
-                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300"
+              {/* Footer */}
+              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
+                <Link
+                  to="/projects"
+                  className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center group/button w-full"
                 >
-                  View Details
-                  <i className="fas fa-arrow-right ml-2" />
-                </button>
+                  <span>View Project Details</span>
+                  <i className="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover/button:translate-x-1" />
+                </Link>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Modal */}
-        <Modal
-          isOpen={selectedProject !== null}
-          onClose={() => setSelectedProject(null)}
-          project={selectedProject !== null ? projects[selectedProject] : null}
-        />
-
-        {/* Testimonial Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 bg-blue-600 rounded-2xl p-8 md:p-12 text-white relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-800" />
-          <div className="absolute inset-0 opacity-10">
-            <i className="fas fa-quote-left text-9xl absolute top-4 left-4" />
-            <i className="fas fa-quote-right text-9xl absolute bottom-4 right-4" />
-          </div>
-
-          <div className="relative z-10">
-            <p className="text-2xl font-medium mb-6 text-center">
-              "The team was incredibly professional and efficient. They
-              transformed our space in no time. Highly recommend their
-              services!"
-            </p>
-            <div className="flex items-center justify-center">
-              <img
-                src="/images/client-avatar.jpg"
-                alt="John Doe"
-                className="w-16 h-16 rounded-full border-4 border-white/20 mr-4"
-                loading="lazy"
-                decoding="async"
-                width="64"
-                height="64"
-              />
-              <div>
-                <div className="font-semibold">John Doe</div>
-                <div className="text-blue-200">Homeowner</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* CTA Section */}
+        {/* View All CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -216,13 +134,13 @@ const FeaturedProjects: React.FC = () => {
           className="text-center mt-16"
         >
           <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-            Ready to start your own success story?
+            Want to see more of our transformations?
           </h3>
           <Link
-            to="/contact"
+            to="/projects"
             className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
           >
-            Get Your Free Quote
+            View All Projects
             <i className="fas fa-arrow-right ml-2" />
           </Link>
         </motion.div>
