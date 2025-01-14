@@ -27,21 +27,33 @@ const Footer: React.FC = () => {
               Family-owned and operated since 2005.
             </p>
             <div className="flex space-x-4">
-              {[
-                { icon: "facebook-f", url: "#" },
-                { icon: "twitter", url: "#" },
-                { icon: "instagram", url: "#" },
-                { icon: "linkedin-in", url: "#" },
-              ].map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center transition-colors duration-300"
-                  aria-label={`Follow us on ${social.icon}`}
-                >
-                  <i className={`fab fa-${social.icon}`} />
-                </a>
-              ))}
+              <a
+                href="https://www.facebook.com/SimmonsFamily04"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center transition-colors duration-300"
+                aria-label="Follow us on Facebook"
+              >
+                <i className="fab fa-facebook-f" />
+              </a>
+              <a
+                href="https://www.instagram.com/simmons_family_junk_removal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center transition-colors duration-300"
+                aria-label="Follow us on Instagram"
+              >
+                <i className="fab fa-instagram" />
+              </a>
+              <a
+                href="https://www.youtube.com/@SimmonsFamilyJunkRemoval"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg bg-blue-800 hover:bg-blue-700 flex items-center justify-center transition-colors duration-300"
+                aria-label="Subscribe to our YouTube channel"
+              >
+                <i className="fab fa-youtube" />
+              </a>
             </div>
           </div>
 
