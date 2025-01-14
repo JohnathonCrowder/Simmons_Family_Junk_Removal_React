@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import projectsData from "../../data/projects.json";
+import ProjectModal from "./ProjectModal";
 
 interface Project {
   id: number;
@@ -176,138 +177,12 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ selectedCategory }) => {
           </motion.div>
         )}
 
-        {/* Project Details Modal */}
-        <AnimatePresence>
-          {selectedProject && (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
-                onClick={() => setSelectedProject(null)}
-              />
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                className="fixed inset-4 md:inset-10 bg-white rounded-2xl z-50 overflow-auto"
-              >
-                <div className="relative">
-                  {/* Close Button */}
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="absolute top-4 right-4 w-10 h-10 bg-black/10 hover:bg-black/20 rounded-full flex items-center justify-center text-white z-10"
-                  >
-                    <i className="fas fa-times" />
-                  </button>
-
-                  {/* Modal Content */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2">
-                    {/* Image Section */}
-                    <div className="relative h-96 lg:h-full">
-                      <img
-                        src={selectedProject.afterImage}
-                        alt="After"
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 w-1/2 overflow-hidden">
-                        <img
-                          src={selectedProject.beforeImage}
-                          alt="Before"
-                          className="w-[200%] h-full object-cover"
-                        />
-                        <div className="absolute inset-y-0 right-0 w-1 bg-white" />
-                      </div>
-                      <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                        Before
-                      </div>
-                      <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
-                        After
-                      </div>
-                    </div>
-
-                    {/* Details Section */}
-                    <div className="p-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                        {selectedProject.title}
-                      </h3>
-                      <div className="flex items-center text-gray-600 mb-6">
-                        <i className="fas fa-map-marker-alt mr-2" />
-                        {selectedProject.location}
-                      </div>
-
-                      <div className="space-y-6">
-                        <p className="text-gray-600">
-                          {selectedProject.description}
-                        </p>
-
-                        {/* Project Stats */}
-                        <div className="grid grid-cols-3 gap-4">
-                          {Object.entries(selectedProject.stats).map(
-                            ([key, value]) => (
-                              <div
-                                key={key}
-                                className="text-center bg-gray-50 rounded-xl p-4"
-                              >
-                                <div className="text-2xl font-bold text-blue-600">
-                                  {value}
-                                </div>
-                                <div className="text-sm text-gray-600 capitalize">
-                                  {key.replace(/([A-Z])/g, " $1").trim()}
-                                </div>
-                              </div>
-                            )
-                          )}
-                        </div>
-
-                        {/* Services */}
-                        <div>
-                          <h4 className="font-semibold text-gray-900 mb-3">
-                            Services Provided
-                          </h4>
-                          <div className="grid grid-cols-2 gap-3">
-                            {selectedProject.services.map((service, index) => (
-                              <div
-                                key={index}
-                                className="flex items-center text-gray-600"
-                              >
-                                <i className="fas fa-check text-blue-600 mr-2" />
-                                {service}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Timeline */}
-                        <div className="bg-gray-50 rounded-xl p-6">
-                          <div className="flex items-center justify-between mb-4">
-                            <div>
-                              <div className="text-sm text-gray-600">
-                                Project Duration
-                              </div>
-                              <div className="font-semibold text-gray-900">
-                                {selectedProject.timeframe}
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm text-gray-600">
-                                Completed
-                              </div>
-                              <div className="font-semibold text-gray-900">
-                                {selectedProject.date}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
+        {/* Project Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={selectedProject !== null}
+          onClose={() => setSelectedProject(null)}
+        />
       </div>
     </section>
   );
