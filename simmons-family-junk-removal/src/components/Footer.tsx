@@ -9,12 +9,19 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Company Info */}
           <div className="space-y-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
-                <i className="fas fa-truck-loading text-white text-xl" />
+            <Link to="/" className="flex items-center space-x-3">
+              <img
+                src="/logo.png"
+                alt="Simmons Family Junk Removal"
+                className="h-12 w-auto"
+              />
+              <div className="flex flex-col">
+                <span className="text-white font-bold text-lg">
+                  Simmons Family
+                </span>
+                <span className="text-blue-300 text-sm">Junk Removal</span>
               </div>
-              <span className="text-white font-bold text-xl">Simmons</span>
-            </div>
+            </Link>
             <p className="text-blue-200">
               Professional junk removal services in Springfield, MO.
               Family-owned and operated since 2005.
