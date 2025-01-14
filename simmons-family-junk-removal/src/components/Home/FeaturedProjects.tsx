@@ -18,9 +18,6 @@ const FeaturedProjects: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
-            Our Work
-          </span>
           <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
             Featured Transformations
           </h2>
@@ -96,7 +93,7 @@ const FeaturedProjects: React.FC = () => {
                 </p>
 
                 {/* Quick Stats */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-3 gap-2 mb-4">
                   {Object.entries(project.stats).map(([key, value], index) => (
                     <div
                       key={index}

@@ -61,9 +61,6 @@ const ServicesSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-            Our Services
-          </span>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             What We Offer
           </h2>

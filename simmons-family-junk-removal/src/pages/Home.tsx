@@ -8,16 +8,16 @@ import HeroSection from "../components/HeroSection";
 const ServicesSection = lazy(
   () => import("../components/Home/ServicesSection")
 );
+const ProcessSection = lazy(() => import("../components/Home/ProcessSection"));
 const FeaturedProjects = lazy(
   () => import("../components/Home/FeaturedProjects")
 );
-const ProcessSection = lazy(() => import("../components/Home/ProcessSection"));
 const TestimonialsSection = lazy(
   () => import("../components/Home/TestimonialsSection")
 );
 const CTASection = lazy(() => import("../components/CTASection"));
 
-// Improved loading fallback with skeleton
+// Loading fallback with skeleton
 const SectionSkeleton: React.FC = () => (
   <div className="w-full max-w-7xl mx-auto px-4 py-12">
     <div className="animate-pulse">
@@ -54,23 +54,27 @@ const Home: React.FC = () => {
           secondaryButtonLink="tel:+1234567890"
         />
 
-        {/* Wrap each lazy-loaded section in its own Suspense boundary */}
+        {/* Services Section */}
         <Suspense fallback={<SectionSkeleton />}>
           <ServicesSection />
         </Suspense>
 
-        <Suspense fallback={<SectionSkeleton />}>
-          <FeaturedProjects />
-        </Suspense>
-
+        {/* Process Section - Moved before Featured Projects */}
         <Suspense fallback={<SectionSkeleton />}>
           <ProcessSection />
         </Suspense>
 
+        {/* Featured Projects - Moved after Process Section */}
+        <Suspense fallback={<SectionSkeleton />}>
+          <FeaturedProjects />
+        </Suspense>
+
+        {/* Testimonials Section */}
         <Suspense fallback={<SectionSkeleton />}>
           <TestimonialsSection />
         </Suspense>
 
+        {/* CTA Section */}
         <Suspense fallback={<SectionSkeleton />}>
           <CTASection
             title="Ready to Reclaim Your Space?"
