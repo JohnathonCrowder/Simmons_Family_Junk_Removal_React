@@ -5,73 +5,49 @@ import { motion } from "framer-motion";
 const ServicesSection: React.FC = () => {
   const services = [
     {
-      icon: "home",
       title: "Residential Junk Removal",
       description:
         "From furniture to appliances, we'll clear out your home or apartment with care and efficiency.",
-      features: [
-        "Same-day service",
-        "Full house cleanouts",
-        "Appliance removal",
-      ],
       image: "/images/residential-junk.jpg",
-      color: "blue",
     },
     {
-      icon: "building",
       title: "Commercial Services",
       description:
         "Keep your business clutter-free with our professional commercial junk removal services.",
-      features: [
-        "Office cleanouts",
-        "Construction debris",
-        "Equipment disposal",
-      ],
       image: "/images/commercial-junk.jpg",
-      color: "indigo",
     },
     {
-      icon: "leaf",
       title: "Yard Waste Removal",
       description:
         "Transform your outdoor space. We handle all types of yard debris and green waste.",
-      features: ["Landscaping debris", "Tree branches", "Soil and rocks"],
       image: "/images/yard-waste.jpg",
-      color: "blue",
     },
     {
-      icon: "box",
       title: "Storage Unit Cleanout",
       description:
         "Clearing out a storage unit? We'll handle the heavy lifting and disposal.",
-      features: ["Complete emptying", "Organized removal", "Proper disposal"],
       image: "/images/storage-unit.jpg",
-      color: "indigo",
     },
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="inline-block text-4xl md:text-5xl font-bold text-gray-900 px-4 pb-4 border-b-4 border-blue-500">
             What We Offer
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive junk removal solutions tailored to your needs. Fast,
-            reliable, and eco-friendly service guaranteed.
-          </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Services Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -79,88 +55,68 @@ const ServicesSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="flex flex-col md:flex-row bg-gray-50 rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group"
             >
-              {/* Image Section - Made Taller */}
-              <div className="relative h-96 overflow-hidden">
+              {/* Service Image */}
+              <div className="md:w-2/5 h-64 md:h-auto relative overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  width="600"
-                  height="400"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                {/* Content Overlay */}
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div>
-                    <div className="flex items-center mb-3">
-                      <div className="w-12 h-12 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mr-4 shadow-lg">
-                        <i
-                          className={`fas fa-${service.icon} text-2xl text-white`}
-                        />
-                      </div>
-                      <h3 className="text-2xl font-bold text-white drop-shadow-lg">
-                        {service.title}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
               </div>
 
-              {/* Content Section */}
-              <div className="p-8">
-                <p className="text-gray-600 mb-6 text-lg">
-                  {service.description}
-                </p>
-                <ul className="space-y-4 mb-8">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start">
-                      <span className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-3 mt-1 flex-shrink-0">
-                        <i className="fas fa-check text-blue-600 text-sm" />
-                      </span>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Service Content */}
+              <div className="md:w-3/5 p-8 flex flex-col justify-center">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-6">{service.description}</p>
                 <Link
                   to="/services"
-                  className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 transition-colors duration-300 group"
+                  className="inline-flex items-center text-blue-600 font-semibold group"
                 >
-                  Learn More
-                  <i className="fas fa-arrow-right ml-2 transform transition-transform duration-300 group-hover:translate-x-2" />
+                  <span className="mr-2">Learn More</span>
+                  <span className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors duration-300">
+                    <i className="fas fa-arrow-right text-blue-600"></i>
+                  </span>
                 </Link>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.6 }}
+          className="bg-blue-600 rounded-3xl p-12 text-center text-white relative overflow-hidden"
         >
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-            Ready to get started? Get your free quote today!
-          </h3>
-          <Link
-            to="/contact"
-            className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            Get a Free Quote
-            <motion.i
-              className="fas fa-arrow-right ml-2"
-              whileHover={{ x: 5 }}
-              transition={{ duration: 0.2 }}
-            />
-          </Link>
+          {/* Decorative Elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-0 left-0 w-64 h-64 border-4 border-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 border-4 border-white rounded-full translate-x-1/2 translate-y-1/2"></div>
+          </div>
+
+          <div className="relative z-10">
+            <h3 className="text-3xl font-bold mb-4">
+              Don't see what you're looking for?
+            </h3>
+            <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8">
+              We offer a wide range of junk removal services. Contact us for a
+              custom solution tailored to your needs.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300 shadow-lg"
+            >
+              Get a Free Quote
+              <i className="fas fa-arrow-right ml-2"></i>
+            </Link>
+          </div>
         </motion.div>
       </div>
     </section>

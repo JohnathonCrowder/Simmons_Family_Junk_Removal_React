@@ -28,7 +28,7 @@ const FeaturedProjects: React.FC = () => {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project, index) => (
+          {featuredProjects.map((project) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0 }}
