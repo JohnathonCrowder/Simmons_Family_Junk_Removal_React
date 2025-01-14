@@ -42,87 +42,87 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ selectedCategory }) => {
       <div className="container mx-auto px-4">
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                whileHover={{ y: -5 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="bg-white rounded-xl overflow-hidden shadow-lg border border-gray-100"
+                layout="position"
+                className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
               >
                 {/* Image Section */}
-                <div className="relative">
-                  <div className="aspect-w-16 aspect-h-9">
-                    {/* Before/After Comparison */}
-                    <div
-                      className="relative w-full h-full group cursor-pointer"
-                      onClick={() => setSelectedProject(project)}
-                    >
-                      <img
-                        src={project.afterImage}
-                        alt="After"
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 w-1/2 overflow-hidden transition-all duration-300 group-hover:w-1/3">
-                        <img
-                          src={project.beforeImage}
-                          alt="Before"
-                          className="w-[200%] h-full object-cover"
-                        />
-                        <div className="absolute inset-y-0 right-0 w-1 bg-white" />
-                      </div>
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                <div className="relative h-80 overflow-hidden bg-gray-100">
+                  {/* After Image with loading optimization */}
+                  <div className="absolute inset-0">
+                    <img
+                      src={project.afterImage}
+                      alt="After transformation"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
 
-                      {/* Labels */}
-                      <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                        Before
-                      </div>
-                      <div className="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
-                        After
-                      </div>
+                  {/* Before Image Overlay with loading optimization */}
+                  <div className="absolute inset-0 overflow-hidden group-hover:opacity-0 transition-opacity duration-500">
+                    <div className="relative h-full w-full">
+                      <img
+                        src={project.beforeImage}
+                        alt="Before transformation"
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
                     </div>
+                  </div>
+
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg z-10">
+                    {project.category}
+                  </div>
+
+                  {/* Before/After Label */}
+                  <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+                    <span className="bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
+                      <i className="fas fa-sync-alt mr-2" />
+                      Before & After
+                    </span>
                   </div>
                 </div>
 
                 {/* Content Section */}
                 <div className="p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-1">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <i className="fas fa-map-marker-alt mr-2" />
-                        {project.location}
-                      </div>
-                    </div>
-                    <span className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
-                      {project.timeframe}
-                    </span>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center text-gray-600 text-sm mb-4">
+                    <i className="fas fa-map-marker-alt mr-2" />
+                    {project.location}
                   </div>
 
-                  <p className="text-gray-600 mb-4 line-clamp-2">
+                  <p className="text-gray-600 mb-4 line-clamp-3">
                     {project.description}
                   </p>
 
                   {/* Quick Stats */}
-                  <div className="grid grid-cols-3 gap-4 mb-4">
-                    {Object.entries(project.stats).map(([key, value]) => (
-                      <div
-                        key={key}
-                        className="text-center bg-gray-50 rounded-lg p-2"
-                      >
-                        <div className="text-blue-600 font-bold">{value}</div>
-                        <div className="text-xs text-gray-600 capitalize">
-                          {key.replace(/([A-Z])/g, " $1").trim()}
+                  <div className="grid grid-cols-3 gap-2 mb-4">
+                    {Object.entries(project.stats).map(
+                      ([key, value], index) => (
+                        <div
+                          key={index}
+                          className="bg-gray-50 rounded-lg p-2 text-center"
+                        >
+                          <div className="text-blue-600 font-bold">{value}</div>
+                          <div className="text-xs text-gray-500 capitalize">
+                            {key.replace(/([A-Z])/g, " $1").trim()}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
 
                   {/* Services Tags */}
@@ -147,10 +147,10 @@ const ProjectsGrid: React.FC<ProjectsGridProps> = ({ selectedCategory }) => {
                 <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
                   <button
                     onClick={() => setSelectedProject(project)}
-                    className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center"
+                    className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center group/button w-full"
                   >
-                    View Project Details
-                    <i className="fas fa-arrow-right ml-2" />
+                    <span>View Project Details</span>
+                    <i className="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover/button:translate-x-1" />
                   </button>
                 </div>
               </motion.div>
