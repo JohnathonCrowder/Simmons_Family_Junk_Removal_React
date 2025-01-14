@@ -64,10 +64,7 @@ const ProcessSection: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1 rounded-full">
-            Simple Process
-          </span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
             How It Works
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -133,7 +130,7 @@ const ProcessSection: React.FC = () => {
           ))}
         </div>
 
-        {/* Customer Satisfaction Guarantee */}
+        {/* Our Promise Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
