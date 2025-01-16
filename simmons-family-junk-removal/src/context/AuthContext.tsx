@@ -25,18 +25,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const login = async (username: string, password: string) => {
     try {
-      console.log("Attempting login to:", `${BASE_URL}/api/admin/login`);
       const response = await axios.post(`${BASE_URL}/api/admin/login`, {
         username,
         password,
       });
-      console.log("Login response:", response.data);
       const token = response.data.token;
       localStorage.setItem("adminToken", token);
       axios.defaults.headers.common["x-auth-token"] = token;
       setIsAuthenticated(true);
     } catch (error) {
-      console.error("Login error:", error);
       throw new Error("Login failed");
     }
   };
