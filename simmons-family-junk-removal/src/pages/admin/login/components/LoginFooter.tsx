@@ -3,17 +3,19 @@ import { Link } from "react-router-dom";
 
 const LoginFooter: React.FC = () => {
   return (
-    <div className="mt-6 text-center space-y-4">
+    <div className="mt-8 text-center">
       <Link
         to="/"
-        className="text-neon-blue hover:text-neon-purple transition-colors"
+        className="text-blue-200 hover:text-white transition-colors inline-flex items-center"
       >
-        ← Return to main site
+        <i className="fas fa-arrow-left mr-2"></i>
+        Return to main site
       </Link>
 
-      <p className="text-gray-500 text-sm">
-        Authorized personnel only. All access attempts are logged.
-      </p>
+      <div className="mt-4 text-blue-200/60 text-sm">
+        <p>© {new Date().getFullYear()} Simmons Family Junk Removal</p>
+        <p>Authorized personnel only</p>
+      </div>
     </div>
   );
 };

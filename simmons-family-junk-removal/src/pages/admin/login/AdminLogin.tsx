@@ -1,62 +1,27 @@
 import React from "react";
+import LoginHeader from "./components/LoginHeader";
 import LoginForm from "./components/LoginForm";
-import { motion } from "framer-motion";
+import LoginFooter from "./components/LoginFooter";
 
 const AdminLogin: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gray-900 relative overflow-hidden">
-      {/* Background pattern */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: "url(/metal-texture.jpg)", // Add a metal texture image
-          backgroundSize: "cover",
-        }}
-      ></div>
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234299E1' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
 
-      {/* Decorative elements */}
-      <div className="absolute -top-20 -left-20 w-80 h-80 bg-blue-800 rounded-full filter blur-3xl opacity-20"></div>
-      <div className="absolute -bottom-20 -right-20 w-80 h-80 bg-orange-600 rounded-full filter blur-3xl opacity-20"></div>
-
-      <div className="relative z-10 container mx-auto px-4 py-24 flex flex-col items-center justify-center">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8 flex items-center"
-        >
-          <img
-            src="/logo.png"
-            alt="Simmons Family Junk Removal Logo"
-            className="h-16 w-auto mr-4"
-          />
-          <div>
-            <h1 className="text-3xl font-bold text-white">Admin Login</h1>
-            <p className="text-gray-400">Simmons Family Junk Removal</p>
-          </div>
-        </motion.div>
-
-        {/* Login Form */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-          className="w-full max-w-md bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-700"
-        >
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-md mx-auto">
+          <LoginHeader />
           <LoginForm />
-        </motion.div>
-
-        {/* Footer Text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-8 text-gray-500 text-sm text-center"
-        >
-          © {new Date().getFullYear()} Simmons Family Junk Removal. All rights
-          reserved.
-        </motion.p>
+          <LoginFooter />
+        </div>
       </div>
     </div>
   );
