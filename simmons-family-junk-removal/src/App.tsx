@@ -29,7 +29,16 @@ function App() {
           <Header />
           <main className="flex-grow">
             <Routes>
-              {/* ... existing routes ... */}
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/post/:id" element={<BlogPostPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />

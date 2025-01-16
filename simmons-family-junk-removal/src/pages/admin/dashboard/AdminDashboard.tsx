@@ -8,7 +8,7 @@ import ControlPanel from "./components/ControlPanel";
 import PostsTable from "./components/PostsTable";
 import PostsGrid from "./components/PostsGrid";
 import DeleteModal from "./components/DeleteModal";
-import NewsletterSection from "./components/NewsLetterSection";
+import NewsletterSection from "./components/NewsletterSection";
 import ContactSubmissions from "./components/ContactSubmissions";
 
 // New ServerSwitch component
@@ -17,7 +17,7 @@ const ServerSwitch: React.FC<{
   onServerChange: (url: string) => void;
 }> = ({ currentServer, onServerChange }) => {
   const servers = {
-    production: "https://codefusionlabs-backend.onrender.com/api/posts",
+    production: "https://your-production-server.com/api/posts",
     local: "http://localhost:5000/api/posts",
   };
 
@@ -29,7 +29,7 @@ const ServerSwitch: React.FC<{
   };
 
   return (
-    <div className="glass rounded-xl p-6 mb-8">
+    <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 mb-8 border border-white/20">
       <h3 className="text-xl font-bold text-white mb-4">
         Server Configuration
       </h3>
@@ -39,12 +39,12 @@ const ServerSwitch: React.FC<{
           onChange={(e) =>
             onServerChange(servers[e.target.value as keyof typeof servers])
           }
-          className="glass-card rounded-lg px-4 py-2 text-white focus:outline-none"
+          className="bg-white/10 border border-blue-300/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-400"
         >
           <option value="production">Production Server</option>
           <option value="local">Local Server</option>
         </select>
-        <div className="text-sm text-gray-400">
+        <div className="text-blue-200">
           Current:{" "}
           {getCurrentServerName(currentServer).charAt(0).toUpperCase() +
             getCurrentServerName(currentServer).slice(1)}
@@ -54,17 +54,12 @@ const ServerSwitch: React.FC<{
   );
 };
 
-// Extend the Post interface to include category
-interface ExtendedPost extends Post {
-  category?: string;
-}
-
 const AdminDashboard: React.FC = () => {
-  const [posts, setPosts] = useState<ExtendedPost[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [postToDelete, setPostToDelete] = useState<ExtendedPost | null>(null);
+  const [postToDelete, setPostToDelete] = useState<Post | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
@@ -74,7 +69,7 @@ const AdminDashboard: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  // New state for server management
+  // Server management state
   const [currentServer, setCurrentServer] = useState(
     localStorage.getItem("serverUrl") || import.meta.env.VITE_API_URL
   );
@@ -82,14 +77,14 @@ const AdminDashboard: React.FC = () => {
   const handleServerChange = (newServer: string) => {
     localStorage.setItem("serverUrl", newServer);
     setCurrentServer(newServer);
-    // Optional: Refresh the page to apply changes
     window.location.reload();
   };
 
   const fetchPosts = async () => {
     try {
       const fetchedPosts = await getPosts();
-      setPosts(fetchedPosts as ExtendedPost[]);
+      setPosts(fetchedPosts);
+      setError(null);
     } catch (err) {
       setError("Failed to fetch posts");
     } finally {
@@ -103,24 +98,30 @@ const AdminDashboard: React.FC = () => {
 
   const refreshPosts = async () => {
     setLoading(true);
-    try {
-      await fetchPosts();
-    } catch (err) {
-      setError("Failed to refresh posts");
-    } finally {
-      setLoading(false);
-    }
+    await fetchPosts();
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("serverUrl"); // Clear server URL on logout
+    localStorage.removeItem("serverUrl");
     logout();
     navigate("/admin/login");
   };
 
-  const handleDeleteClick = (post: ExtendedPost) => {
+  const handleDeleteClick = (post: Post) => {
     setPostToDelete(post);
     setDeleteModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (!postToDelete) return;
+    try {
+      await deletePost(postToDelete._id);
+      setPosts(posts.filter((p) => p._id !== postToDelete._id));
+      setDeleteModalOpen(false);
+      setPostToDelete(null);
+    } catch (err) {
+      setError("Failed to delete post");
+    }
   };
 
   const filteredPosts = posts.filter((post) => {
@@ -133,48 +134,25 @@ const AdminDashboard: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
-      <style>
-        {`
-          .glass {
-            background: rgba(26, 26, 47, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(33, 150, 243, 0.1);
-          }
-
-          .glass-card {
-            background: rgba(26, 26, 47, 0.3);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(33, 150, 243, 0.2);
-            transition: all 0.3s ease;
-          }
-
-          .glass-card:hover {
-            border-color: rgba(33, 150, 243, 0.5);
-            box-shadow: 0 0 15px rgba(33, 150, 243, 0.2);
-          }
-        `}
-      </style>
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0 opacity-10">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234299E1' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
 
       <DeleteModal
         isOpen={deleteModalOpen}
         post={postToDelete}
         onClose={() => setDeleteModalOpen(false)}
-        onDelete={async () => {
-          try {
-            if (postToDelete) {
-              await deletePost(postToDelete._id);
-              setPosts(posts.filter((post) => post._id !== postToDelete._id));
-              setDeleteModalOpen(false);
-            }
-          } catch (err) {
-            console.error("Error deleting post:", err);
-            setError("Failed to delete post");
-          }
-        }}
+        onDelete={handleDelete}
       />
 
-      <div className="container mx-auto px-4">
+      <div className="relative z-10 container mx-auto px-4 pt-8 pb-16">
         <DashboardHeader onLogout={handleLogout} />
 
         {/* Server Switch */}
@@ -183,38 +161,23 @@ const AdminDashboard: React.FC = () => {
           onServerChange={handleServerChange}
         />
 
-        {/* Section Navigation */}
-        <div className="flex space-x-4 mb-8">
-          <button
-            onClick={() => setActiveSection("posts")}
-            className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-              activeSection === "posts"
-                ? "bg-neon-blue text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            Posts
-          </button>
-          <button
-            onClick={() => setActiveSection("newsletter")}
-            className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-              activeSection === "newsletter"
-                ? "bg-neon-blue text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            Newsletter
-          </button>
-          <button
-            onClick={() => setActiveSection("contact")}
-            className={`px-4 py-2 rounded-lg transition-all duration-300 ${
-              activeSection === "contact"
-                ? "bg-neon-blue text-white"
-                : "text-gray-400 hover:text-white"
-            }`}
-          >
-            Contact
-          </button>
+        {/* Navigation Tabs */}
+        <div className="flex space-x-2 mb-8">
+          {["posts", "newsletter", "contact"].map((section) => (
+            <button
+              key={section}
+              onClick={() =>
+                setActiveSection(section as "posts" | "newsletter" | "contact")
+              }
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                activeSection === section
+                  ? "bg-blue-500 text-white"
+                  : "bg-white/10 text-blue-200 hover:bg-white/20"
+              }`}
+            >
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </button>
+          ))}
         </div>
 
         {activeSection === "posts" ? (
@@ -232,15 +195,19 @@ const AdminDashboard: React.FC = () => {
 
             {loading ? (
               <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon-blue"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
               </div>
             ) : error ? (
-              <div className="text-red-500 text-center py-8">{error}</div>
+              <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-lg">
+                {error}
+              </div>
             ) : viewMode === "table" ? (
-              <PostsTable
-                posts={filteredPosts}
-                onDeleteClick={handleDeleteClick}
-              />
+              <div className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden">
+                <PostsTable
+                  posts={filteredPosts}
+                  onDeleteClick={handleDeleteClick}
+                />
+              </div>
             ) : (
               <PostsGrid
                 posts={filteredPosts}
