@@ -46,7 +46,7 @@ const BlogGridSkeleton: React.FC = () => (
     {[1, 2, 3].map((i) => (
       <div key={i} className="animate-pulse">
         <div className="bg-white/10 rounded-xl">
-          <div className="h-48 bg-white/20 rounded-t-xl"></div>
+          <div className="aspect-w-16 aspect-h-9 bg-white/20"></div>
           <div className="p-6">
             <div className="h-4 bg-white/20 rounded w-1/4 mb-4"></div>
             <div className="h-6 bg-white/20 rounded w-3/4 mb-3"></div>
