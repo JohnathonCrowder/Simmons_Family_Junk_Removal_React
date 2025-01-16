@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import { getPostById, updatePost } from "../../api/posts";
-import StyleProvider from "./components/StyleProvider";
 import EditPostHeader from "./components/EditPostHeader";
 import EditPostForm from "./components/EditPostForm";
 
-// Define the shape of the form data that matches EditPostForm's expectations
 interface EditPostFormData {
   title: string;
   excerpt: string;
   content: string;
-  category: string; // Required string
-  tags: string[]; // Required array
+  category: string;
+  tags: string[];
   image?: string;
 }
 
@@ -32,18 +31,14 @@ const EditPost: React.FC = () => {
     try {
       if (!id) throw new Error("No post ID provided");
       const fetchedPost = await getPostById(id);
-
-      // Transform the fetched post to match EditPostFormData shape
-      const formattedPost: EditPostFormData = {
+      setPost({
         title: fetchedPost.title,
         excerpt: fetchedPost.excerpt,
         content: fetchedPost.content,
-        category: fetchedPost.category || "", // Provide default empty string
-        tags: fetchedPost.tags || [], // Provide default empty array
-        image: fetchedPost.image || undefined,
-      };
-
-      setPost(formattedPost);
+        category: fetchedPost.category || "",
+        tags: fetchedPost.tags || [],
+        image: fetchedPost.image,
+      });
       setLoading(false);
     } catch (err) {
       setError("Failed to fetch post");
@@ -72,42 +67,50 @@ const EditPost: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-24 pb-16 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neon-blue"></div>
+      <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-800 pt-24 pb-16 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
       </div>
     );
   }
 
   return (
-    <StyleProvider>
-      <div className="min-h-screen pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <EditPostHeader />
+    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-800 pt-24 pb-16">
+      <div className="container mx-auto px-4">
+        <div className="max-w-5xl mx-auto">
+          <EditPostHeader />
 
-            {error && (
-              <div className="glass bg-red-500/10 text-red-400 p-4 rounded-lg mb-6">
-                {error}
-              </div>
-            )}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-lg mb-6"
+            >
+              {error}
+            </motion.div>
+          )}
 
-            {successMessage && (
-              <div className="glass bg-green-500/10 text-green-400 p-4 rounded-lg mb-6 success-message">
-                {successMessage}
-              </div>
-            )}
+          {successMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-green-500/10 border border-green-500/20 text-green-400 p-4 rounded-lg mb-6"
+            >
+              {successMessage}
+            </motion.div>
+          )}
 
-            {post && (
+          {post && (
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 overflow-hidden shadow-xl">
               <EditPostForm
                 post={post}
                 onSubmit={handleSubmit}
                 isSaving={saving}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
-    </StyleProvider>
+    </div>
   );
 };
 
