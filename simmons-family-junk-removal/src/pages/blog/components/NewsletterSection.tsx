@@ -1,36 +1,37 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const NewsletterSection: React.FC = () => {
   return (
-    <section id="newsletter" className="mt-20">
-      <div className="relative bg-cyber-darker border border-neon-purple/20 rounded-xl p-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-neon-blue/10 via-neon-purple/10 to-neon-pink/10"></div>
-        <div className="relative z-10">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-white mb-4">
-              Stay in the Loop
-            </h2>
-            <p className="text-gray-400 mb-6">
-              Subscribe to our newsletter for the latest tech insights and
-              tutorials.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-4">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-grow bg-cyber-darker border border-neon-blue/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-neon-blue"
-              />
-              <button
-                type="submit"
-                className="px-6 py-2 bg-neon-purple text-white rounded-lg hover:bg-neon-purple/80 transition-all duration-300"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="max-w-4xl mx-auto mt-20 bg-white/10 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-white/20"
+    >
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-4">
+          Get Junk Removal Tips
+        </h2>
+        <p className="text-blue-100 mb-8">
+          Subscribe to our newsletter for expert advice on decluttering,
+          eco-friendly disposal, and more!
+        </p>
+        <form className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="flex-grow px-6 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            className="px-8 py-3 bg-yellow-400 text-blue-900 rounded-lg font-semibold hover:bg-yellow-300 transition-colors"
+          >
+            Subscribe
+          </button>
+        </form>
       </div>
-    </section>
+    </motion.div>
   );
 };
 
