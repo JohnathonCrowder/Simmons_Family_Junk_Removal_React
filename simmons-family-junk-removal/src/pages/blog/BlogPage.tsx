@@ -37,15 +37,33 @@ const SearchFiltersSkeleton: React.FC = () => (
 );
 
 const FeaturedPostSkeleton: React.FC = () => (
-  <div className="animate-pulse mb-12">
-    <div className="bg-white/10 rounded-xl overflow-hidden">
-      <div className="grid md:grid-cols-2">
-        <div className="h-72 bg-white/20"></div>
-        <div className="p-8">
-          <div className="h-6 bg-white/20 rounded w-1/4 mb-6"></div>
-          <div className="h-10 bg-white/20 rounded w-3/4 mb-4"></div>
-          <div className="h-4 bg-white/20 rounded w-full mb-3"></div>
-          <div className="h-4 bg-white/20 rounded w-5/6"></div>
+  <div className="mb-16">
+    <div className="relative max-w-[1400px] mx-auto">
+      <div className="grid grid-cols-12 gap-4 rounded-2xl overflow-hidden bg-gradient-to-r from-blue-900 to-blue-800 shadow-2xl">
+        {/* Content Section Skeleton */}
+        <div className="col-span-12 lg:col-span-5 p-8 md:p-12">
+          <div className="animate-pulse">
+            <div className="w-32 h-6 bg-white/20 rounded-full mb-6" />
+            <div className="space-y-3 mb-6">
+              <div className="h-8 bg-white/20 rounded w-3/4" />
+              <div className="h-8 bg-white/20 rounded w-1/2" />
+            </div>
+            <div className="space-y-2 mb-8">
+              <div className="h-4 bg-white/20 rounded w-full" />
+              <div className="h-4 bg-white/20 rounded w-5/6" />
+              <div className="h-4 bg-white/20 rounded w-4/6" />
+            </div>
+            <div className="flex gap-4 mb-8">
+              <div className="h-4 bg-white/20 rounded w-32" />
+              <div className="h-4 bg-white/20 rounded w-24" />
+            </div>
+            <div className="w-36 h-10 bg-white/20 rounded-lg" />
+          </div>
+        </div>
+
+        {/* Image Section Skeleton */}
+        <div className="col-span-12 lg:col-span-7 relative min-h-[400px] lg:min-h-[600px]">
+          <div className="absolute inset-0 bg-white/10 animate-pulse" />
         </div>
       </div>
     </div>
