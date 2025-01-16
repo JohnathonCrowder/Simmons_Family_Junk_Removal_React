@@ -3,51 +3,38 @@ import { Link } from "react-router-dom";
 import { Post } from "../../../api/posts";
 import { BASE_URL } from "@/utils/config";
 
-interface RelatedPostsProps {
-  currentPost: Post;
-  posts: Post[];
-}
-
-const RelatedPosts: React.FC<RelatedPostsProps> = ({ currentPost, posts }) => {
-  // Filter out current post and get posts with matching tags
+const RelatedPosts: React.FC<{ currentPost: Post; posts: Post[] }> = ({
+  currentPost,
+  posts,
+}) => {
   const relatedPosts = posts
     .filter((post) => post._id !== currentPost._id)
-    .filter((post) => {
-      const hasMatchingTag = post.tags?.some((tag) =>
-        currentPost.tags?.includes(tag)
-      );
-      return hasMatchingTag;
-    })
-    .slice(0, 3); // Limit to 3 related posts
-
-  if (relatedPosts.length === 0) return null;
+    .slice(0, 3);
 
   return (
-    <div className="mt-12 border-t border-gray-700 pt-8">
-      <h3 className="text-xl font-bold text-white mb-6">Related Posts</h3>
+    <div className="bg-white rounded-xl shadow-xl p-6 md:p-8">
+      <h2 className="text-2xl font-bold text-blue-900 mb-6">Related Posts</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {relatedPosts.map((post) => (
           <Link
             key={post._id}
             to={`/post/${post._id}`}
-            className="group block bg-cyber-light/30 rounded-lg overflow-hidden hover:bg-cyber-light/40 transition-all duration-300"
+            className="group block bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow"
           >
             {post.image && (
-              <div className="h-48 overflow-hidden">
+              <div className="aspect-w-16 aspect-h-9">
                 <img
                   src={`${BASE_URL}${post.image}`}
                   alt={post.title}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover"
                 />
               </div>
             )}
             <div className="p-4">
-              <h4 className="text-lg font-semibold text-white mb-2 group-hover:text-neon-blue transition-colors">
+              <h3 className="font-semibold text-blue-900 group-hover:text-blue-600 transition-colors">
                 {post.title}
-              </h4>
-              <p className="text-gray-400 text-sm">
-                {post.excerpt.substring(0, 100)}...
-              </p>
+              </h3>
+              <p className="text-sm text-gray-600 mt-2">{post.excerpt}</p>
             </div>
           </Link>
         ))}
