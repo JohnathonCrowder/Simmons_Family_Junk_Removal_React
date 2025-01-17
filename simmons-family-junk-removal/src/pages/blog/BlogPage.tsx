@@ -120,15 +120,6 @@ const ErrorDisplay: React.FC<{ message: string }> = ({ message }) => (
   </div>
 );
 
-const LoadingSpinner: React.FC = () => (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-900 to-blue-800">
-    <div className="relative w-20 h-20">
-      <div className="absolute top-0 left-0 w-full h-full border-4 border-white/20 rounded-full"></div>
-      <div className="absolute top-0 left-0 w-full h-full border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
-    </div>
-  </div>
-);
-
 const BlogPage: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);

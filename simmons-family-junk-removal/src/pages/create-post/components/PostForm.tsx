@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface PostFormProps {
   onSubmit: (formData: FormData) => Promise<void>;
@@ -6,6 +7,7 @@ interface PostFormProps {
 }
 
 const PostForm: React.FC<PostFormProps> = ({ onSubmit, isLoading }) => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [excerpt, setExcerpt] = useState("");
