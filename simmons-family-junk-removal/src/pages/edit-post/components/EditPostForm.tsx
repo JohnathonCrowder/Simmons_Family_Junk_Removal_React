@@ -1,6 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { BASE_URL } from "@/utils/config";
 
 interface EditPostFormProps {
@@ -27,7 +26,6 @@ const EditPostForm: React.FC<EditPostFormProps> = ({
   const [imagePreview, setImagePreview] = useState<string | null>(
     post.image ? `${BASE_URL}${post.image}` : null
   );
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {

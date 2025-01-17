@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import BlogPage from "./pages/blog/BlogPage"; // New blog page component
 import BlogPostPage from "./pages/blog-post/BlogPostPage"; // Individual post page

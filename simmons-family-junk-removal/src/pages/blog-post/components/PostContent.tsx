@@ -5,7 +5,7 @@ import { Post } from "../../../api/posts";
 const PostContent: React.FC<{ post: Post }> = ({ post }) => {
   return (
     <div className="prose max-w-none prose-blue">
-      <style jsx>{`
+      <style>{`
         .prose h2 {
           color: theme("colors.blue.900");
         }

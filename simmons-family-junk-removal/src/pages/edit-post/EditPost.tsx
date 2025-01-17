@@ -37,7 +37,7 @@ const EditPost: React.FC = () => {
         content: fetchedPost.content,
         category: fetchedPost.category || "",
         tags: fetchedPost.tags || [],
-        image: fetchedPost.image,
+        image: fetchedPost.image || undefined,
       });
       setLoading(false);
     } catch (err) {

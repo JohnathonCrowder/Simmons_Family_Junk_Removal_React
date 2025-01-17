@@ -1,8 +1,4 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import ImageUpload from "./ImageUpload";
-import TagInput from "./TagInput";
-import SubmitButton from "./SubmitButton";
+import React, { useState } from "react";
 
 interface PostFormProps {
   onSubmit: (formData: FormData) => Promise<void>;
