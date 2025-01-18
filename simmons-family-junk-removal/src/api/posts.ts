@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Get the base URL from environment variable or fall back to the production URL
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://simmonsfamilyjunkremoval-backend.onrender.com';
 
 const API_URL = `${API_BASE_URL}/api/posts`;
 
