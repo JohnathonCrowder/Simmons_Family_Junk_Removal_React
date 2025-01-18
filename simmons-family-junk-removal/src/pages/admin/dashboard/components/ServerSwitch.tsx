@@ -10,7 +10,8 @@ const ServerSwitch: React.FC<ServerSwitchProps> = ({
   onServerChange,
 }) => {
   const servers = {
-    production: "https://codefusionlabs-backend.onrender.com/api/posts",
+    production:
+      "https://simmonsfamilyjunkremoval-backend.onrender.com/api/posts",
     local: "http://localhost:5000/api/posts",
   };
 

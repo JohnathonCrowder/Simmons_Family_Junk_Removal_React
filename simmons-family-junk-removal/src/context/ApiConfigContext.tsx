@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 const LOCAL_BACKEND = "http://localhost:5000/api/posts";
 const DEPLOYED_BACKEND =
-  "https://codefusionlabs-backend.onrender.com/api/posts";
+  "https://simmonsfamilyjunkremoval-backend.onrender.com/api/posts";
 const LS_KEY = "apiBackend";
 
 interface ApiConfigContextType {
