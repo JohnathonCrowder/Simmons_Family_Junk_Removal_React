@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const ServicesGrid: React.FC = () => {
@@ -7,64 +6,105 @@ const ServicesGrid: React.FC = () => {
     {
       icon: "home",
       title: "Residential Junk Removal",
-      description: "Professional removal of household items and debris.",
+      description:
+        "Our team handles everything from single-item pickups to full house cleanouts. We work around your schedule to efficiently remove unwanted items, ensuring minimal disruption to your daily routine.",
       features: [
-        "Full house cleanouts",
-        "Garage & basement clearing",
-        "Appliance removal",
+        "Entire home cleanouts",
+        "Garage & attic clearing",
+        "Safe appliance removal",
+        "Flexible scheduling options",
       ],
     },
     {
       icon: "building",
-      title: "Commercial Services",
-      description: "Efficient cleanouts for offices and construction sites.",
+      title: "Commercial Junk Removal",
+      description:
+        "Keep your Springfield-area business clutter-free with our fast commercial junk removal. We handle office equipment, retail fixtures, and construction debris, so you can focus on running your enterprise.",
       features: [
-        "Office furniture removal",
-        "Retail cleanouts",
-        "Warehouse clearing",
+        "Office & retail cleanouts",
+        "Restaurant & warehouse haul-offs",
+        "Construction site debris removal",
+        "Timely service to minimize downtime",
       ],
     },
     {
       icon: "couch",
       title: "Furniture Removal",
-      description: "Safe disposal of old or unwanted furniture pieces.",
+      description:
+        "Eliminate the hassle of moving heavy furniture. Our friendly team ensures proper handling and disposal, often donating usable pieces to local charities, reducing waste in Springfield’s landfills.",
       features: [
-        "All sizes handled",
-        "Eco-friendly disposal",
+        "All types of furniture",
         "Donation coordination",
+        "Eco-friendly disposal",
+        "White-glove removal approach",
       ],
     },
     {
       icon: "truck-loading",
       title: "Appliance Disposal",
-      description: "Proper handling and recycling of large appliances.",
+      description:
+        "From refrigerators and washers to dishwashers and dryers, we safely disconnect and haul away large appliances, following EPA regulations for recycling or disposal.",
       features: [
-        "Safe disconnection",
-        "EPA-compliant disposal",
-        "All types accepted",
+        "Professional disconnection",
+        "EPA-compliant recycling",
+        "Pickup of all appliance types",
+        "Preventive leak & spill measures",
       ],
     },
     {
       icon: "hard-hat",
-      title: "Construction Debris",
-      description: "Quick removal of renovation and construction waste.",
-      features: ["Same-day service", "Flexible scheduling", "All debris types"],
+      title: "Construction Debris Removal",
+      description:
+        "Renovating your property? We swiftly remove leftover drywall, lumber, and other building materials. Our crew ensures your workspace remains safe and clear of tripping hazards.",
+      features: [
+        "Same-day debris pickup",
+        "Removal of wood, metal, & more",
+        "Loading & hauling included",
+        "Licensed & insured professionals",
+      ],
     },
     {
       icon: "leaf",
-      title: "Yard Waste Removal",
-      description: "Comprehensive outdoor cleanup and waste removal.",
+      title: "Yard Waste Cleanup",
+      description:
+        "Reclaim your outdoor space by removing branches, leaves, soil, and storm debris. Our yard waste service is perfect for landscaping overhauls or seasonal cleanups in Springfield’s variable climate.",
       features: [
-        "Storm debris cleanup",
-        "Landscaping waste",
-        "Soil & rock removal",
+        "Storm debris collection",
+        "Landscaping & seasonal waste",
+        "Safe disposal of natural materials",
+        "Service for residential & commercial",
+      ],
+    },
+    {
+      icon: "bed",
+      title: "Mattress & Box Spring Removal",
+      description:
+        "Don’t struggle with bulky mattresses or box springs. We ensure proper disposal or donation of gently used bedding, keeping your home clutter-free and comfortable.",
+      features: [
+        "All mattress sizes",
+        "Sanitary handling protocols",
+        "Donation for gently used items",
+        "Quick & efficient pickup",
+      ],
+    },
+    {
+      icon: "trash-alt",
+      title: "Estate Cleanouts",
+      description:
+        "Manage sensitive estate transitions smoothly with our supportive team. We handle sorting, donating, and hauling away unwanted items, allowing you to focus on what matters most.",
+      features: [
+        "Compassionate, discreet service",
+        "Sorting & donation coordination",
+        "Full-property cleanout solutions",
+        "Free on-site estimates",
       ],
     },
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 bg-gradient-to-b from-white to-blue-50">
       <div className="container mx-auto px-4">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -72,19 +112,18 @@ const ServicesGrid: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-            Our Services
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            What We Offer
+          <h2 className="text-5xl font-extrabold text-blue-700 mb-4">
+            Junk Removal Solutions for Every Need
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Comprehensive junk removal solutions tailored to your needs.
-            Professional, reliable, and eco-friendly service guaranteed.
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            From small pickups to major cleanouts, Simmons Family Junk Removal
+            offers a variety of junk removal services for Springfield, MO,
+            ensuring a clutter-free life for homeowners, businesses, and more.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Service Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -92,17 +131,27 @@ const ServicesGrid: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100"
+              className="relative bg-white rounded-3xl border-2 border-yellow-500 shadow-lg p-8 transform hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300"
             >
-              <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-6 text-white text-2xl group-hover:scale-110 transition-transform duration-300">
-                <i className={`fas fa-${service.icon}`} />
+              {/* Floating Icon */}
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                <div className="w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center text-white shadow-lg">
+                  <i
+                    className={`fas fa-${service.icon} text-2xl`}
+                    aria-hidden="true"
+                  ></i>
+                </div>
               </div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900">
+
+              {/* Service Title & Description */}
+              <h3 className="text-2xl font-bold text-blue-700 mt-8 mb-4 text-center">
                 {service.title}
               </h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-600 mb-6 text-center">
                 {service.description}
               </p>
+
+              {/* Service Features */}
               <ul className="space-y-2 mb-6">
                 {service.features.map((feature, featureIndex) => (
                   <li
@@ -114,58 +163,33 @@ const ServicesGrid: React.FC = () => {
                   </li>
                 ))}
               </ul>
-              <Link
-                to="/contact"
-                className="inline-flex items-center text-blue-600 font-semibold group-hover:text-blue-700 transition-colors"
-              >
-                Get a Quote
-                <motion.i
-                  className="fas fa-arrow-right ml-2"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </Link>
             </motion.div>
           ))}
         </div>
 
+        {/* Additional Informative Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-20 text-center bg-blue-50 rounded-2xl p-8 border border-blue-100"
+          className="mt-20 bg-blue-50 rounded-3xl p-8 text-center"
         >
-          <div className="inline-flex items-center justify-center p-1 rounded-full bg-blue-100 text-blue-600 mb-6">
-            <i className="fas fa-phone p-3 bg-blue-600 text-white rounded-full" />
-            <span className="px-4 font-semibold">
-              Need immediate assistance?
-            </span>
-          </div>
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-            Can't find what you're looking for?
+          <h3 className="text-3xl font-bold text-blue-700 mb-6">
+            Trusted by Springfield & Beyond
           </h3>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            We offer custom solutions for unique situations. Contact us to
-            discuss your specific needs and get a free, no-obligation quote.
+          <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
+            Our commitment to eco-friendly solutions, transparent pricing, and
+            prompt service has made us a top choice in the region. Join the
+            countless residential and commercial clients who have benefited from
+            a clutter-free environment.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              to="/contact"
-              className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              Get a Free Quote
-              <i className="fas fa-arrow-right ml-2" />
-            </Link>
-            <a
-              href="tel:+1234567890"
-              className="inline-flex items-center px-8 py-4 border border-blue-600 text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all duration-300"
-            >
-              <i className="fas fa-phone mr-2" />
-              (417) 425-2730
-            </a>
-          </div>
+          <p className="text-lg text-gray-600 mb-6 max-w-3xl mx-auto">
+            Have a unique situation? Our team is flexible and ready to discuss
+            custom junk removal plans. Reach out to learn more about our process
+            and how we can assist you in achieving a cleaner, more organized
+            space.
+          </p>
         </motion.div>
       </div>
     </section>

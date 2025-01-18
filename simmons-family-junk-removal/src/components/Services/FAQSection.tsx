@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const FAQSection: React.FC = () => {
+const RadicalFAQSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
@@ -23,7 +23,7 @@ const FAQSection: React.FC = () => {
     {
       question: "Are you eco-friendly? What happens to my junk?",
       answer:
-        "Absolutely! We're committed to environmentally responsible disposal. We sort through all collected items and ensure that as much as possible is recycled or donated. Only items that can't be recycled or reused are taken to licensed disposal facilities.",
+        "Absolutely! We're committed to environmentally responsible disposal. We sort through all collected items and ensure that as much as possible is recycled or donated. Only items that can't be reused or recycled are taken to licensed disposal facilities.",
     },
     {
       question: "What areas do you serve?",
@@ -38,97 +38,119 @@ const FAQSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="container mx-auto px-4">
+    <section className="relative py-24 overflow-hidden bg-white">
+      {/* Radial Gradient Background */}
+      <div className="absolute inset-0 pointer-events-none bg-radial-gradient from-blue-50 via-blue-100 to-white">
+        <div className="absolute w-72 h-72 bg-yellow-200/30 rounded-full blur-3xl top-1/4 left-1/4"></div>
+        <div className="absolute w-96 h-96 bg-blue-100/20 rounded-full blur-3xl bottom-1/4 right-1/4"></div>
+      </div>
+
+      <div className="container mx-auto px-4 relative">
+        {/* Heading & Intro: Two-Column Layout */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
-            FAQ
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Find answers to common questions about our junk removal services.
-          </p>
+          <div className="text-center md:text-left">
+            <span className="inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold mb-4">
+              FAQ
+            </span>
+            <h2 className="text-5xl font-extrabold text-blue-700 mb-4">
+              Questions & Answers
+            </h2>
+            <p className="text-lg text-gray-600">
+              Learn more about our junk removal services. Click any question for
+              an expanded explanation.
+            </p>
+          </div>
+
+          {/* Icon Instead of Illustration */}
+          <div className="hidden md:flex justify-center">
+            <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center border-2 border-yellow-500 shadow-lg transform hover:scale-105 transition-transform duration-300">
+              <i className="fas fa-question text-blue-700 text-5xl" />
+            </div>
+          </div>
         </motion.div>
 
-        <div className="max-w-3xl mx-auto">
+        {/* FAQ Cards in a Masonry-Like Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {faqs.map((faq, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="relative bg-white rounded-3xl border-2 border-yellow-500 p-6 shadow-lg transform hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-shadow duration-300"
             >
+              {/* Question Title */}
               <div
-                className="mb-4 cursor-pointer"
+                className="cursor-pointer flex items-center justify-between"
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
               >
-                <div className="flex items-center justify-between p-6 bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <h3 className="text-lg font-semibold text-gray-900 pr-8">
-                    {faq.question}
-                  </h3>
-                  <div
-                    className={`transform transition-transform duration-300 ${
-                      openIndex === index ? "rotate-180" : ""
-                    }`}
-                  >
-                    <i className="fas fa-chevron-down text-blue-600" />
-                  </div>
-                </div>
-                <AnimatePresence>
-                  {openIndex === index && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-6 bg-blue-50 rounded-b-xl border-t border-blue-100">
-                        <p className="text-gray-600 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <h3 className="text-lg font-semibold text-blue-700 pr-6">
+                  {faq.question}
+                </h3>
+                <motion.div
+                  animate={{ rotate: openIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-yellow-500"
+                >
+                  <i className="fas fa-chevron-down" />
+                </motion.div>
               </div>
+
+              {/* Answer Content */}
+              <AnimatePresence>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="mt-4 pt-4 border-t border-yellow-200">
+                      <p className="text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
 
+        {/* "Still Have Questions?" Card */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.6, delay: faqs.length * 0.1 }}
+          className="mt-16 mx-auto max-w-2xl bg-blue-50 rounded-3xl border-2 border-yellow-500 p-8 shadow-lg hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-shadow duration-300 text-center"
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Still have questions?
+          <h3 className="text-2xl font-bold text-blue-700 mb-4">
+            Still Have Questions?
           </h3>
-          <p className="text-gray-600 mb-8">
-            Can't find the answer you're looking for? Reach out to our team.
+          <p className="text-gray-600 mb-6">
+            Not seeing what you need? Our team is here to help. Reach out for
+            more information!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="tel:+1234567890"
-              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
             >
               <i className="fas fa-phone mr-2" />
-              Call Us Now
+              Call Us
             </a>
             <a
               href="mailto:info@example.com"
-              className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-300"
+              className="inline-flex items-center px-6 py-3 border border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-50 transition-colors"
             >
               <i className="fas fa-envelope mr-2" />
               Email Us
@@ -140,4 +162,4 @@ const FAQSection: React.FC = () => {
   );
 };
 
-export default FAQSection;
+export default RadicalFAQSection;
