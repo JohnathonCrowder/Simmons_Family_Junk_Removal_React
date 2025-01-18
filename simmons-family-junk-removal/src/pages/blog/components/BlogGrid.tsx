@@ -40,7 +40,7 @@ const LazyImage: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
   }, [src]);
 
   return (
-    <div className="relative w-full h-48 bg-gray-200">
+    <div className="relative w-full h-64 bg-gray-200">
       {!error ? (
         <>
           <img
