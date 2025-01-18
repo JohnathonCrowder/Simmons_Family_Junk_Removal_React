@@ -8,7 +8,7 @@ import ControlPanel from "./components/ControlPanel";
 import PostsTable from "./components/PostsTable";
 import PostsGrid from "./components/PostsGrid";
 import DeleteModal from "./components/DeleteModal";
-import NewsletterSection from "./components/NewsletterSection";
+//import NewsletterSection from "./components/NewsletterSection";
 import ContactSubmissions from "./components/ContactSubmissions";
 
 // New ServerSwitch component
@@ -216,7 +216,7 @@ const AdminDashboard: React.FC = () => {
             )}
           </>
         ) : activeSection === "newsletter" ? (
-          <NewsletterSection />
+          <ContactSubmissions />
         ) : (
           <ContactSubmissions />
         )}
