@@ -1,186 +1,137 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
-const PricingSection: React.FC = () => {
-  const pricingTiers = [
+const HighlightSection: React.FC = () => {
+  const highlights = [
     {
-      name: "1/8 Truck Load",
-      price: "99",
-      description: "Perfect for small cleanouts",
-      idealFor: "1-2 items, small spaces",
-      features: [
-        "Single item removal",
-        "Small apartment cleanout",
-        "Minimum load charge",
-        "Labor & disposal included",
-      ],
-      icon: "box",
+      icon: "https://cdn-icons-png.flaticon.com/512/2427/2427123.png",
+      title: "Proudly Serving Springfield",
+      description:
+        "We’re rooted in Springfield, MO, and dedicated to helping our neighbors keep their homes and businesses clutter-free.",
     },
     {
-      name: "1/4 Truck Load",
-      price: "189",
-      description: "Ideal for medium-sized jobs",
-      idealFor: "Multiple items, single room",
-      popular: true,
-      features: [
-        "Multiple item removal",
-        "Single room cleanout",
-        "Furniture & appliances",
-        "Same-day service available",
-      ],
-      icon: "dolly",
+      icon: "https://cdn-icons-png.flaticon.com/512/1055/1055688.png",
+      title: "Reliable & Professional",
+      description:
+        "From quick quotes to timely service, we pride ourselves on reliability and clear communication.",
     },
     {
-      name: "1/2 Truck Load",
-      price: "289",
-      description: "Great for larger cleanouts",
-      idealFor: "Multiple rooms, garage",
-      features: [
-        "Large volume removal",
-        "Multiple room cleanout",
-        "Construction debris",
-        "Priority scheduling",
-      ],
-      icon: "truck-loading",
+      icon: "https://cdn-icons-png.flaticon.com/512/2143/2143722.png",
+      title: "Sustainable Solutions",
+      description:
+        "We go the extra mile to recycle and donate items, helping protect Springfield’s natural beauty.",
     },
     {
-      name: "Full Truck Load",
-      price: "469",
-      description: "Complete cleanout solution",
-      idealFor: "Whole house, full estate",
-      features: [
-        "Maximum capacity load",
-        "Full property cleanout",
-        "Commercial quantities",
-        "Multiple trip discount",
-      ],
-      icon: "truck",
+      icon: "https://cdn-icons-png.flaticon.com/512/189/189671.png",
+      title: "Family-Owned Values",
+      description:
+        "Simmons Family Junk Removal is built on honesty and respect—treating you like part of our family.",
     },
   ];
 
   return (
-    <section className="py-24 bg-blue-900 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-800 to-blue-900" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
+    <section className="relative bg-gradient-to-b from-white to-blue-50 py-24 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/3 w-96 h-96 bg-blue-100/50 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-yellow-200/30 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-1 bg-blue-800 text-blue-200 rounded-full text-sm font-semibold mb-4">
-            Our Pricing
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Transparent, Simple Pricing
+      <div className="container mx-auto px-6 relative">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-extrabold text-blue-700">
+            Why Springfield Chooses Us
           </h2>
-          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            Our pricing is based on how much space your junk takes up in our
-            truck. No hidden fees, just honest, upfront pricing.
+          <p className="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
+            Simmons Family Junk Removal is built on local pride and family
+            values. Here’s why your Springfield neighbors trust us with their
+            junk removal needs.
           </p>
-        </motion.div>
+        </div>
 
+        {/* Highlights Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {pricingTiers.map((tier, index) => (
-            <motion.div
+          {highlights.map((highlight, index) => (
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className={`relative bg-white rounded-2xl shadow-xl overflow-hidden ${
-                tier.popular ? "ring-4 ring-blue-500" : ""
-              }`}
+              className="bg-white rounded-3xl border-2 border-yellow-500 shadow-lg p-8 text-center transform hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300"
             >
-              {tier.popular && (
-                <div className="absolute top-0 right-0 bg-blue-500 text-white px-4 py-1 rounded-bl-lg text-sm font-semibold">
-                  Popular
-                </div>
-              )}
-              <div className="p-8">
-                <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
-                  <i className={`fas fa-${tier.icon} text-blue-600 text-2xl`} />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                  {tier.name}
-                </h3>
-                <div className="flex items-baseline mb-4">
-                  <span className="text-4xl font-bold text-gray-900">$</span>
-                  <span className="text-5xl font-bold text-gray-900">
-                    {tier.price}
-                  </span>
-                </div>
-                <p className="text-gray-600 mb-2">{tier.description}</p>
-                <p className="text-sm text-gray-500 mb-6">
-                  Ideal for: {tier.idealFor}
-                </p>
-                <ul className="space-y-3 mb-8">
-                  {tier.features.map((feature, featureIndex) => (
-                    <li
-                      key={featureIndex}
-                      className="flex items-center text-gray-700"
-                    >
-                      <i className="fas fa-check text-blue-600 mr-2" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/contact"
-                  className="block w-full py-3 px-6 text-center bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors duration-300"
-                >
-                  Get Started
-                </Link>
+              <div className="flex items-center justify-center mb-6">
+                <img
+                  src={highlight.icon}
+                  alt={highlight.title}
+                  className="w-16 h-16"
+                />
               </div>
-            </motion.div>
+              <h3 className="text-2xl font-bold text-blue-700 mb-4">
+                {highlight.title}
+              </h3>
+              <p className="text-gray-600">{highlight.description}</p>
+            </div>
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <div className="bg-blue-800/50 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Need a Custom Quote?
-            </h3>
-            <p className="text-blue-100 mb-6">
-              We understand that every job is unique. Contact us for a
-              personalized estimate tailored to your specific needs.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                to="/contact"
-                className="inline-flex items-center px-6 py-3 bg-white text-blue-600 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300"
-              >
-                Request Custom Quote
-                <i className="fas fa-arrow-right ml-2" />
-              </Link>
+        {/* Combined Community Impact and CTA Section */}
+        <div className="mt-20 relative bg-white rounded-3xl border-2 border-yellow-500 shadow-lg hover:shadow-[0_0_30px_10px_rgba(255,215,0,0.6)] transition-shadow duration-300">
+          {/* Heart Icon Positioned Above Border */}
+          <div className="absolute -top-12 left-1/2 transform -translate-x-1/2">
+            <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-lg">
+              <i className="fas fa-heart text-yellow-500 text-3xl"></i>
+            </div>
+          </div>
+
+          {/* Content Wrapper */}
+          <div className="relative z-10 p-12">
+            {/* Impact Stats */}
+            <div className="text-center mb-8 mt-8">
+              <h3 className="text-3xl font-bold text-blue-700">
+                Making a Difference in Springfield
+              </h3>
+              <p className="text-lg mt-4 text-gray-600">
+                We’re more than a junk removal service—we’re committed to making
+                Springfield a cleaner, greener place for everyone.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center mt-8">
+              <div>
+                <h4 className="text-4xl font-extrabold text-blue-700">350+</h4>
+                <p className="text-lg text-gray-600">Local Families Served</p>
+              </div>
+              <div>
+                <h4 className="text-4xl font-extrabold text-blue-700">80%</h4>
+                <p className="text-lg text-gray-600">
+                  Items Recycled or Donated
+                </p>
+              </div>
+              <div>
+                <h4 className="text-4xl font-extrabold text-blue-700">
+                  12+ Years
+                </h4>
+                <p className="text-lg text-gray-600">Serving Springfield</p>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="mt-12 text-center">
+              <h3 className="text-2xl font-bold text-blue-700 mb-4">
+                Ready to Declutter Your Space?
+              </h3>
+              <p className="text-lg text-gray-600 mb-6">
+                Contact Simmons Family Junk Removal today for a free quote. Let
+                us handle the heavy lifting while you enjoy a cleaner space.
+              </p>
               <a
-                href="tel:+1234567890"
-                className="inline-flex items-center px-6 py-3 border border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-all duration-300"
+                href="/contact"
+                className="inline-block px-8 py-4 bg-yellow-500 text-white rounded-full font-semibold hover:bg-yellow-600 transition-colors"
               >
-                <i className="fas fa-phone mr-2" />
-                (417) 425-2730
+                Get Your Free Quote
               </a>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default PricingSection;
+export default HighlightSection;
