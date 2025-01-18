@@ -43,39 +43,15 @@ const PageHero: React.FC<PageHeroProps> = ({
   ];
 
   return (
-    <section className="relative bg-blue-900 min-h-[85vh] flex items-center">
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-blue-800/50 to-transparent transform -skew-x-12" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-10" />
-        <motion.div
-          className="absolute top-0 right-0 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.2, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            easings: ["easeInOut"],
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.2, 0.1, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            easings: ["easeInOut"],
-          }}
-        />
+    <section className="relative bg-gradient-to-b from-blue-900 to-blue-800 min-h-[85vh] flex items-center overflow-hidden">
+      {/* Subtle Background Embellishments */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-[25%] w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-[20%] w-80 h-80 bg-blue-300/20 rounded-full blur-3xl"></div>
       </div>
 
-      {/* Main Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      {/* Main Content Container */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-16">
           {/* Left Column - Text Content */}
           <motion.div
@@ -93,7 +69,7 @@ const PageHero: React.FC<PageHeroProps> = ({
             <div className="flex flex-wrap gap-4">
               <Link
                 to={primaryButtonLink}
-                className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                className="inline-flex items-center px-8 py-4 bg-yellow-500 text-blue-900 text-lg font-medium rounded-full shadow-lg hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 {primaryButtonText}
                 <motion.i
@@ -105,7 +81,7 @@ const PageHero: React.FC<PageHeroProps> = ({
               {secondaryButtonText && secondaryButtonLink && (
                 <Link
                   to={secondaryButtonLink}
-                  className="inline-flex items-center px-8 py-4 border border-blue-400 text-lg font-medium rounded-lg text-blue-100 hover:bg-blue-800/50 transition-all duration-300 backdrop-blur-sm"
+                  className="inline-flex items-center px-8 py-4 border-2 border-yellow-500 text-lg font-medium rounded-full text-yellow-400 bg-transparent hover:bg-yellow-50 hover:text-blue-900 transition-all duration-300 transform hover:-translate-y-0.5"
                 >
                   {secondaryButtonText}
                 </Link>
@@ -120,7 +96,8 @@ const PageHero: React.FC<PageHeroProps> = ({
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="lg:w-1/2 relative"
           >
-            <div className="absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-blue-600 via-blue-400 to-transparent" />
+            {/* Vertical Gold Line */}
+            <div className="absolute top-0 bottom-0 left-5 w-px bg-gradient-to-b from-yellow-400 via-yellow-300 to-transparent" />
 
             {timelineSteps.map((step, index) => (
               <motion.div
@@ -132,19 +109,20 @@ const PageHero: React.FC<PageHeroProps> = ({
                   duration: 0.6,
                   ease: "easeOut",
                 }}
-                className="relative pl-12 pb-8 last:pb-0"
+                className="relative pl-14 pb-8 last:pb-0"
               >
+                {/* Gold Icon Container */}
                 <motion.div
-                  className="absolute left-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-lg"
+                  className="absolute left-0 w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center shadow-md hover:scale-105 transition-transform duration-300"
                   whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
                 >
-                  <i className={`fas fa-${step.icon} text-white`} />
+                  <i className={`fas fa-${step.icon} text-blue-900`} />
                 </motion.div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   {step.title}
                 </h3>
-                <p className="text-blue-200 leading-relaxed">
+                <p className="text-blue-100 leading-relaxed">
                   {step.description}
                 </p>
               </motion.div>
