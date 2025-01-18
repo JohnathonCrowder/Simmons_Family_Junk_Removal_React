@@ -17,7 +17,8 @@ const ServerSwitch: React.FC<{
   onServerChange: (url: string) => void;
 }> = ({ currentServer, onServerChange }) => {
   const servers = {
-    production: "https://your-production-server.com/api/posts",
+    production:
+      "https://simmonsfamilyjunkremoval-backend.onrender.com/api/posts",
     local: "http://localhost:5000/api/posts",
   };
 
