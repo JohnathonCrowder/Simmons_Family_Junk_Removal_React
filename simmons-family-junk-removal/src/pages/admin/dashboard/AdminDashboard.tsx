@@ -10,6 +10,7 @@ import PostsGrid from "./components/PostsGrid";
 import DeleteModal from "./components/DeleteModal";
 //import NewsletterSection from "./components/NewsletterSection";
 import ContactSubmissions from "./components/ContactSubmissions";
+import NewsletterSection from "./components/NewsletterSection";
 
 // New ServerSwitch component
 const ServerSwitch: React.FC<{
@@ -217,7 +218,7 @@ const AdminDashboard: React.FC = () => {
             )}
           </>
         ) : activeSection === "newsletter" ? (
-          <ContactSubmissions />
+          <NewsletterSection />
         ) : (
           <ContactSubmissions />
         )}
