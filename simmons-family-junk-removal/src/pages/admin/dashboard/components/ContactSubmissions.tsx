@@ -274,7 +274,7 @@ const ContactSubmissions: React.FC = () => {
                         submission.topic
                       )}`}
                     >
-                      {submission.topic.replace("-", " ")}
+                      {submission.topic?.replace("-", " ") ?? "Other"}
                     </span>
                     <span className="text-gray-400 text-sm">
                       {new Date(submission.date).toLocaleDateString()}
