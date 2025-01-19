@@ -1,15 +1,27 @@
+// File: TransformationsSection.tsx
+// Path: simmons-family-junk-removal/src/components/Home/TransformationsSection.tsx
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import projectsData from "../../data/projects.json";
 
-const FeaturedProjects: React.FC = () => {
-  // Take just 3 featured projects from the projects data
+const TransformationsSection: React.FC = () => {
+  // Example: taking 3 featured projects. Adjust accordingly.
   const featuredProjects = projectsData.projects.slice(0, 3);
 
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section
+      className="py-24 bg-gradient-to-b from-white via-blue-50 to-blue-100 relative overflow-hidden"
+      aria-labelledby="transformations-section-heading"
+    >
+      {/* Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-96 h-96 bg-blue-200/30 rounded-full blur-3xl top-1/3 left-1/4"></div>
+        <div className="absolute w-80 h-80 bg-blue-200/20 rounded-full blur-3xl bottom-1/4 right-1/4"></div>
+      </div>
+
+      <div className="container mx-auto px-6 relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -18,85 +30,82 @@ const FeaturedProjects: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">
-            Featured Transformations
+          <h2
+            id="transformations-section-heading"
+            className="text-5xl font-bold text-gray-900 mb-4"
+          >
+            Before &amp; After Transformations
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            See the difference we make with our before and after transformations
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            See how Simmons Family Junk Removal transforms cluttered spaces into
+            beautiful, clean environments.
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Transformations Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredProjects.map((project) => (
             <motion.div
               key={project.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              layout="position"
-              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="group relative bg-white border-t-4 border-yellow-500 rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_10px_2px_rgba(255,215,0,0.5)] transition-shadow duration-300"
             >
-              {/* Image Section */}
-              <div className="relative h-80 overflow-hidden bg-gray-100">
-                {/* After Image */}
-                <div className="absolute inset-0">
-                  <img
-                    src={project.afterImage}
-                    alt="After transformation"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
+              {/* Before/After Image Wrapper */}
+              <div className="relative h-64 overflow-hidden">
+                {/* Before Image (default state) */}
+                <img
+                  src={project.beforeImage}
+                  alt={`${project.title} - Before`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                />
 
-                {/* Before Image Overlay */}
-                <div className="absolute inset-0 overflow-hidden group-hover:opacity-0 transition-opacity duration-500">
-                  <div className="relative h-full w-full">
-                    <img
-                      src={project.beforeImage}
-                      alt="Before transformation"
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
-                  </div>
-                </div>
+                {/* After Image (hover state) */}
+                <img
+                  src={project.afterImage}
+                  alt={`${project.title} - After`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                />
 
+                {/* Overlay for hover */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
                 {/* Category Badge */}
-                <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg z-10">
+                <div className="mb-3 inline-block px-4 py-1 bg-blue-100 text-blue-600 rounded-full text-sm font-semibold">
                   {project.category}
                 </div>
 
-                {/* Before/After Label */}
-                <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
-                  <span className="bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
-                    <i className="fas fa-sync-alt mr-2" />
-                    Before & After
-                  </span>
-                </div>
-              </div>
-
-              {/* Content Section */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">
+                {/* Title */}
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
                   {project.title}
                 </h3>
-                <div className="flex items-center text-gray-600 text-sm mb-4">
-                  <i className="fas fa-map-marker-alt mr-2" />
+
+                {/* Location */}
+                <div className="flex items-center text-sm text-gray-500 mb-4">
+                  <i
+                    className="fas fa-map-marker-alt mr-2"
+                    aria-hidden="true"
+                  />
                   {project.location}
                 </div>
 
-                <p className="text-gray-600 mb-4 line-clamp-3">
+                {/* Description */}
+                <p className="text-gray-600 line-clamp-3 mb-4">
                   {project.description}
                 </p>
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
-                  {Object.entries(project.stats).map(([key, value], index) => (
+                  {Object.entries(project.stats).map(([key, value]) => (
                     <div
-                      key={index}
+                      key={key}
                       className="bg-gray-50 rounded-lg p-2 text-center"
                     >
                       <div className="text-blue-600 font-bold">{value}</div>
@@ -106,44 +115,33 @@ const FeaturedProjects: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Footer */}
-              <div className="px-6 py-4 border-t border-gray-100 bg-gray-50">
+                {/* Footer Link */}
                 <Link
                   to="/projects"
-                  className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center group/button w-full"
+                  className="text-blue-600 font-medium text-sm inline-flex items-center group/button"
                 >
-                  <span>View Project Details</span>
-                  <i className="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover/button:translate-x-1" />
+                  View More Details
+                  <i className="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* View All CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center mt-16"
-        >
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-            Want to see more of our transformations?
-          </h3>
+        {/* View All Projects Button */}
+        <div className="text-center mt-12">
           <Link
             to="/projects"
-            className="inline-flex items-center justify-center bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+            className="inline-block bg-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md"
           >
-            View All Projects
-            <i className="fas fa-arrow-right ml-2" />
+            View All Transformations
+            <i className="fas fa-arrow-right ml-2"></i>
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default FeaturedProjects;
+export default TransformationsSection;
