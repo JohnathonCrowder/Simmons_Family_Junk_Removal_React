@@ -5,7 +5,7 @@ import {
   NewsletterSubscription,
 } from "../../../../api/newsletter";
 
-const NewsletterSection: React.FC = () => {
+const EmailSignup: React.FC = () => {
   const [subscriptions, setSubscriptions] = useState<NewsletterSubscription[]>(
     []
   );
@@ -114,4 +114,4 @@ const NewsletterSection: React.FC = () => {
   );
 };
 
-export default NewsletterSection;
+export default EmailSignup;
