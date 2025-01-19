@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 
 const HighlightSection: React.FC = () => {
+  // Track which card is currently hovered
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
   const highlights = [
     {
-      icon: "https://cdn-icons-png.flaticon.com/512/2427/2427123.png",
+      iconStatic: "maps.png",
+      iconGif: "maps.gif",
       title: "Proudly Serving Springfield",
       description:
         "We’re rooted in Springfield, MO, and dedicated to helping our neighbors keep their homes and businesses clutter-free.",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/512/1055/1055688.png",
+      iconStatic: "hand.png",
+      iconGif: "hand.gif",
       title: "Reliable & Professional",
       description:
         "From quick quotes to timely service, we pride ourselves on reliability and clear communication.",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/512/2143/2143722.png",
+      iconStatic: "dumpster.png",
+      iconGif: "dumpster.gif",
       title: "Sustainable Solutions",
       description:
         "We go the extra mile to recycle and donate items, helping protect Springfield’s natural beauty.",
     },
     {
-      icon: "https://cdn-icons-png.flaticon.com/512/189/189671.png",
+      iconStatic: "family.png",
+      iconGif: "family.gif",
       title: "Family-Owned Values",
       description:
         "Simmons Family Junk Removal is built on honesty and respect—treating you like part of our family.",
@@ -55,14 +62,24 @@ const HighlightSection: React.FC = () => {
             <div
               key={index}
               className="bg-white rounded-3xl border-2 border-yellow-500 shadow-lg p-8 text-center transform hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300"
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
             >
               <div className="flex items-center justify-center mb-6">
-                <img
-                  src={highlight.icon}
-                  alt={highlight.title}
-                  className="w-16 h-16"
-                />
+                {/* Wrap the image in a container with fixed dimensions */}
+                <div className="w-24 h-24">
+                  <img
+                    src={
+                      hoveredCard === index
+                        ? highlight.iconGif
+                        : highlight.iconStatic
+                    }
+                    alt={highlight.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
               </div>
+
               <h3 className="text-2xl font-bold text-blue-700 mb-4">
                 {highlight.title}
               </h3>

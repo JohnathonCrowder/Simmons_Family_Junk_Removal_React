@@ -54,7 +54,7 @@ const TransformationsSection: React.FC = () => {
               className="group relative bg-white border-t-4 border-yellow-500 rounded-xl overflow-hidden shadow-lg hover:shadow-[0_0_10px_2px_rgba(255,215,0,0.5)] transition-shadow duration-300"
             >
               {/* Before/After Image Wrapper */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-72 overflow-hidden">
                 {/* Before Image (default state) */}
                 <img
                   src={project.beforeImage}
