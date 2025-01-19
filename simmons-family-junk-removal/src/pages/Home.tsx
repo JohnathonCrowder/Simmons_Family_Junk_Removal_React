@@ -37,22 +37,7 @@ const Home: React.FC = () => {
     <LazyMotion features={domAnimation}>
       <div className="home">
         {/* HeroSection loads immediately */}
-        <HeroSection
-          title={
-            <>
-              Professional Junk Removal <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
-                Made Simple
-              </span>
-            </>
-          }
-          subtitle="Efficient, eco-friendly junk removal services for your home and business."
-          backgroundImage="/images/hero-bg.jpg"
-          primaryButtonText="Get a Free Quote"
-          primaryButtonLink="/contact"
-          secondaryButtonText="Call Us Now"
-          secondaryButtonLink="tel:+1234567890"
-        />
+        <HeroSection />
 
         {/* Services Section */}
         <Suspense fallback={<SectionSkeleton />}>
