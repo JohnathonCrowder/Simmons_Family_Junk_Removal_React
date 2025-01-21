@@ -34,46 +34,56 @@ const ServicesGrid: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="relative bg-white rounded-3xl border-2 border-yellow-500 shadow-lg p-8 transform hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300"
+              className="relative bg-white rounded-3xl border-2 border-yellow-500 shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-[0_0_20px_5px_rgba(255,215,0,0.6)] transition-all duration-300 flex flex-col"
             >
-              {/* Floating Icon */}
-              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-                <div className="w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center text-white shadow-lg">
-                  <i
-                    className={`fas fa-${service.icon} text-2xl`}
-                    aria-hidden="true"
-                  ></i>
+              {/* Image */}
+              <div className="relative">
+                <img
+                  src={`/slug-images/${service.slug}.jpg`}
+                  alt={service.title}
+                  className="w-full h-48 object-cover" // Adjust height as needed
+                />
+                {/* Floating Icon */}
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
+                  <div className="w-16 h-16 bg-blue-700 rounded-full flex items-center justify-center text-white shadow-lg border-4 border-white">
+                    <i
+                      className={`fas fa-${service.icon} text-2xl`}
+                      aria-hidden="true"
+                    ></i>
+                  </div>
                 </div>
               </div>
 
-              {/* Service Title & Description */}
-              <h3 className="text-2xl font-bold text-blue-700 mt-8 mb-4 text-center">
-                {service.title}
-              </h3>
-              <p className="text-gray-600 mb-6 text-center">
-                {service.description}
-              </p>
+              {/* Card Content */}
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-2xl font-bold text-blue-700 mb-4 text-center">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 mb-6 text-center">
+                  {service.description}
+                </p>
 
-              {/* Service Features */}
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature, featureIndex) => (
-                  <li
-                    key={featureIndex}
-                    className="flex items-center text-gray-700"
-                  >
-                    <i className="fas fa-check text-blue-600 mr-2 text-sm" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+                {/* Service Features */}
+                <ul className="space-y-2 mb-6 flex-grow">
+                  {service.features.map((feature, featureIndex) => (
+                    <li
+                      key={featureIndex}
+                      className="flex items-center text-gray-700"
+                    >
+                      <i className="fas fa-check text-blue-600 mr-2 text-sm" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
 
-              {/* Link to Detail Page */}
-              <Link
-                to={`/services/${service.slug}`}
-                className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full text-center"
-              >
-                Learn More
-              </Link>
+                {/* Link to Detail Page */}
+                <Link
+                  to={`/services/${service.slug}`}
+                  className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full text-center mt-auto"
+                >
+                  Learn More
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
