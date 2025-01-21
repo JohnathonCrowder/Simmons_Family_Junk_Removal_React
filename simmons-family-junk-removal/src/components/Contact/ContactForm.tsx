@@ -1,64 +1,73 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import axios from "axios";
+import { BASE_URL } from "@/utils/config";
+
+// A quick Tailwind-friendly "gold" could be a custom hex (#FFD700).
+// We'll use Tailwind's built-in amber or yellow classes for convenience, too.
+// Also changed the button gradient to from-blue-600 to-amber-500
 
 const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formState, setFormState] = useState({
     name: "",
     email: "",
-    phone: "",
-    serviceType: "",
+    topic: "",
     message: "",
   });
-
-  const serviceTypes = [
-    "Residential Junk Removal",
-    "Commercial Cleanout",
-    "Appliance Removal",
-    "Furniture Removal",
-    "Construction Debris",
-    "Other",
-  ];
+  const [status, setStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+  const [sending, setSending] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormState({
+      ...formState,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    setSending(true);
+    setStatus({ type: null, message: "" });
+
+    try {
+      await axios.post(`${BASE_URL}/api/contact`, formState);
+      setStatus({
+        type: "success",
+        message: "Your message has been sent successfully!",
+      });
+      // Reset form
+      setFormState({
+        name: "",
+        email: "",
+        topic: "",
+        message: "",
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message:
+          "An error occurred while sending your message. Please try again.",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
-    >
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-          Get Your Free Quote
-        </h2>
-        <p className="text-gray-600">
-          Fill out the form below and we'll get back to you as soon as possible.
-        </p>
-      </div>
-
+    <div className="rounded-xl p-8 bg-white border border-blue-200 shadow-lg">
+      <h2 className="text-2xl font-bold mb-6 text-blue-800">Get in Touch</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block font-medium text-gray-700 mb-1"
             >
               Name
             </label>
@@ -66,28 +75,26 @@ const ContactForm: React.FC = () => {
               type="text"
               id="name"
               name="name"
-              value={formData.name}
+              value={formState.name}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="Your name"
+              className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
             />
           </div>
           <div>
             <label
-              htmlFor="phone"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="email"
+              className="block font-medium text-gray-700 mb-1"
             >
-              Phone Number
+              Email
             </label>
             <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
+              type="email"
+              id="email"
+              name="email"
+              value={formState.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-              placeholder="(417) 425-2730"
+              className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
               required
             />
           </div>
@@ -95,92 +102,110 @@ const ContactForm: React.FC = () => {
 
         <div>
           <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            htmlFor="topic"
+            className="block font-medium text-gray-700 mb-1"
           >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            placeholder="you@example.com"
-            required
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="serviceType"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Service Type
+            What's on your mind?
           </label>
           <select
-            id="serviceType"
-            name="serviceType"
-            value={formData.serviceType}
+            id="topic"
+            name="topic"
+            value={formState.topic}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+            className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
             required
           >
-            <option value="">Select a service</option>
-            {serviceTypes.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
+            <option value="">Select a topic</option>
+            <option value="tech-chat">Tech Discussion</option>
+            <option value="collaboration">Collaboration Idea</option>
+            <option value="question">Technical Question</option>
+            <option value="other">Something Else</option>
           </select>
         </div>
 
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block font-medium text-gray-700 mb-1"
           >
-            Tell us about your needs
+            Message
           </label>
           <textarea
             id="message"
             name="message"
-            value={formData.message}
+            value={formState.message}
             onChange={handleChange}
-            rows={4}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-            placeholder="Describe what you need removed, approximate volume, location, etc."
+            rows={5}
+            className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
             required
-          />
+            placeholder="I'd love to hear what you have in mind..."
+          ></textarea>
         </div>
+
+        {status.type && (
+          <div
+            className={`p-4 rounded-lg ${
+              status.type === "success"
+                ? "bg-emerald-50 border border-emerald-300 text-emerald-700"
+                : "bg-red-50 border border-red-300 text-red-700"
+            }`}
+          >
+            {status.message}
+          </div>
+        )}
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center"
+          disabled={sending}
+          className={`w-full rounded-lg px-6 py-3 font-medium 
+            bg-gradient-to-r from-blue-600 to-amber-500 text-white 
+            hover:from-blue-700 hover:to-amber-600 transition-all duration-300
+            ${
+              sending
+                ? "opacity-75 cursor-not-allowed"
+                : "shadow-md hover:shadow-lg"
+            } relative overflow-hidden`}
         >
-          Send Request
-          <i className="fas fa-arrow-right ml-2" />
+          {sending ? (
+            <span className="flex items-center justify-center">
+              <svg
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373
+                       0 0 5.373 0 12h4zm2 5.291A7.962
+                       7.962 0 014 12H0c0 3.042 1.135
+                       5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              Sending...
+            </span>
+          ) : (
+            "Start Conversation"
+          )}
         </button>
-      </form>
 
-      <div className="mt-8 pt-6 border-t border-gray-200">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="flex items-center space-x-2 text-gray-600">
-            <i className="fas fa-clock text-blue-600" />
-            <span>Quick Response Time</span>
-          </div>
-          <div className="flex items-center space-x-2 text-gray-600">
-            <i className="fas fa-shield-alt text-blue-600" />
-            <span>Licensed & Insured</span>
-          </div>
-          <div className="flex items-center space-x-2 text-gray-600">
-            <i className="fas fa-dollar-sign text-blue-600" />
-            <span>Free Estimates</span>
-          </div>
+        <div className="text-sm text-gray-500 text-center mt-4">
+          <p>
+            Your message will be handled with care and you'll receive a response
+            within 24-48 hours.
+          </p>
         </div>
-      </div>
-    </motion.div>
+      </form>
+    </div>
   );
 };
 
