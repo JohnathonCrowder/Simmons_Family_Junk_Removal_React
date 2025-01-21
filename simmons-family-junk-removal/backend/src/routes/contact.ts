@@ -4,6 +4,8 @@
 import express from 'express';
 import Contact from '../models/Contact';
 import { authMiddleware } from '../middleware/auth';
+import sendEmail from "../utils/sendEmail";
+
 
 const router = express.Router();
 
@@ -25,29 +27,11 @@ const validCities = [
 ];
 
 // Submit contact form
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      phone,
-      serviceType,
-      items,
-      pickupDate,
-      pickupTime,
-      city,
-      instructions,
-    } = req.body;
+    const { name, email, phone, serviceType, items, pickupDate, pickupTime, city, instructions } = req.body;
 
-    // Validation
-    if (!name || !email || !phone || !serviceType || !items || !pickupDate || !pickupTime || !city) {
-      return res.status(400).json({ message: 'All required fields must be filled.' });
-    }
-
-    if (!validCities.includes(city)) {
-      return res.status(400).json({ message: 'Invalid city selected.' });
-    }
-
+    // Save the form submission to the database
     const contact = new Contact({
       name,
       email,
@@ -59,12 +43,29 @@ router.post('/', async (req, res) => {
       city,
       instructions,
     });
-
     await contact.save();
-    res.status(201).json({ message: 'Contact form submitted successfully' });
+
+    // Email content
+    const emailContent = `
+      <h2>New Contact Form Submission</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone}</p>
+      <p><strong>Service Type:</strong> ${serviceType}</p>
+      <p><strong>City:</strong> ${city}</p>
+      <p><strong>Pickup Date:</strong> ${pickupDate}</p>
+      <p><strong>Pickup Time:</strong> ${pickupTime}</p>
+      <p><strong>Items:</strong> ${items?.join(", ") || "No items listed"}</p>
+      <p><strong>Instructions:</strong> ${instructions || "None"}</p>
+    `;
+
+    // Send email notification
+    await sendEmail(process.env.NOTIFICATION_EMAIL!, "New Contact Form Submission", emailContent);
+
+    res.status(201).json({ message: "Contact form submitted successfully" });
   } catch (error) {
-    console.error('Contact form submission error:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error("Contact form submission error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
