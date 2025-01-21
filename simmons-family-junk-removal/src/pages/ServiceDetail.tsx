@@ -1,8 +1,8 @@
 // File: src/pages/ServiceDetail.tsx
 
-import React, { useState, lazy, Suspense } from "react";
+import React, { lazy, Suspense } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { servicesData } from "@/data/servicesData"; // Update your import paths as needed
 const CTASection = lazy(() => import("../components/CTASection"));
 const TestimonialsSection = lazy(
@@ -27,27 +27,6 @@ const SectionSkeleton: React.FC = () => (
 const ServiceDetail: React.FC = () => {
   const { slug } = useParams();
   const service = servicesData.find((s) => s.slug === slug);
-
-  // For an FAQ accordion, track which question index is open
-  const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(null);
-
-  const faqs = [
-    {
-      question: `How does ${service?.title} pricing work?`,
-      answer:
-        "Pricing varies based on factors like load size, labor required, and disposal fees. We always provide a free, no-obligation quote before any work begins.",
-    },
-    {
-      question: "Do I need to prepare anything before your team arrives?",
-      answer:
-        "Typically, you just need to identify which items need removing or which areas need clearing. Our crew handles all the lifting, hauling, and cleanup.",
-    },
-    {
-      question: "Can you dispose of hazardous items?",
-      answer:
-        "We do not handle hazardous materials like chemicals, wet paint, or asbestos. However, we’re happy to recommend trusted partners who specialize in hazardous waste disposal.",
-    },
-  ];
 
   if (!service) {
     // If slug doesn't match any service, show a not-found message
