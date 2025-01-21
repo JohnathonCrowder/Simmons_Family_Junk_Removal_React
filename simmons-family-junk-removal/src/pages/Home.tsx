@@ -15,6 +15,7 @@ const FeaturedProjects = lazy(
 const TestimonialsSection = lazy(
   () => import("../components/Home/TestimonialsSection")
 );
+
 const CTASection = lazy(() => import("../components/CTASection"));
 
 // Loading fallback with skeleton

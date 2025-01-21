@@ -1,106 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { servicesData } from "@/data/servicesData"; // Update the import path as needed
 
 const ServicesGrid: React.FC = () => {
-  const services = [
-    {
-      icon: "home",
-      title: "Residential Junk Removal",
-      description:
-        "Our team handles everything from single-item pickups to full house cleanouts. We work around your schedule to efficiently remove unwanted items, ensuring minimal disruption to your daily routine.",
-      features: [
-        "Entire home cleanouts",
-        "Garage & attic clearing",
-        "Safe appliance removal",
-        "Flexible scheduling options",
-      ],
-    },
-    {
-      icon: "building",
-      title: "Commercial Junk Removal",
-      description:
-        "Keep your Springfield-area business clutter-free with our fast commercial junk removal. We handle office equipment, retail fixtures, and construction debris, so you can focus on running your enterprise.",
-      features: [
-        "Office & retail cleanouts",
-        "Restaurant & warehouse haul-offs",
-        "Construction site debris removal",
-        "Timely service to minimize downtime",
-      ],
-    },
-    {
-      icon: "couch",
-      title: "Furniture Removal",
-      description:
-        "Eliminate the hassle of moving heavy furniture. Our friendly team ensures proper handling and disposal, often donating usable pieces to local charities, reducing waste in Springfield’s landfills.",
-      features: [
-        "All types of furniture",
-        "Donation coordination",
-        "Eco-friendly disposal",
-        "White-glove removal approach",
-      ],
-    },
-    {
-      icon: "truck-loading",
-      title: "Appliance Disposal",
-      description:
-        "From refrigerators and washers to dishwashers and dryers, we safely disconnect and haul away large appliances, following EPA regulations for recycling or disposal.",
-      features: [
-        "Professional disconnection",
-        "EPA-compliant recycling",
-        "Pickup of all appliance types",
-        "Preventive leak & spill measures",
-      ],
-    },
-    {
-      icon: "hard-hat",
-      title: "Construction Debris Removal",
-      description:
-        "Renovating your property? We swiftly remove leftover drywall, lumber, and other building materials. Our crew ensures your workspace remains safe and clear of tripping hazards.",
-      features: [
-        "Same-day debris pickup",
-        "Removal of wood, metal, & more",
-        "Loading & hauling included",
-        "Licensed & insured professionals",
-      ],
-    },
-    {
-      icon: "leaf",
-      title: "Yard Waste Cleanup",
-      description:
-        "Reclaim your outdoor space by removing branches, leaves, soil, and storm debris. Our yard waste service is perfect for landscaping overhauls or seasonal cleanups in Springfield’s variable climate.",
-      features: [
-        "Storm debris collection",
-        "Landscaping & seasonal waste",
-        "Safe disposal of natural materials",
-        "Service for residential & commercial",
-      ],
-    },
-    {
-      icon: "bed",
-      title: "Mattress & Box Spring Removal",
-      description:
-        "Don’t struggle with bulky mattresses or box springs. We ensure proper disposal or donation of gently used bedding, keeping your home clutter-free and comfortable.",
-      features: [
-        "All mattress sizes",
-        "Sanitary handling protocols",
-        "Donation for gently used items",
-        "Quick & efficient pickup",
-      ],
-    },
-    {
-      icon: "trash-alt",
-      title: "Estate Cleanouts",
-      description:
-        "Manage sensitive estate transitions smoothly with our supportive team. We handle sorting, donating, and hauling away unwanted items, allowing you to focus on what matters most.",
-      features: [
-        "Compassionate, discreet service",
-        "Sorting & donation coordination",
-        "Full-property cleanout solutions",
-        "Free on-site estimates",
-      ],
-    },
-  ];
-
   return (
     <section className="py-24 bg-gradient-to-b from-white to-blue-50">
       <div className="container mx-auto px-4">
@@ -124,7 +27,7 @@ const ServicesGrid: React.FC = () => {
 
         {/* Service Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
+          {servicesData.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -163,6 +66,14 @@ const ServicesGrid: React.FC = () => {
                   </li>
                 ))}
               </ul>
+
+              {/* Link to Detail Page */}
+              <Link
+                to={`/services/${service.slug}`}
+                className="inline-block px-6 py-3 bg-blue-600 text-white rounded-full text-center"
+              >
+                Learn More
+              </Link>
             </motion.div>
           ))}
         </div>

@@ -99,3 +99,21 @@
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
   background-color: rgb(156 163 175);
 }
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures even spacing between elements */
+  height: 100%; /* Makes all cards the same height */
+  padding: 20px; /* Adjust padding as needed */
+  box-sizing: border-box; /* Includes padding in height calculation */
+}
+
+.card-content {
+  flex-grow: 1; /* Fills available space, pushing the button to the bottom */
+}
+
+.learn-more {
+  margin-top: auto; /* Pushes the button to the bottom of the card */
+  align-self: center; /* Center aligns the button horizontally */
+}
