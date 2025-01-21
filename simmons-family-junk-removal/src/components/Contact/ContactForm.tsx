@@ -2,210 +2,289 @@ import React, { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "@/utils/config";
 
-// A quick Tailwind-friendly "gold" could be a custom hex (#FFD700).
-// We'll use Tailwind's built-in amber or yellow classes for convenience, too.
-// Also changed the button gradient to from-blue-600 to-amber-500
-
 const ContactForm: React.FC = () => {
-  const [formState, setFormState] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
-    topic: "",
-    message: "",
+    phone: "",
+    serviceType: "",
+    items: [] as string[],
+    pickupDate: "",
+    pickupTime: "",
+    city: "",
+    instructions: "",
   });
-  const [status, setStatus] = useState<{
-    type: "success" | "error" | null;
-    message: string;
-  }>({ type: null, message: "" });
-  const [sending, setSending] = useState(false);
+
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Cities within a 30-mile radius of Springfield, MO
+  const cities = [
+    "Springfield",
+    "Nixa",
+    "Ozark",
+    "Republic",
+    "Rogersville",
+    "Battlefield",
+    "Strafford",
+    "Willard",
+    "Clever",
+    "Highlandville",
+    "Marionville",
+    "Ash Grove",
+    "Bolivar",
+  ];
+
+  const serviceTypes = ["Residential", "Commercial"];
+  const itemOptions = [
+    "Furniture",
+    "Electronics",
+    "Appliances",
+    "Construction Debris",
+    "Yard Waste",
+    "Other",
+  ];
 
   const handleChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
   ) => {
-    setFormState({
-      ...formState,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value, type } = e.target as HTMLInputElement;
+    const checked =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
+
+    if (type === "checkbox" && name === "items") {
+      const newItems = checked
+        ? [...formData.items, value]
+        : formData.items.filter((item) => item !== value);
+      setFormData({ ...formData, items: newItems });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSending(true);
-    setStatus({ type: null, message: "" });
+    setStatus("loading");
+    setErrorMessage("");
 
     try {
-      await axios.post(`${BASE_URL}/api/contact`, formState);
-      setStatus({
-        type: "success",
-        message: "Your message has been sent successfully!",
-      });
-      // Reset form
-      setFormState({
+      await axios.post(`${BASE_URL}/api/contact`, formData);
+      setStatus("success");
+      setFormData({
         name: "",
         email: "",
-        topic: "",
-        message: "",
+        phone: "",
+        serviceType: "",
+        items: [],
+        pickupDate: "",
+        pickupTime: "",
+        city: "",
+        instructions: "",
       });
-    } catch (error) {
-      setStatus({
-        type: "error",
-        message:
-          "An error occurred while sending your message. Please try again.",
-      });
-    } finally {
-      setSending(false);
+    } catch (error: any) {
+      setStatus("error");
+      setErrorMessage(error.response?.data?.message || "Something went wrong.");
     }
   };
 
   return (
-    <div className="rounded-xl p-8 bg-white border border-blue-200 shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-blue-800">Get in Touch</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <label
-              htmlFor="name"
-              className="block font-medium text-gray-700 mb-1"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formState.name}
-              onChange={handleChange}
-              className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              required
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block font-medium text-gray-700 mb-1"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formState.email}
-              onChange={handleChange}
-              className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-              required
-            />
-          </div>
-        </div>
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8"
+    >
+      <h2 className="text-2xl font-bold text-center text-blue-600">
+        Request Junk Removal Service
+      </h2>
+      <p className="text-center text-gray-500">
+        Please fill out the form below, and our team will contact you shortly!
+      </p>
 
+      {/* Personal Info Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label
-            htmlFor="topic"
-            className="block font-medium text-gray-700 mb-1"
-          >
-            What's on your mind?
+          <label className="block text-sm font-medium text-gray-700">
+            Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Email <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+      </div>
+
+      {/* Phone */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Phone Number <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+      </div>
+
+      {/* Service Details Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Service Type */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Service Type <span className="text-red-500">*</span>
           </label>
           <select
-            id="topic"
-            name="topic"
-            value={formState.topic}
+            name="serviceType"
+            value={formData.serviceType}
             onChange={handleChange}
-            className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
             required
+            className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            <option value="">Select a topic</option>
-            <option value="tech-chat">Tech Discussion</option>
-            <option value="collaboration">Collaboration Idea</option>
-            <option value="question">Technical Question</option>
-            <option value="other">Something Else</option>
+            <option value="">Select Service Type</option>
+            {serviceTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
 
+        {/* Items */}
         <div>
-          <label
-            htmlFor="message"
-            className="block font-medium text-gray-700 mb-1"
-          >
-            Message
+          <label className="block text-sm font-medium text-gray-700">
+            Items to Remove <span className="text-red-500">*</span>
           </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formState.message}
-            onChange={handleChange}
-            rows={5}
-            className="w-full rounded-lg px-4 py-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-            required
-            placeholder="I'd love to hear what you have in mind..."
-          ></textarea>
-        </div>
-
-        {status.type && (
-          <div
-            className={`p-4 rounded-lg ${
-              status.type === "success"
-                ? "bg-emerald-50 border border-emerald-300 text-emerald-700"
-                : "bg-red-50 border border-red-300 text-red-700"
-            }`}
-          >
-            {status.message}
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            {itemOptions.map((item) => (
+              <label key={item} className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="items"
+                  value={item}
+                  checked={formData.items.includes(item)}
+                  onChange={handleChange}
+                  className="mr-2"
+                />
+                {item}
+              </label>
+            ))}
           </div>
-        )}
+        </div>
+      </div>
 
+      {/* Pickup Date & Time */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Preferred Pickup Date <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            name="pickupDate"
+            value={formData.pickupDate}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Preferred Pickup Time <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="time"
+            name="pickupTime"
+            value={formData.pickupTime}
+            onChange={handleChange}
+            required
+            className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+      </div>
+
+      {/* City Dropdown */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          City <span className="text-red-500">*</span>
+        </label>
+        <select
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          required
+          className="mt-1 w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          <option value="">Select City</option>
+          {cities.map((city) => (
+            <option key={city} value={city}>
+              {city}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Additional Instructions */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700">
+          Additional Instructions
+        </label>
+        <textarea
+          name="instructions"
+          value={formData.instructions}
+          onChange={handleChange}
+          rows={4}
+          placeholder="Any additional notes for our team..."
+          className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        ></textarea>
+      </div>
+
+      {/* Submit Button */}
+      <div>
         <button
           type="submit"
-          disabled={sending}
-          className={`w-full rounded-lg px-6 py-3 font-medium 
-            bg-gradient-to-r from-blue-600 to-amber-500 text-white 
-            hover:from-blue-700 hover:to-amber-600 transition-all duration-300
-            ${
-              sending
-                ? "opacity-75 cursor-not-allowed"
-                : "shadow-md hover:shadow-lg"
-            } relative overflow-hidden`}
+          disabled={status === "loading"}
+          className={`w-full p-4 rounded-lg text-white ${
+            status === "loading"
+              ? "bg-gray-400"
+              : "bg-blue-600 hover:bg-blue-700"
+          } transition-colors`}
         >
-          {sending ? (
-            <span className="flex items-center justify-center">
-              <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                ></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373
-                       0 0 5.373 0 12h4zm2 5.291A7.962
-                       7.962 0 014 12H0c0 3.042 1.135
-                       5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              Sending...
-            </span>
-          ) : (
-            "Start Conversation"
-          )}
+          {status === "loading" ? "Submitting..." : "Submit Request"}
         </button>
+      </div>
 
-        <div className="text-sm text-gray-500 text-center mt-4">
-          <p>
-            Your message will be handled with care and you'll receive a response
-            within 24-48 hours.
-          </p>
+      {/* Feedback Messages */}
+      {status === "success" && (
+        <div className="mt-4 text-green-500">
+          Your request has been submitted successfully!
         </div>
-      </form>
-    </div>
+      )}
+      {status === "error" && (
+        <div className="mt-4 text-red-500">{errorMessage}</div>
+      )}
+    </form>
   );
 };
 
