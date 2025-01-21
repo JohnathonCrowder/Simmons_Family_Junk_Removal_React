@@ -156,8 +156,8 @@ const ServiceDetail: React.FC = () => {
       </motion.section>
 
       {/* ===========================
-          4. Image / Gallery (Optional)
-      ============================ */}
+    4. Image / Gallery Section
+============================ */}
       <motion.section
         initial="hidden"
         whileInView="visible"
@@ -166,11 +166,39 @@ const ServiceDetail: React.FC = () => {
         className="container mx-auto px-4 py-16"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <img
-            src={`/slug-images/${service.slug}.jpg`}
-            alt={service.title}
-            className="w-full h-full object-cover rounded-2xl shadow-xl"
-          />
+          {/* Before/After Image Card */}
+          <div className="group relative h-[500px] overflow-hidden bg-gray-100 rounded-xl shadow-lg">
+            {/* After Image (Bottom Layer) */}
+            <div className="absolute inset-0">
+              <img
+                src={`/slug-images/${service.slug}-after.jpg`}
+                alt={`${service.title} - After`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+
+            {/* Before Image Overlay (Top Layer) */}
+            <div className="absolute inset-0 overflow-hidden group-hover:opacity-0 transition-opacity duration-500">
+              <div className="relative h-full w-full">
+                <img
+                  src={`/slug-images/${service.slug}-before.jpg`}
+                  alt={`${service.title} - Before`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
+              </div>
+            </div>
+
+            {/* Before/After Label */}
+            <div className="absolute bottom-4 left-4 text-white text-sm font-semibold">
+              <span className="bg-black/60 px-2 py-1 rounded backdrop-blur-sm">
+                <i className="fas fa-sync-alt mr-2" />
+                Hover to See Transformation
+              </span>
+            </div>
+          </div>
+
+          {/* Description Content */}
           <div>
             <h2 className="text-3xl font-bold text-blue-700 mb-4">
               See {service.title} in Action
@@ -181,14 +209,12 @@ const ServiceDetail: React.FC = () => {
               to clear, we're here to help.
             </p>
             <p className="text-lg text-gray-700">
-              {/* You can add more detail or a testimonial snippet here */}
-              "We transform cluttered spaces into clean, usable areas that let
-              you breathe easier and live better."
+              We transform cluttered spaces into clean, usable areas that let
+              you breathe easier and live better.
             </p>
           </div>
         </div>
       </motion.section>
-
       {/* Process Section - Moved before Featured Projects */}
       <Suspense fallback={<SectionSkeleton />}>
         <ProcessSection />

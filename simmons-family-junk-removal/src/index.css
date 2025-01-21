@@ -117,3 +117,12 @@
   margin-top: auto; /* Pushes the button to the bottom of the card */
   align-self: center; /* Center aligns the button horizontally */
 }
+
+.before-image-container {
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+  transition: clip-path 0.3s ease;
+}
+
+.before-image-container:hover {
+  clip-path: polygon(0 0, 55% 0, 55% 100%, 0 100%);
+}
