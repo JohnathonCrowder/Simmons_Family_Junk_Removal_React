@@ -184,7 +184,7 @@ const AdminDashboard: React.FC = () => {
               categories={categories}
               sortBy={sortBy}
               sortDirection={sortDirection}
-              onSortChange={(newSortBy: "date" | "title") => {
+              onSortChange={(newSortBy) => {
                 if (sortBy === newSortBy) {
                   setSortDirection(sortDirection === "asc" ? "desc" : "asc");
                 } else {

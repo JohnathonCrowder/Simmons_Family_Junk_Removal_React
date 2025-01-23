@@ -9,7 +9,13 @@ interface ControlPanelProps {
   onFilterChange: (value: string) => void;
   viewMode: "table" | "grid";
   onViewModeChange: (mode: "table" | "grid") => void;
-  onRefresh: () => void; // New prop for refreshing posts
+  onRefresh: () => void;
+  categories: string[];
+  sortBy: "date" | "title";
+  sortDirection: "asc" | "desc";
+  onSortChange: (sortBy: "date" | "title") => void;
+  selectedCount: number;
+  onDeleteSelected: () => void;
 }
 
 const ControlPanel: React.FC<ControlPanelProps> = ({
@@ -20,6 +26,12 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
   viewMode,
   onViewModeChange,
   onRefresh,
+  categories,
+  sortBy,
+  sortDirection,
+  onSortChange,
+  selectedCount,
+  onDeleteSelected,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -33,60 +45,98 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
       try {
         await importPost(file);
         onRefresh(); // Refresh posts after successful import
-        // Reset the file input
         if (e.target) e.target.value = "";
       } catch (err) {
         console.error("Error importing post:", err);
-        // Here you could add a toast notification or some other error feedback
       }
     }
   };
 
   return (
-    <div className="glass rounded-xl p-6 mb-8">
-      <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-4">
-        <div className="w-full md:w-1/3">
-          <input
-            type="text"
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full glass-card rounded-lg px-4 py-2 text-white focus:outline-none"
-          />
-        </div>
-        <div className="flex items-center space-x-4">
+    <div className="glass rounded-xl p-6 mb-8 backdrop-blur-md border border-yellow-500/30">
+      <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Search Bar */}
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search posts..."
+              value={searchTerm}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="w-full md:w-64 px-4 py-2 bg-blue-800/50 text-white rounded-lg border border-yellow-500/30 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500/50 placeholder-blue-200/60"
+            />
+            <i className="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-500/50" />
+          </div>
+
+          {/* Category Filter */}
           <select
             value={selectedFilter}
             onChange={(e) => onFilterChange(e.target.value)}
-            className="glass-card rounded-lg px-4 py-2 text-white focus:outline-none"
+            className="px-4 py-2 bg-blue-800/50 text-white rounded-lg border border-yellow-500/30 focus:outline-none focus:border-yellow-500"
           >
             <option value="all">All Categories</option>
-            <option value="tutorial">Tutorials</option>
-            <option value="tech">Tech News</option>
-            <option value="opinion">Opinion</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
           </select>
-          <div className="flex rounded-lg overflow-hidden">
+
+          {/* Sort Buttons */}
+          <div className="flex items-center space-x-2">
             <button
-              onClick={() => onViewModeChange("table")}
-              className={`view-toggle px-4 py-2 ${
-                viewMode === "table"
-                  ? "bg-neon-blue/20 text-neon-blue"
-                  : "text-gray-400 hover:text-white"
+              onClick={() => onSortChange("date")}
+              className={`px-3 py-2 rounded-lg transition-colors ${
+                sortBy === "date"
+                  ? "bg-yellow-500/20 text-yellow-300"
+                  : "bg-blue-800/50 text-blue-200 hover:bg-blue-700/50"
               }`}
             >
-              <i className="fas fa-list"></i>
+              <i className={`fas fa-calendar-alt mr-2`} />
+              Date
+              {sortBy === "date" && (
+                <i
+                  className={`fas fa-sort-${
+                    sortDirection === "asc" ? "up" : "down"
+                  } ml-1`}
+                />
+              )}
             </button>
             <button
-              onClick={() => onViewModeChange("grid")}
-              className={`view-toggle px-4 py-2 ${
-                viewMode === "grid"
-                  ? "bg-neon-blue/20 text-neon-blue"
-                  : "text-gray-400 hover:text-white"
+              onClick={() => onSortChange("title")}
+              className={`px-3 py-2 rounded-lg transition-colors ${
+                sortBy === "title"
+                  ? "bg-yellow-500/20 text-yellow-300"
+                  : "bg-blue-800/50 text-blue-200 hover:bg-blue-700/50"
               }`}
             >
-              <i className="fas fa-th"></i>
+              <i className={`fas fa-font mr-2`} />
+              Title
+              {sortBy === "title" && (
+                <i
+                  className={`fas fa-sort-${
+                    sortDirection === "asc" ? "up" : "down"
+                  } ml-1`}
+                />
+              )}
             </button>
           </div>
+
+          {/* View Toggle */}
+          <button
+            onClick={() =>
+              onViewModeChange(viewMode === "table" ? "grid" : "table")
+            }
+            className="px-3 py-2 bg-blue-800/50 text-blue-200 rounded-lg hover:bg-blue-700/50 transition-colors"
+          >
+            <i
+              className={`fas fa-${viewMode === "grid" ? "list" : "th"} mr-2`}
+            />
+            {viewMode === "grid" ? "List View" : "Grid View"}
+          </button>
+        </div>
+
+        <div className="flex items-center gap-4">
           {/* Hidden file input for import */}
           <input
             type="file"
@@ -95,19 +145,35 @@ const ControlPanel: React.FC<ControlPanelProps> = ({
             accept=".zip"
             className="hidden"
           />
+
           {/* Import button */}
           <button
             onClick={handleImportClick}
-            className="px-4 py-2 bg-green-500/20 text-green-500 rounded hover:bg-green-500/30 transition-all duration-300"
+            className="px-4 py-2 bg-green-500/20 text-green-300 rounded-lg hover:bg-green-500/30 transition-all duration-300 border border-green-500/30"
           >
-            Import Post
+            <i className="fas fa-file-import mr-2" />
+            Import
           </button>
+
+          {/* New Post button */}
           <Link
             to="/create"
-            className="px-4 py-2 bg-neon-purple/20 text-neon-purple rounded hover:bg-neon-purple/30 transition-all duration-300"
+            className="px-4 py-2 bg-yellow-500 text-blue-900 rounded-lg hover:bg-yellow-400 transition-all duration-300"
           >
+            <i className="fas fa-plus mr-2" />
             New Post
           </Link>
+
+          {/* Delete Selected button */}
+          {selectedCount > 0 && (
+            <button
+              onClick={onDeleteSelected}
+              className="px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-all duration-300 border border-red-500/30"
+            >
+              <i className="fas fa-trash mr-2" />
+              Delete Selected ({selectedCount})
+            </button>
+          )}
         </div>
       </div>
     </div>
