@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { getPosts, Post, deletePost } from "../../../api/posts";
-import DashboardHeader from "./components/DashboardHeader";
 import StatsGrid from "./components/StatsGrid";
 import ControlPanel from "./components/ControlPanel";
 import PostsTable from "./components/PostsTable";
@@ -237,6 +236,19 @@ const AdminDashboard: React.FC = () => {
         ) : (
           <ContactSubmissions />
         )}
+        <div className="mb-4">
+          <label className="text-blue-200 mr-2">Server:</label>
+          <select
+            value={currentServer}
+            onChange={(e) => handleServerChange(e.target.value)}
+            className="bg-blue-800 text-white rounded px-2 py-1"
+          >
+            <option value="http://localhost:5000/api/posts">Local</option>
+            <option value="https://simmonsfamilyjunkremoval-backend.onrender.com/api/posts">
+              Production
+            </option>
+          </select>
+        </div>
       </div>
     </div>
   );

@@ -179,7 +179,6 @@ const Footer: React.FC = () => {
                   className="fas fa-cross text-yellow-400 text-2xl relative z-10"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
                   animate={{
                     filter: [
                       "drop-shadow(0 0 6px #FCD34D)",
@@ -187,6 +186,7 @@ const Footer: React.FC = () => {
                     ],
                   }}
                   transition={{
+                    opacity: { duration: 0.8, delay: 0.2 },
                     filter: {
                       duration: 2,
                       repeat: Infinity,
