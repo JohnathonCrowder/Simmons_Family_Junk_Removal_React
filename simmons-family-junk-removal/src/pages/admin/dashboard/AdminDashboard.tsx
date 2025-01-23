@@ -134,20 +134,28 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-      <DeleteModal
-        isOpen={deleteModalOpen}
-        post={postToDelete}
-        onClose={() => setDeleteModalOpen(false)}
-        onDelete={handleDelete}
-      />
-
-      <div className="container mx-auto px-4 py-8">
-        <DashboardHeader onLogout={handleLogout} />
-
-        {/* Server Switch Component (you can keep your existing one) */}
-
+      <div className="container mx-auto px-4 pt-24 pb-8">
+        {" "}
+        {/* Changed py-8 to pt-24 pb-8 */}
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-yellow-500">
+              Admin Dashboard
+            </h1>
+            <p className="text-blue-200 mt-2 font-serif italic">
+              I can do all things through Christ who strengthens me -
+              Philippians 4:13
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-blue-800/50 text-blue-200 rounded-lg hover:bg-blue-700/50 transition-colors"
+          >
+            Logout
+          </button>
+        </div>
         {/* Navigation Tabs */}
-        <div className="flex space-x-2 mb-8">
+        <div className="flex flex-wrap gap-2 mb-8">
           {["posts", "newsletter", "contact"].map((section) => (
             <button
               key={section}
@@ -164,15 +172,9 @@ const AdminDashboard: React.FC = () => {
             </button>
           ))}
         </div>
-
         {activeSection === "posts" ? (
           <>
-            <StatsGrid
-              posts={posts}
-              filteredCount={filteredPosts.length}
-              selectedCount={selectedPosts.length}
-              categories={categories}
-            />
+            <StatsGrid posts={posts} />
             <ControlPanel
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
@@ -196,12 +198,20 @@ const AdminDashboard: React.FC = () => {
               onDeleteSelected={handleDeleteSelected}
             />
 
+            <DeleteModal
+              isOpen={deleteModalOpen}
+              post={postToDelete}
+              onClose={() => setDeleteModalOpen(false)}
+              onDelete={handleDelete}
+            />
+
             {loading ? (
               <div className="flex justify-center items-center h-64">
                 <div className="animate-spin rounded-full h-12 w-12 border-4 border-yellow-500 border-t-transparent"></div>
               </div>
             ) : error ? (
               <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-lg">
+                <i className="fas fa-exclamation-circle mr-2" />
                 {error}
               </div>
             ) : viewMode === "table" ? (
