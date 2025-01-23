@@ -11,50 +11,6 @@ import DeleteModal from "./components/DeleteModal";
 import ContactSubmissions from "./components/ContactSubmissions";
 import EmailSignup from "./components/EmailSignup";
 
-// New ServerSwitch component
-const ServerSwitch: React.FC<{
-  currentServer: string;
-  onServerChange: (url: string) => void;
-}> = ({ currentServer, onServerChange }) => {
-  const servers = {
-    production:
-      "https://simmonsfamilyjunkremoval-backend.onrender.com/api/posts",
-    local: "http://localhost:5000/api/posts",
-  };
-
-  const getCurrentServerName = (url: string) => {
-    return (
-      Object.entries(servers).find(([_, value]) => value === url)?.[0] ||
-      "custom"
-    );
-  };
-
-  return (
-    <div className="bg-white/10 backdrop-blur-md rounded-lg p-6 mb-8 border border-white/20">
-      <h3 className="text-xl font-bold text-white mb-4">
-        Server Configuration
-      </h3>
-      <div className="flex items-center space-x-4">
-        <select
-          value={getCurrentServerName(currentServer)}
-          onChange={(e) =>
-            onServerChange(servers[e.target.value as keyof typeof servers])
-          }
-          className="bg-white/10 border border-blue-300/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-blue-400"
-        >
-          <option value="production">Production Server</option>
-          <option value="local">Local Server</option>
-        </select>
-        <div className="text-blue-200">
-          Current:{" "}
-          {getCurrentServerName(currentServer).charAt(0).toUpperCase() +
-            getCurrentServerName(currentServer).slice(1)}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const AdminDashboard: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
@@ -67,6 +23,9 @@ const AdminDashboard: React.FC = () => {
   const [activeSection, setActiveSection] = useState<
     "posts" | "newsletter" | "contact"
   >("posts");
+  const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"date" | "title">("date");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -118,6 +77,7 @@ const AdminDashboard: React.FC = () => {
     try {
       await deletePost(postToDelete._id);
       setPosts(posts.filter((p) => p._id !== postToDelete._id));
+      setSelectedPosts((prev) => prev.filter((id) => id !== postToDelete._id));
       setDeleteModalOpen(false);
       setPostToDelete(null);
     } catch (err) {
@@ -125,27 +85,55 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  const filteredPosts = posts.filter((post) => {
-    const matchesSearch = post.title
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const matchesFilter =
-      selectedFilter === "all" || post.category === selectedFilter;
-    return matchesSearch && matchesFilter;
-  });
+  const handleSelectPost = (id: string) => {
+    setSelectedPosts((prev) =>
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+    );
+  };
+
+  const handleDeleteSelected = async () => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${selectedPosts.length} posts?`
+      )
+    ) {
+      try {
+        await Promise.all(selectedPosts.map((id) => deletePost(id)));
+        setPosts(posts.filter((post) => !selectedPosts.includes(post._id)));
+        setSelectedPosts([]);
+      } catch (err) {
+        setError("Failed to delete some posts");
+      }
+    }
+  };
+
+  const filteredPosts = posts
+    .filter((post) => {
+      const matchesSearch = post.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const matchesFilter =
+        selectedFilter === "all" || post.category === selectedFilter;
+      return matchesSearch && matchesFilter;
+    })
+    .sort((a, b) => {
+      if (sortBy === "date") {
+        return sortDirection === "asc"
+          ? new Date(a.date).getTime() - new Date(b.date).getTime()
+          : new Date(b.date).getTime() - new Date(a.date).getTime();
+      } else {
+        return sortDirection === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
+      }
+    });
+
+  const categories = Array.from(
+    new Set(posts.map((post) => post.category || "Uncategorized"))
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234299E1' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
-      </div>
-
       <DeleteModal
         isOpen={deleteModalOpen}
         post={postToDelete}
@@ -153,14 +141,10 @@ const AdminDashboard: React.FC = () => {
         onDelete={handleDelete}
       />
 
-      <div className="relative z-10 container mx-auto px-4 pt-8 pb-16">
+      <div className="container mx-auto px-4 py-8">
         <DashboardHeader onLogout={handleLogout} />
 
-        {/* Server Switch */}
-        <ServerSwitch
-          currentServer={currentServer}
-          onServerChange={handleServerChange}
-        />
+        {/* Server Switch Component (you can keep your existing one) */}
 
         {/* Navigation Tabs */}
         <div className="flex space-x-2 mb-8">
@@ -172,7 +156,7 @@ const AdminDashboard: React.FC = () => {
               }
               className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
                 activeSection === section
-                  ? "bg-blue-500 text-white"
+                  ? "bg-yellow-500 text-blue-900"
                   : "bg-white/10 text-blue-200 hover:bg-white/20"
               }`}
             >
@@ -183,7 +167,12 @@ const AdminDashboard: React.FC = () => {
 
         {activeSection === "posts" ? (
           <>
-            <StatsGrid posts={posts} />
+            <StatsGrid
+              posts={posts}
+              filteredCount={filteredPosts.length}
+              selectedCount={selectedPosts.length}
+              categories={categories}
+            />
             <ControlPanel
               searchTerm={searchTerm}
               onSearchChange={setSearchTerm}
@@ -192,11 +181,24 @@ const AdminDashboard: React.FC = () => {
               viewMode={viewMode}
               onViewModeChange={setViewMode}
               onRefresh={refreshPosts}
+              categories={categories}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              onSortChange={(newSortBy: "date" | "title") => {
+                if (sortBy === newSortBy) {
+                  setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+                } else {
+                  setSortBy(newSortBy);
+                  setSortDirection("desc");
+                }
+              }}
+              selectedCount={selectedPosts.length}
+              onDeleteSelected={handleDeleteSelected}
             />
 
             {loading ? (
               <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-yellow-500 border-t-transparent"></div>
               </div>
             ) : error ? (
               <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-lg">
@@ -207,12 +209,16 @@ const AdminDashboard: React.FC = () => {
                 <PostsTable
                   posts={filteredPosts}
                   onDeleteClick={handleDeleteClick}
+                  selectedPosts={selectedPosts}
+                  onSelectPost={handleSelectPost}
                 />
               </div>
             ) : (
               <PostsGrid
                 posts={filteredPosts}
                 onDeleteClick={handleDeleteClick}
+                selectedPosts={selectedPosts}
+                onSelectPost={handleSelectPost}
               />
             )}
           </>
