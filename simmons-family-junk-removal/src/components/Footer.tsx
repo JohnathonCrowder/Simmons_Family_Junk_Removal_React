@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Footer: React.FC = () => {
   return (
@@ -147,13 +148,94 @@ const Footer: React.FC = () => {
         </div>
       </div>
 
+      {/* Bible Verse Section - Balanced Design */}
+      <div className="border-t border-blue-800 bg-blue-900/95 py-10">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="flex flex-col items-center"
+          >
+            {/* Decorative Line and Cross */}
+            <div className="flex items-center w-full justify-center mb-6">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="h-px bg-blue-700 w-full max-w-xs"
+              />
+              <span className="px-4 relative">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="absolute inset-0 bg-yellow-400/20 blur-lg rounded-full"
+                />
+                <motion.i
+                  className="fas fa-cross text-yellow-400 text-2xl relative z-10"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  animate={{
+                    filter: [
+                      "drop-shadow(0 0 6px #FCD34D)",
+                      "drop-shadow(0 0 10px #FCD34D)",
+                    ],
+                  }}
+                  transition={{
+                    filter: {
+                      duration: 2,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    },
+                  }}
+                />
+              </span>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.8 }}
+                viewport={{ once: true }}
+                className="h-px bg-blue-700 w-full max-w-xs"
+              />
+            </div>
+
+            {/* Bible Verse */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center font-serif text-xl md:text-2xl text-blue-100 italic mb-2"
+            >
+              "I can do all things through Christ who strengthens me"
+            </motion.p>
+
+            {/* Citation */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="text-yellow-400 text-sm font-medium"
+            >
+              — Philippians 4:13 —
+            </motion.p>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Bottom Bar */}
       <div className="border-t border-blue-800">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-blue-300 mb-4 md:mb-0">
-              © {new Date().getFullYear()} Simmons Junk Removal. All rights
-              reserved.
+              © {new Date().getFullYear()} Simmons Family Junk Removal. All
+              rights reserved.
             </p>
             <div className="flex flex-wrap justify-center space-x-4 text-sm text-blue-300">
               <Link
@@ -168,13 +250,14 @@ const Footer: React.FC = () => {
               >
                 Terms of Service
               </Link>
-              <a
+              <motion.a
                 href="#top"
                 className="hover:text-white transition-colors duration-300 flex items-center"
+                whileHover={{ y: -2 }}
               >
                 Back to Top
                 <i className="fas fa-arrow-up ml-1" />
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>
