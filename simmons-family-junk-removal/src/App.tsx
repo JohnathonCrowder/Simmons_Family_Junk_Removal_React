@@ -7,7 +7,6 @@ import CreatePost from "./pages/create-post/CreatePost";
 import EditPost from "./pages/edit-post/EditPost";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
-import Reviews from "./pages/Reviews";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -45,8 +44,6 @@ function App() {
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/post/:id" element={<BlogPostPage />} />
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route path="/reviews" element={<Reviews />} />
-
               <Route
                 path="/admin/dashboard"
                 element={

@@ -6,8 +6,6 @@ import postRoutes from './routes/posts';
 import adminRoutes from './routes/admin';
 import newsletterRoutes from './routes/newsletter';
 import contactRoutes from './routes/contact';
-import reviewsRoutes from './routes/reviews';
-
 
 
 dotenv.config();
@@ -34,8 +32,6 @@ app.use('/api/posts', postRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 app.use('/api/contact', contactRoutes);
-app.use('/api/reviews', reviewsRoutes);
-
 
 
 app.listen(PORT, () => {
