@@ -9,7 +9,7 @@ import PostsGrid from "./components/PostsGrid";
 import DeleteModal from "./components/DeleteModal";
 import ContactSubmissions from "./components/ContactSubmissions";
 import EmailSignup from "./components/EmailSignup";
-import ReviewManagement from "./components/ReviewManagement"; // New import
+import ReviewManagement from "./components/ReviewManagement";
 
 const AdminDashboard: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -21,7 +21,7 @@ const AdminDashboard: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [activeSection, setActiveSection] = useState<
-    "posts" | "newsletter" | "contact" | "reviews" // Added "reviews"
+    "posts" | "newsletter" | "contact" | "reviews"
   >("posts");
   const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"date" | "title">("date");
@@ -29,7 +29,6 @@ const AdminDashboard: React.FC = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  // Server management state
   const [currentServer, setCurrentServer] = useState(
     localStorage.getItem("serverUrl") || import.meta.env.VITE_API_URL
   );
@@ -108,6 +107,36 @@ const AdminDashboard: React.FC = () => {
       }
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 flex items-center justify-center">
+        <div className="bg-red-500/10 backdrop-blur-md rounded-lg border border-red-500/30 p-6 max-w-md w-full mx-4">
+          <div className="text-red-500 text-center mb-4">
+            <i className="fas fa-exclamation-circle text-4xl"></i>
+          </div>
+          <h3 className="text-xl font-bold text-red-300 text-center mb-2">
+            Error Occurred
+          </h3>
+          <p className="text-red-200 text-center">{error}</p>
+          <button
+            onClick={refreshPosts}
+            className="mt-4 w-full px-4 py-2 bg-red-500/20 text-red-300 rounded-lg hover:bg-red-500/30 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const filteredPosts = posts
     .filter((post) => {

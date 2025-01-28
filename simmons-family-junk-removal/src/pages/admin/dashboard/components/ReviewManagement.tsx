@@ -27,6 +27,10 @@ const ReviewManagement: React.FC = () => {
     fetchReviews();
   }, []);
 
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   const fetchReviews = async () => {
     try {
       const token = localStorage.getItem("adminToken");

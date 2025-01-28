@@ -18,7 +18,9 @@ const Reviews: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [visibleReviews, setVisibleReviews] = useState(9);
-
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
   useEffect(() => {
     fetchReviews();
   }, []);

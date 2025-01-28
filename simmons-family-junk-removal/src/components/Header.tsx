@@ -36,6 +36,7 @@ const Header: React.FC = () => {
       icon: "tools",
       hasDropdown: true,
     },
+    { label: "Reviews", path: "/reviews", icon: "star" },
     { label: "Projects", path: "/projects", icon: "image" },
     { label: "Blog", path: "/blog", icon: "book" },
     { label: "About", path: "/about", icon: "info-circle" },
@@ -115,12 +116,6 @@ const Header: React.FC = () => {
                         {item.hasDropdown && (
                           <i className="fas fa-chevron-down ml-1 text-xs" />
                         )}
-                      </Link>
-                      <Link
-                        to="/reviews"
-                        className="text-white hover:text-yellow-500 transition-colors"
-                      >
-                        Reviews
                       </Link>
 
                       {/* Services Dropdown */}
