@@ -9,6 +9,7 @@ import PostsGrid from "./components/PostsGrid";
 import DeleteModal from "./components/DeleteModal";
 import ContactSubmissions from "./components/ContactSubmissions";
 import EmailSignup from "./components/EmailSignup";
+import ReviewManagement from "./components/ReviewManagement"; // New import
 
 const AdminDashboard: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -20,7 +21,7 @@ const AdminDashboard: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"table" | "grid">("table");
   const [activeSection, setActiveSection] = useState<
-    "posts" | "newsletter" | "contact"
+    "posts" | "newsletter" | "contact" | "reviews" // Added "reviews"
   >("posts");
   const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"date" | "title">("date");
@@ -52,8 +53,10 @@ const AdminDashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    if (activeSection === "posts") {
+      fetchPosts();
+    }
+  }, [activeSection]);
 
   const refreshPosts = async () => {
     setLoading(true);
@@ -131,47 +134,10 @@ const AdminDashboard: React.FC = () => {
     new Set(posts.map((post) => post.category || "Uncategorized"))
   );
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
-      <div className="container mx-auto px-4 pt-24 pb-8">
-        {" "}
-        {/* Changed py-8 to pt-24 pb-8 */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-yellow-500">
-              Admin Dashboard
-            </h1>
-            <p className="text-blue-200 mt-2 font-serif italic">
-              I can do all things through Christ who strengthens me -
-              Philippians 4:13
-            </p>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-blue-800/50 text-blue-200 rounded-lg hover:bg-blue-700/50 transition-colors"
-          >
-            Logout
-          </button>
-        </div>
-        {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {["posts", "newsletter", "contact"].map((section) => (
-            <button
-              key={section}
-              onClick={() =>
-                setActiveSection(section as "posts" | "newsletter" | "contact")
-              }
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                activeSection === section
-                  ? "bg-yellow-500 text-blue-900"
-                  : "bg-white/10 text-blue-200 hover:bg-white/20"
-              }`}
-            >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
-            </button>
-          ))}
-        </div>
-        {activeSection === "posts" ? (
+  const renderActiveSection = () => {
+    switch (activeSection) {
+      case "posts":
+        return (
           <>
             <StatsGrid posts={posts} />
             <ControlPanel
@@ -196,24 +162,13 @@ const AdminDashboard: React.FC = () => {
               selectedCount={selectedPosts.length}
               onDeleteSelected={handleDeleteSelected}
             />
-
             <DeleteModal
               isOpen={deleteModalOpen}
               post={postToDelete}
               onClose={() => setDeleteModalOpen(false)}
               onDelete={handleDelete}
             />
-
-            {loading ? (
-              <div className="flex justify-center items-center h-64">
-                <div className="animate-spin rounded-full h-12 w-12 border-4 border-yellow-500 border-t-transparent"></div>
-              </div>
-            ) : error ? (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-200 p-4 rounded-lg">
-                <i className="fas fa-exclamation-circle mr-2" />
-                {error}
-              </div>
-            ) : viewMode === "table" ? (
+            {viewMode === "table" ? (
               <div className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 overflow-hidden">
                 <PostsTable
                   posts={filteredPosts}
@@ -231,12 +186,64 @@ const AdminDashboard: React.FC = () => {
               />
             )}
           </>
-        ) : activeSection === "newsletter" ? (
-          <EmailSignup />
-        ) : (
-          <ContactSubmissions />
-        )}
-        <div className="mb-4">
+        );
+      case "newsletter":
+        return <EmailSignup />;
+      case "contact":
+        return <ContactSubmissions />;
+      case "reviews":
+        return <ReviewManagement />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900">
+      <div className="container mx-auto px-4 pt-24 pb-8">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-yellow-500">
+              Admin Dashboard
+            </h1>
+            <p className="text-blue-200 mt-2 font-serif italic">
+              I can do all things through Christ who strengthens me -
+              Philippians 4:13
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-blue-800/50 text-blue-200 rounded-lg hover:bg-blue-700/50 transition-colors"
+          >
+            Logout
+          </button>
+        </div>
+
+        {/* Navigation Tabs */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {["posts", "newsletter", "contact", "reviews"].map((section) => (
+            <button
+              key={section}
+              onClick={() =>
+                setActiveSection(
+                  section as "posts" | "newsletter" | "contact" | "reviews"
+                )
+              }
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                activeSection === section
+                  ? "bg-yellow-500 text-blue-900"
+                  : "bg-white/10 text-blue-200 hover:bg-white/20"
+              }`}
+            >
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {renderActiveSection()}
+
+        {/* Server Selection */}
+        <div className="mb-4 mt-8">
           <label className="text-blue-200 mr-2">Server:</label>
           <select
             value={currentServer}

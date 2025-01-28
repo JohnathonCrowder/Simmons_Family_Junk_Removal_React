@@ -116,6 +116,12 @@ const Header: React.FC = () => {
                           <i className="fas fa-chevron-down ml-1 text-xs" />
                         )}
                       </Link>
+                      <Link
+                        to="/reviews"
+                        className="text-white hover:text-yellow-500 transition-colors"
+                      >
+                        Reviews
+                      </Link>
 
                       {/* Services Dropdown */}
                       {item.hasDropdown && (

@@ -21,6 +21,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import ServiceDetail from "./pages/ServiceDetail";
 import ScrollToTop from "./components/ScrollToTop";
+import Reviews from "./pages/Reviews";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route path="/reviews" element={<Reviews />} />
             </Routes>
           </main>
           <Footer />
